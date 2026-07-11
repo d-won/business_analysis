@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UBS 유럽 제약 종목 재평가 및 밸류에이션</title>
+<style>
+  :root{
+    --bg:#ffffff; --fg:#1a1d21; --muted:#5b6470; --line:#e4e8ee;
+    --card:#f7f9fc; --accent:#1f6feb; --accent-soft:#e8f0fe;
+    --good:#0f8a4f; --good-bg:#e6f6ee; --warn:#b5810b; --warn-bg:#fdf4e0;
+    --bad:#c23b3b; --bad-bg:#fbe9e9; --th:#eef2f7;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0d1117; --fg:#e6edf3; --muted:#9aa5b1; --line:#26303c;
+      --card:#161b22; --accent:#589bff; --accent-soft:#12233f;
+      --good:#4cc98a; --good-bg:#10281d; --warn:#e5b556; --warn-bg:#2a2110;
+      --bad:#f08a8a; --bad-bg:#2a1414; --th:#1b222b;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0d1117; --fg:#e6edf3; --muted:#9aa5b1; --line:#26303c;
+    --card:#161b22; --accent:#589bff; --accent-soft:#12233f;
+    --good:#4cc98a; --good-bg:#10281d; --warn:#e5b556; --warn-bg:#2a2110;
+    --bad:#f08a8a; --bad-bg:#2a1414; --th:#1b222b;
+  }
+  :root[data-theme="light"]{
+    --bg:#ffffff; --fg:#1a1d21; --muted:#5b6470; --line:#e4e8ee;
+    --card:#f7f9fc; --accent:#1f6feb; --accent-soft:#e8f0fe;
+    --good:#0f8a4f; --good-bg:#e6f6ee; --warn:#b5810b; --warn-bg:#fdf4e0;
+    --bad:#c23b3b; --bad-bg:#fbe9e9; --th:#eef2f7;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    line-height:1.7; font-size:16px; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1040px; margin:0 auto; padding:32px 20px 80px}
+  header.top{border-bottom:2px solid var(--line); padding-bottom:20px; margin-bottom:28px}
+  header.top h1{font-size:1.7rem; line-height:1.35; margin:0 0 10px}
+  .meta{color:var(--muted); font-size:.9rem}
+  .disclaimer{
+    background:var(--warn-bg); border:1px solid color-mix(in srgb,var(--warn) 40%,transparent);
+    border-radius:10px; padding:12px 16px; font-size:.85rem; color:var(--fg); margin-top:16px;
+  }
+  h2{font-size:1.3rem; margin:44px 0 14px; padding-top:10px; border-top:1px solid var(--line)}
+  h2 .num{color:var(--accent); font-weight:700; margin-right:8px}
+  h3{font-size:1.05rem; margin:26px 0 10px}
+  p{margin:10px 0}
+  strong{font-weight:700}
+  .lead{font-size:1.02rem}
+  .tablewrap{overflow-x:auto; margin:16px 0; border:1px solid var(--line); border-radius:10px}
+  table{border-collapse:collapse; width:100%; font-size:.9rem; min-width:520px}
+  th,td{padding:9px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
+  thead th{background:var(--th); font-weight:700; white-space:nowrap; position:sticky; top:0}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover{background:var(--card)}
+  .rank{display:inline-flex; align-items:center; justify-content:center; min-width:26px; height:26px; padding:0 7px; border-radius:7px; font-weight:800; font-size:.85rem}
+  .r1{background:var(--good-bg); color:var(--good)}
+  .r2{background:var(--accent-soft); color:var(--accent)}
+  .r-mid{background:var(--warn-bg); color:var(--warn)}
+  .r-low{background:var(--bad-bg); color:var(--bad)}
+  .tag{display:inline-block; padding:2px 9px; border-radius:20px; font-size:.78rem; font-weight:700; white-space:nowrap}
+  .t-buy{background:var(--good-bg); color:var(--good)}
+  .t-cond{background:var(--warn-bg); color:var(--warn)}
+  .t-avoid{background:var(--bad-bg); color:var(--bad)}
+  .callout{background:var(--card); border-left:4px solid var(--accent); border-radius:0 10px 10px 0; padding:14px 18px; margin:18px 0}
+  .pos{color:var(--good); font-weight:700}
+  .neg{color:var(--bad); font-weight:700}
+  .toc{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 22px; margin:22px 0}
+  .toc ul{margin:6px 0 0; padding-left:20px} .toc li{margin:3px 0}
+  .toc a{color:var(--accent); text-decoration:none} .toc a:hover{text-decoration:underline}
+  .themed-note{font-size:.82rem; color:var(--muted); font-style:italic; margin-top:4px}
+  code{background:var(--card); padding:1px 5px; border-radius:5px; font-size:.85em}
+  .sources li{margin:6px 0; font-size:.85rem; color:var(--muted)}
+  footer{margin-top:50px; padding-top:18px; border-top:1px solid var(--line); font-size:.82rem; color:var(--muted)}
+  .toggle{position:fixed; top:14px; right:14px; background:var(--card); border:1px solid var(--line); color:var(--fg); border-radius:8px; padding:6px 12px; font-size:.8rem; cursor:pointer}
+  @media(max-width:600px){ .wrap{padding:20px 14px 60px} header.top h1{font-size:1.35rem} }
+</style>
+</head>
+<body>
+<button class="toggle" onclick="(function(){var r=document.documentElement;var d=(r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));r.setAttribute('data-theme',d==='dark'?'light':'dark')})()">◐ 테마</button>
+<div class="wrap">
+
+<header class="top">
+  <h1>UBS 유럽 제약 리포트 재평가 — 재무제표·특허·밸류에이션 심층 분석</h1>
+  <div class="meta">작성일 2026-07-11 · 대상 6종목: 아스트라제네카 · 머크 KGaA · 갈더마 · 로슈 · 노바티스 · 사노피</div>
+  <div class="disclaimer">
+    <strong>⚠ 데이터 주의:</strong> 아래 수치는 각 사 실적발표(FY2025 결산·Q1 2026)·SEC/거래소 공시·집계 사이트를 웹 검색으로 추출한 값으로, 일부는 근사치(<code>~</code>·<code>est</code>)입니다. 매매 전 원공시(20-F/Annual Report)로 재확인 필요. <strong>투자자문이 아닌 분석 참고자료.</strong>
+  </div>
+</header>
+
+<div class="toc">
+  <strong>목차</strong>
+  <ul>
+    <li><a href="#s0">0. 결론 — 재추림</a></li>
+    <li><a href="#s1">1. 재추림 프레임워크 (4축)</a></li>
+    <li><a href="#s2">2. 재무제표 시계열 (근거 ①)</a></li>
+    <li><a href="#s3">3. 특허 만료 스케줄 (근거 ②)</a></li>
+    <li><a href="#s4">4. 상대평가 — 멀티플 (근거 ③)</a></li>
+    <li><a href="#s5">5. 절대평가 — DCF (근거 ④)</a></li>
+    <li><a href="#s6">6. giredestrant 임상 상세</a></li>
+    <li><a href="#s7">7. 종목별 결론 & 포트폴리오</a></li>
+  </ul>
+</div>
+
+<h2 id="s0"><span class="num">0.</span>결론 먼저 — 재추림</h2>
+<div class="tablewrap">
+<table>
+<thead><tr><th>순위</th><th>종목</th><th>등급</th><th>핵심 정량 근거</th></tr></thead>
+<tbody>
+<tr><td><span class="rank r1">1</span></td><td><strong>아스트라제네카 (AZN)</strong></td><td><span class="tag t-buy">최선호</span></td><td>Core EPS $8.21→$9.16(FY24→25), FY26 두 자릿수 성장 가이드인데 <strong>선행 PER 17배</strong> = PEG 최우수. 특허절벽 <strong>분산·후행</strong>(대형 2031~34), 대체자산(박스드로스타트 등) 이미 승인</td></tr>
+<tr><td><span class="rank r2">2</span></td><td><strong>머크 KGaA (MRK.DE)</strong></td><td><span class="tag t-buy">매수</span></td><td>6종목 중 <strong>가장 쌈</strong>(선행 PER 16배·EV/EBITDA 11.4배). 라이프사이언스(매출 42%)가 특허 무관 + <strong>바이오공정 수요 회복</strong>(Q1'26 +8.3%)으로 <strong>가이던스 상향</strong></td></tr>
+<tr><td><span class="rank r2">3</span></td><td><strong>로슈 (ROG)</strong></td><td><span class="tag t-buy">매수 후보</span></td><td>giredestrant가 <strong>초기암(lidERA)·전이성 후속(evERA) 2건 성공 + 1차전이성(persevERA) 1건 실패</strong> → 반쪽 실패가 아닌 '2승 1패'. 선행 PER 17.6배·배당 2.9%</td></tr>
+<tr><td><span class="rank r-mid">4</span></td><td>갈더마 (GALD)</td><td><span class="tag t-cond">조건부</span></td><td>매출 CC <strong>+17~20%</strong>, Nemluvio 피크 가이드 <strong>&gt;$2bn→&gt;$4bn 상향</strong>. 단 <strong>선행 PER 47배·EV/Sales 7~10배</strong>로 안전마진 없음 → 조정 시</td></tr>
+<tr><td><span class="rank r-mid">5</span></td><td>노바티스 (NOVN)</td><td><span class="tag t-cond">중립</span></td><td>FY25 코어마진 40%(사상최대) 우량하나, <strong>2026년 $4bn 제네릭 타격</strong>(엔트레스토 이미 Q1 −42%) + 프리미엄 멀티플(EV/EBITDA 15배)</td></tr>
+<tr><td><span class="rank r-low">6</span></td><td>사노피 (SNY)</td><td><span class="tag t-avoid">회피</span></td><td>선행 PER 8~10배·배당 5.7%로 싸나, <strong>Dupixent 단일자산 ~40%</strong>(LOE 2031) 집중 + 2025 파이프라인 연쇄 실패(itepekimab COPD 등) = 밸류트랩</td></tr>
+</tbody>
+</table>
+</div>
+<div class="callout">
+<strong>요지:</strong> UBS 매수 4종목 중 <strong>AZN·머크 KGaA·로슈 3종목을 실질 매수</strong>, <strong>갈더마는 밸류에이션을 가려 편입</strong>으로 압축. 1차 분석 대비 <span class="pos">로슈를 관찰→매수후보로 상향</span>(임상 실제 결과 '2승1패' 확인), <span class="neg">갈더마를 3위→4위로 하향</span>(재무상 성장은 최고급이나 밸류 부담 극단적)했습니다.
+</div>
+
+<h2 id="s1"><span class="num">1.</span>재추림 프레임워크 (4축 스코어링)</h2>
+<p>UBS의 3분류(①특허 무관 컴파운더 ②파이프라인 풍부한 절벽주 ③촉매 없는 저가주)에 <strong>재무 건전성</strong>과 <strong>밸류에이션 안전마진</strong>을 더한 4축.</p>
+<div class="tablewrap">
+<table>
+<thead><tr><th>종목</th><th>①특허 노출</th><th>②이익 질·성장</th><th>③밸류 안전마진</th><th>④촉매/최신</th><th>종합</th></tr></thead>
+<tbody>
+<tr><td>AZN</td><td>분산·후행(2031~34)</td><td>Core EPS 두자릿수↑, 마진 확장 35%</td><td class="pos">높음(17배 vs 성장)</td><td>풍부(판독 다수+박스드로스타트 승인)</td><td><strong>A</strong></td></tr>
+<tr><td>머크 KGaA</td><td class="pos">가장 낮음(툴=생산량)</td><td>완만·회복 국면, EBITDA 29%</td><td class="pos">최고(EV/EBITDA 11.4)</td><td>개선(라이프사이언스 반등, 가이드↑)</td><td><strong>A−</strong></td></tr>
+<tr><td>로슈</td><td>낮음(빅3 종료)</td><td>코어마진 35%, 배당 39년↑</td><td>양호(17.6배)</td><td>순긍정(giredestrant 2승1패)</td><td><strong>B+</strong></td></tr>
+<tr><td>갈더마</td><td class="pos">무관(소비재)</td><td class="pos">성장 최고(+17~20%)</td><td class="neg">없음(47배)</td><td>강함(Nemluvio 피크 2배↑)</td><td><strong>B</strong></td></tr>
+<tr><td>노바티스</td><td class="neg">높음·근접(2026 $4bn)</td><td class="pos">최고 마진 40%</td><td>낮음(15배)</td><td>보통</td><td><strong>B−</strong></td></tr>
+<tr><td>사노피</td><td class="neg">단일자산 집중 40%</td><td>양호하나 집중 리스크</td><td>표면 최고(함정)</td><td class="neg">약함</td><td><strong>C+</strong></td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="s2"><span class="num">2.</span>재무제표 시계열 <span style="font-weight:400;color:var(--muted);font-size:.9rem">(근거 ① — 이익의 질과 추세)</span></h2>
+
+<h3>아스트라제네카 (USD, Core=조정)</h3>
+<div class="tablewrap"><table>
+<thead><tr><th></th><th>FY21</th><th>FY22</th><th>FY23</th><th>FY24</th><th>FY25</th><th>FY26E</th></tr></thead>
+<tbody>
+<tr><td>매출($b)</td><td>37.4</td><td>44.4</td><td>45.8</td><td>54.1</td><td><strong>58.7</strong></td><td>중~고한자릿수↑</td></tr>
+<tr><td>코어 영업마진</td><td>~28%</td><td>~30%</td><td>~32%</td><td>~34%</td><td><strong>35%</strong></td><td>—</td></tr>
+<tr><td>Core EPS</td><td>5.29</td><td>~6.66</td><td>~7.26</td><td>8.21</td><td><strong>9.16</strong></td><td class="pos">두자릿수↑ (~$10.1~10.4)</td></tr>
+<tr><td>영업현금흐름($b)</td><td>—</td><td>—</td><td>10.3</td><td>11.9</td><td><strong>14.6</strong></td><td>—</td></tr>
+<tr><td>순차입/EBITDA</td><td>—</td><td>—</td><td>~1.6x</td><td>1.47x</td><td><strong>~1.2x</strong></td><td>—</td></tr>
+</tbody></table></div>
+<p>→ <strong>매출·마진·EPS·현금흐름이 동시에 우상향</strong>하는 유일에 가까운 케이스. FCF FY25 ~$11.8b, 순차입 감소, R&amp;D 매출 24%.</p>
+
+<h3>머크 KGaA (EUR, EPS pre=코어)</h3>
+<div class="tablewrap"><table>
+<thead><tr><th></th><th>FY21</th><th>FY22</th><th>FY23</th><th>FY24</th><th>FY25</th><th>FY26E</th></tr></thead>
+<tbody>
+<tr><td>매출(€b)</td><td>19.7</td><td>22.2</td><td>21.0</td><td>21.2</td><td><strong>~21.1</strong></td><td>20.4~21.4</td></tr>
+<tr><td>EBITDA pre 마진</td><td>31%</td><td>~31%</td><td>~28%</td><td>28.7%</td><td><strong>28.9%</strong></td><td>—</td></tr>
+<tr><td>EPS pre</td><td>8.72</td><td>—</td><td>—</td><td>8.63</td><td><strong>8.34</strong></td><td class="pos">7.50~8.20(상향)</td></tr>
+<tr><td>순차입/EBITDA</td><td>—</td><td>—</td><td>—</td><td>~1.2x</td><td><strong>1.4x</strong></td><td>—</td></tr>
+</tbody></table></div>
+<p>→ 이익은 <strong>2021 COVID 피크(EPS 8.72) 이후 정체</strong>가 팩트. 다만 2023~24 재고조정 바닥 통과 후 <span class="pos">Q1'26 라이프사이언스 +8.3% 반등, 회사가 FY26 가이던스 상향</span>. 세그먼트: 라이프사이언스 42%·헬스케어 41%·전자소재 17%. Bio-Techne $11.3bn 인수로 툴 확장(레버리지 상승).</p>
+
+<h3>로슈 (CHF, Core)</h3>
+<div class="tablewrap"><table>
+<thead><tr><th></th><th>FY22</th><th>FY23</th><th>FY24</th><th>FY25</th></tr></thead>
+<tbody>
+<tr><td>그룹매출(b)</td><td>63.3</td><td>58.7</td><td>60.5</td><td><strong>61.5</strong> (CER +7%)</td></tr>
+<tr><td>— 제약</td><td>—</td><td>~44.6</td><td>~44.9</td><td><strong>47.7</strong> (CER +9%)</td></tr>
+<tr><td>코어 영업마진</td><td>~35%</td><td>~33%</td><td>~34%</td><td><strong>~35%</strong></td></tr>
+<tr><td>Core EPS</td><td>20.30</td><td>~18.6</td><td>18.80</td><td><strong>~19.5</strong></td></tr>
+<tr><td>배당</td><td colspan="2">38년 연속 증가</td><td>DPS 9.70</td><td><strong>39년째 증액</strong></td></tr>
+</tbody></table></div>
+<p>→ FY23 −7%는 COVID 소멸·빅3 바이오시밀러 겹친 저점. 이후 <span class="pos">CER +7% 회복</span>. IFRS 순이익은 FY24 손상으로 변동성 있으나 <strong>코어 이익·배당은 견조</strong>.</p>
+
+<h3>갈더마 (USD, Core)</h3>
+<div class="tablewrap"><table>
+<thead><tr><th></th><th>FY22</th><th>FY23</th><th>FY24</th><th>FY25</th><th>FY26E</th></tr></thead>
+<tbody>
+<tr><td>순매출($b)</td><td>~3.6</td><td>4.08</td><td>4.41</td><td><strong>5.21</strong></td><td>~6.0~6.2</td></tr>
+<tr><td>매출성장(CC)</td><td>+13.9%</td><td>+8.5%</td><td>+9.3%</td><td class="pos"><strong>+17.7%</strong></td><td class="pos">+17~20%</td></tr>
+<tr><td>Core EBITDA마진</td><td>~22%</td><td>~23%</td><td>23.4%</td><td><strong>23.3%</strong></td><td>~26%(가이드)</td></tr>
+<tr><td>Core EPS($)</td><td>—</td><td>—</td><td>~2.09</td><td><strong>3.69 (+77%)</strong></td><td>~4.4~4.6</td></tr>
+<tr><td>IFRS 순이익($m)</td><td>—</td><td>—</td><td class="neg">~231</td><td class="neg">~613</td><td>—</td></tr>
+<tr><td>순차입/EBITDA</td><td>LBO 3x+</td><td>—</td><td>~2.3x</td><td><strong>1.5x</strong></td><td>—</td></tr>
+</tbody></table></div>
+<p>→ <strong>성장은 6종목 중 압도적 최고</strong>(Nemluvio 견인). <span class="neg">함정: IFRS 순이익이 얇음</span>(LBO 잔재 이자·상각) → PER이 아니라 매출/EBITDA 배수로 거래. 디레버리징(2.3→1.5x)으로 이자부담 감소 시 이익 급증(컨센 EPS +24%/yr) 구조.</p>
+
+<h3>노바티스 · 사노피 요약</h3>
+<div class="tablewrap"><table>
+<thead><tr><th></th><th>노바티스 FY25 (USD)</th><th>사노피 FY25 (EUR)</th></tr></thead>
+<tbody>
+<tr><td>매출</td><td>$54.5b (+8%cc)</td><td>€43.6b (+9.9%cc)</td></tr>
+<tr><td>코어 영업마진</td><td class="pos"><strong>40% (사상최대)</strong></td><td>~30% (목표 32%+)</td></tr>
+<tr><td>코어 EPS</td><td>~$8.4</td><td>€7.83 (+15%)</td></tr>
+<tr><td>특이사항</td><td class="neg">2026 $4bn 제네릭 타격 예고</td><td>통계 순이익 대비 business 이익 격차 큼</td></tr>
+</tbody></table></div>
+
+<h2 id="s3"><span class="num">3.</span>특허 만료 스케줄 <span style="font-weight:400;color:var(--muted);font-size:.9rem">(근거 ② — "어떤 특허가, 언제, 얼마나")</span></h2>
+
+<h3>아스트라제네카 — 상위 5개가 매출 51%, 단 시점이 분산·후행</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>약물</th><th>적응증</th><th>FY25 매출</th><th>美 LOE</th><th>비고</th></tr></thead>
+<tbody>
+<tr><td><strong>Farxiga/Forxiga</strong></td><td>당뇨·심부전·CKD</td><td><strong>$8.49b</strong></td><td class="neg">2025~26(단계적)</td><td>최대 근접 리스크, Q1'26 CVRM −6%</td></tr>
+<tr><td>Tagrisso</td><td>EGFR 폐암</td><td>$7.25b</td><td class="pos">2032</td><td>후행</td></tr>
+<tr><td>Imfinzi</td><td>항암(폐·방광)</td><td>$6.06b</td><td class="pos">2031</td><td>후행</td></tr>
+<tr><td>Ultomiris</td><td>희귀질환</td><td>$4.72b</td><td class="pos">~2035</td><td>가장 보호</td></tr>
+<tr><td>Calquence</td><td>CLL</td><td>$3.52b</td><td class="pos">~2032~34</td><td>후행</td></tr>
+<tr><td>Soliris</td><td>희귀질환</td><td>~$1.84b↓</td><td class="neg">2025~ 시밀러</td><td>이미 침식</td></tr>
+<tr><td>Fasenra</td><td>중증천식</td><td>~$1.5~1.7b</td><td>~2027~28</td><td>중기</td></tr>
+<tr><td>Brilinta</td><td>항혈소판</td><td>~$1b↓</td><td class="neg">2024(만료)</td><td>침식 완료</td></tr>
+</tbody></table></div>
+<p>→ <strong>8개 합산 ≈ $33~34bn(매출 57%)이지만 2024~2035로 계단식 분산</strong>. 대형(2031~34)은 DCF상 현재가치 할인폭이 커 타격 경감. 대체자산: <span class="pos">박스드로스타트 FDA 승인</span>, Datroway, Enhertu 확장.</p>
+
+<h3>노바티스 — 근접·대형, "$26bn" 수치는 검증 안 됨</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>약물</th><th>FY25 매출</th><th>美 LOE</th><th>상태</th></tr></thead>
+<tbody>
+<tr><td><strong>Entresto</strong></td><td>$7.7b</td><td class="neg">2025 Q3</td><td class="neg">이미 침식, Q1'26 −42% → $1.3b</td></tr>
+<tr><td>Promacta</td><td>$0.23b(−61%)</td><td>2025</td><td>붕괴</td></tr>
+<tr><td>Cosentyx</td><td>$6.7b</td><td>2029</td><td>대형 절벽</td></tr>
+<tr><td>Kisqali</td><td>$4.8b(+58%)</td><td>2031</td><td>성장엔진</td></tr>
+<tr><td>Kesimpta</td><td>$4.4b(+37%)</td><td>2031</td><td>성장엔진</td></tr>
+<tr><td>Pluvicto/Leqvio</td><td>$2.0b/$1.2b</td><td class="pos">2034</td><td>장기보호</td></tr>
+</tbody></table></div>
+<div class="callout"><strong>정정:</strong> 회사 가이드는 "2026년 ~$4bn 타격". 흔히 인용되는 <strong>"2029~31 $26bn 절벽"은 공식/컨센 수치가 아님</strong> — 실제 명시가능 노출은 Cosentyx+Kisqali+Kesimpta ≈ <strong>$15.9bn</strong>, 2군 포함해도 low-$20bn대. (1차 분석에서 $26bn을 사실처럼 쓴 부분을 정정합니다.)</div>
+
+<h3>로슈 — 빅3 침식 종료, 남은 절벽 작음 (FY25 LOE drag ~CHF0.5bn)</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>약물</th><th>FY25 매출(CHF)</th><th>LOE</th></tr></thead>
+<tbody>
+<tr><td>Ocrevus</td><td>~4.9b</td><td>~2028~29 (SC제형 Zunovo 방어)</td></tr>
+<tr><td>Hemlibra</td><td>~4.8b</td><td>2020s말~2030s초</td></tr>
+<tr><td>Perjeta</td><td>~3.0~3.5b(−13%)</td><td>2025 만료→Phesgo 전환</td></tr>
+<tr><td><strong>Phesgo</strong>(방어)</td><td>2.4b(+48%)</td><td class="pos">특허보호 SC복합제</td></tr>
+<tr><td>Vabysmo/Evrysdi</td><td>2.9b/~1.5b</td><td class="pos">2032+/2030s중반(성장자산)</td></tr>
+</tbody></table></div>
+<p>→ <strong>빅3(아바스틴·허셉틴·리툭산) 침식은 사실상 종료.</strong> 신규 성장자산(Vabysmo·Phesgo·Evrysdi)이 방어. 절벽 부담 6종목 중 가장 가벼움.</p>
+
+<h3>사노피 — 단일자산 집중이 최대 리스크 / 머크·갈더마 — 절벽 구조적으로 작음</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>종목</th><th>핵심</th></tr></thead>
+<tbody>
+<tr><td>사노피</td><td class="neg"><strong>Dupixent €15.7b(매출 40%) 단일 집중, LOE 2031.</strong> 이후 공백을 파이프라인이 못 메운다는 우려가 저평가 근본 원인</td></tr>
+<tr><td>머크 KGaA</td><td>Mavenclad(MS €1.2b)가 최대인데 2026.3부터 美 매출 0 가정. 단 <span class="pos">그룹 42% 라이프사이언스는 특허 무관</span> → 절벽 노출 그룹의 ~14%에 국한</td></tr>
+<tr><td>갈더마</td><td class="pos">미용=특허 아닌 브랜드·소비 트렌드로 방어 + GLP-1 인접수요. 특허절벽 개념 사실상 없음</td></tr>
+</tbody></table></div>
+
+<h2 id="s4"><span class="num">4.</span>상대평가 — 멀티플 비교 <span style="font-weight:400;color:var(--muted);font-size:.9rem">(근거 ③)</span></h2>
+<div class="tablewrap"><table>
+<thead><tr><th>종목</th><th>선행 PER</th><th>EV/EBITDA</th><th>P/S · EV/Sales</th><th>배당</th><th>FY26E 성장</th><th>PEG 매력</th></tr></thead>
+<tbody>
+<tr><td><strong>AZN</strong></td><td>~17배</td><td>~15.5배</td><td>~4.8배</td><td>~1.75%</td><td>Core EPS 두자릿수↑</td><td class="pos">★최우수</td></tr>
+<tr><td><strong>머크 KGaA</strong></td><td>~16배</td><td class="pos">~11.4배(최저)</td><td>~2.6배</td><td>~1.7%</td><td>EPS 회복</td><td class="pos">★우수(밸류)</td></tr>
+<tr><td>로슈</td><td>~17.6배</td><td>~12.7배</td><td>~4.5배</td><td>~2.9%</td><td>코어EPS 고한자릿수↑</td><td>★양호</td></tr>
+<tr><td>갈더마</td><td class="neg">~47배(최고)</td><td>~35~48배</td><td class="neg">EV/Sales ~7배(선행)</td><td>~0.2%</td><td class="pos">매출 +17~20%</td><td>성장 프리미엄</td></tr>
+<tr><td>노바티스</td><td>~13~14배</td><td class="neg">~15배(높음)</td><td>~5.3배</td><td>~3.2%</td><td class="neg">저성장(제네릭)</td><td>보통</td></tr>
+<tr><td>사노피</td><td class="pos">~8~10배(최저)</td><td>~8.4배</td><td>~2.5~3배</td><td class="pos">~5.7%(최고)</td><td>+한자릿수</td><td class="neg">표면 최고(함정)</td></tr>
+</tbody></table></div>
+<ol>
+<li><strong>PEG 최우수 = AZN.</strong> 선행 17배에 Core EPS 두 자릿수 성장 → PEG ≈ 1 이하. 성장·마진·현금흐름 3박자 동시 충족.</li>
+<li><strong>순수 밸류 최우수 = 머크 KGaA.</strong> EV/EBITDA 11.4배는 툴 프리미엄 기업치고 낮음 + 업황 반등 → 재평가 여지. 단 이익이 2021 피크 미회복.</li>
+<li><strong>밸류·촉매 균형 = 로슈.</strong> 17.6배·배당 2.9%로 합리적 + giredestrant 초기암 승인 상방 옵션.</li>
+<li><strong>성장 프리미엄 = 갈더마.</strong> 47배·EV/Sales 7배는 성장·Nemluvio 옵션 반영. <span class="neg">성장 지속 시 정당화되나 안전마진 전무</span>.</li>
+<li><strong>저PER 함정 = 사노피.</strong> 8~10배·배당 5.7%지만 집중 리스크+파이프라인 실패로 <span class="neg">재평가 촉매 부재</span>.</li>
+</ol>
+
+<h2 id="s5"><span class="num">5.</span>절대평가 — DCF / 내재가치 <span style="font-weight:400;color:var(--muted);font-size:.9rem">(근거 ④)</span></h2>
+<p><strong>공통 가정:</strong> WACC ~8%(대형제약 7~9%) · 영구성장률 g 1.5~2.5% · 예측기간 10년 + 영구가치. 스윙 변수: ①특허침식폭·시점 ②파이프라인 rNPV ③영업레버리지 ④R&amp;D/SG&amp;A 효율.</p>
+<div class="tablewrap"><table>
+<thead><tr><th>종목</th><th>FCF 앵커(FY25)</th><th>절벽의 DCF 타격</th><th>파이프라인 rNPV</th><th>절대가치 결론</th></tr></thead>
+<tbody>
+<tr><td><strong>AZN</strong></td><td>FCF ~$11.8b, 1.2x</td><td class="pos">대형 2031~34 후행 → 할인 큼(완화)</td><td>큼(박스드로스타트+$50억급 다수)</td><td class="pos"><strong>내재가치 &gt; 現價</strong></td></tr>
+<tr><td><strong>머크 KGaA</strong></td><td>FCF ~$2.6b, 1.4x</td><td class="pos">거의 없음(툴 특허무관)</td><td>중</td><td class="pos"><strong>내재가치 ≈~&gt; 現價</strong>, 금리↓ 레버리지</td></tr>
+<tr><td>로슈</td><td>FCF CHF11.8b, 저레버리지</td><td class="pos">작음(빅3 종료)</td><td>혼재: lidERA/evERA +, persevERA −</td><td>시나리오 밴드 넓음(CHF230~449)</td></tr>
+<tr><td>갈더마</td><td>FCF ~$0.85b, 2.3→1.5x</td><td class="pos">없음</td><td>큼(Nemluvio &gt;$4b, GLP-1)</td><td class="neg">가정 민감도 극대·안전마진 얇음</td></tr>
+<tr><td>노바티스</td><td>코어마진 40%</td><td class="neg">2029~31 근접 → 타격 큼</td><td>미충족</td><td class="neg">절벽 근접이 상방 제한</td></tr>
+<tr><td>사노피</td><td>business 이익 ~€9.8b</td><td>중간, 단일자산 2031</td><td class="neg">낮음(연쇄 실패)</td><td class="neg">저PER이 이미 저기대 반영</td></tr>
+</tbody></table></div>
+<h3>절대평가 핵심 근거</h3>
+<ol>
+<li><strong>특허절벽의 '시점'이 절대가치를 좌우.</strong> DCF는 먼 미래 현금흐름을 크게 할인 → 동일 규모라도 <strong>AZN(2031~34)은 노바티스(2029~31)보다 훼손이 작다</strong>. (AZN&gt;노바티스의 정량 근거)</li>
+<li><strong>특허 무관 사업 = 안정적 터미널가치.</strong> 머크·갈더마는 예측기간 이후 가치(DCF의 60~70%) 신뢰도↑. 단 갈더마는 성장률 민감도 큼.</li>
+<li><strong>파이프라인 = rNPV로 가감.</strong> 로슈 giredestrant: persevERA 실패로 전이성 1차 감액, 그러나 <span class="pos">lidERA(HR 0.70)·evERA(HR 0.38) 성공 + FDA 우선심사</span>로 최대 잠재영역 방어.</li>
+<li><strong>영업레버리지 = 마진 가정의 핵심.</strong> 출시 중후반 약물은 추가매출 대부분이 이익 전환(AZN 코어OPM 28→35%). 절벽 도래 시 역회전.</li>
+<li><strong>디레버리징 이익 인플렉션(갈더마).</strong> 순차입 2.3→1.5x로 이자부담 감소 → 컨센 EPS +24%/yr. 절대가치는 정상화 속도에 민감.</li>
+<li><strong>AI 운영효율 = 옵션가치 소액 가산.</strong> 서류·환자모집 각 6개월 단축 → 특허 판매기간 ~1년 연장(+10%). '신약 발견' AI는 아직 base-case 제외.</li>
+</ol>
+
+<h2 id="s6"><span class="num">6.</span>giredestrant 임상 상세 <span style="font-weight:400;color:var(--muted);font-size:.9rem">(로슈 판단의 핵심)</span></h2>
+<div class="tablewrap"><table>
+<thead><tr><th>시험</th><th>세팅</th><th>결과</th><th>수치</th><th>규제</th></tr></thead>
+<tbody>
+<tr><td><strong>lidERA</strong></td><td>초기(수술후 보조)</td><td class="pos">성공</td><td>iDFS HR 0.70 (p=0.0014), 재발위험 −30%</td><td class="pos">FDA 우선심사 수리(2026.6) — 최대 잠재영역</td></tr>
+<tr><td><strong>evERA</strong></td><td>전이성(CDK4/6 이후)</td><td class="pos">성공</td><td>PFS HR 0.38, 중앙값 ~10 vs 5.45개월</td><td>FDA 수리, 결정 2026.12.18</td></tr>
+<tr><td><strong>persevERA</strong></td><td>전이성 1차(팔보시클립 병용)</td><td class="neg">실패</td><td>PFS HR 0.89 (p=0.156), 미달</td><td>—</td></tr>
+</tbody></table></div>
+<div class="callout">
+<strong>'깨끗한 촉매'가 반쪽 실패가 아니라 '2승 1패'</strong>이며, 승리한 초기암(lidERA)이 상업적으로 가장 큰 영역. 최대매출 컨센 <strong>CHF5.8bn</strong>(PoS 77%) vs 약세 Jefferies <strong>CHF1.2bn</strong>(60%). 목표주가 <strong>CHF230(Jefferies 언더퍼폼)~449(고점)</strong>, UBS 매수 CHF384. 이 분산 자체가 로슈 밸류에이션의 핵심 논쟁점.
+</div>
+
+<h2 id="s7"><span class="num">7.</span>종목별 결론 &amp; 포트폴리오</h2>
+<div class="tablewrap"><table>
+<thead><tr><th>성격</th><th>종목</th><th>역할·근거</th></tr></thead>
+<tbody>
+<tr><td><strong>핵심(코어)</strong></td><td>AZN</td><td>성장+방어 동시. Core EPS 두자릿수↑에 PER 17배, 절벽 후행. 비중 최대</td></tr>
+<tr><td><strong>밸류·구조 방어</strong></td><td>머크 KGaA</td><td>특허무관 툴 42% + 최저 멀티플. 업황 반등·가이드 상향. 분할 매집</td></tr>
+<tr><td><strong>밸류+촉매</strong></td><td>로슈</td><td>밸류 합리(17.6배·2.9%) + giredestrant 초기암 승인 옵션. 2026.12 evERA 결정 확인</td></tr>
+<tr><td>성장(조정 시)</td><td>갈더마</td><td>사업 최상급이나 선행 PER 47배 → 조정/실적 확인 후 진입</td></tr>
+<tr><td>회피/중립</td><td>노바티스·사노피</td><td>절벽 근접·집중 리스크 → 상대 매력 열위</td></tr>
+</tbody></table></div>
+<div class="callout">
+<strong>최종:</strong> UBS 매수 4종목을 <strong>AZN·머크 KGaA·로슈 3개 실질 매수 + 갈더마 조건부</strong>로 압축. AZN 최우선, 머크 KGaA는 밸류·인내형, 로슈는 밸류+임상옵션. 절벽 근접·집중 리스크가 큰 노바티스·사노피는 제외.
+</div>
+
+<h2>데이터 출처 (주요)</h2>
+<ul class="sources">
+<li>AstraZeneca FY2025 결과(6-K/PDF), 특허만료표 "Patent Expiries of Key Marketed Products 2025"</li>
+<li>Merck KGaA FY2025/Q1'26 릴리스, Annual Report 2025, Mavenclad LOE(FiercePharma)</li>
+<li>Galderma FY2025/Q1'26 릴리스, Investing.com FY2025 슬라이드(Nemluvio &gt;$4bn), stockanalysis.com</li>
+<li>Roche FY2025(inv-update 2026-01-29), giredestrant lidERA(SABCS/ASCO)·persevERA(2026-03-09)·evERA(FDA 수리)</li>
+<li>Novartis/Sanofi FY2025 릴리스, UBS 사노피 중립 하향, Dupixent LOE(FiercePharma)</li>
+<li>집계/멀티플: stockanalysis.com, macrotrends.net, marketscreener.com, gurufocus.com</li>
+</ul>
+<p class="themed-note">주의: 상당수 원공시 PDF/집계사이트가 자동수집(egress) 차단되어 값은 해당 1차 문서의 검색 인덱스에서 추출했습니다. <code>~</code>·<code>est</code> 표기는 근사치이니 정밀 판단 시 20-F/Annual Report 원문 대조를 권합니다.</p>
+
+<footer>
+UBS 유럽 제약 리포트 재평가 · 2026-07-11 · 마크다운 버전(<code>.md</code>)과 동일 내용의 HTML 판.<br>
+본 자료는 투자자문이 아니며 정보 제공 목적입니다. 투자 판단과 책임은 이용자 본인에게 있습니다.
+</footer>
+
+</div>
+</body>
+</html>
