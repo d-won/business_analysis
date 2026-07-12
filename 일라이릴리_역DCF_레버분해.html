@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>일라이릴리 역DCF 레버 분해</title>
+<style>
+  :root{
+    --bg:#ffffff; --paper:#f4f6f9; --card:#ffffff; --line:#e3e8ef; --ink:#111620; --muted:#5b6572;
+    --brand:#b3122b; --brand-soft:#fdeaee; --brand-ink:#a01026;
+    --pos:#1a7a4a; --neg:#c0392b; --warn:#b9770a;
+    --shadow:0 1px 2px rgba(16,22,32,.06),0 8px 22px rgba(16,22,32,.07);
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#0a0e13; --paper:#0e141b; --card:#131a23; --line:#243040; --ink:#e8eef5; --muted:#95a1b1;
+    --brand:#ef6b82; --brand-soft:#2a1319; --brand-ink:#f2a3b0;
+    --pos:#4cc487; --neg:#f0736a; --warn:#e0a94a;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 26px rgba(0,0,0,.4);
+  }}
+  :root[data-theme="dark"]{
+    --bg:#0a0e13; --paper:#0e141b; --card:#131a23; --line:#243040; --ink:#e8eef5; --muted:#95a1b1;
+    --brand:#ef6b82; --brand-soft:#2a1319; --brand-ink:#f2a3b0;
+    --pos:#4cc487; --neg:#f0736a; --warn:#e0a94a;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 26px rgba(0,0,0,.4);
+  }
+  :root[data-theme="light"]{
+    --bg:#ffffff; --paper:#f4f6f9; --card:#ffffff; --line:#e3e8ef; --ink:#111620; --muted:#5b6572;
+    --brand:#b3122b; --brand-soft:#fdeaee; --brand-ink:#a01026;
+    --pos:#1a7a4a; --neg:#c0392b; --warn:#b9770a;
+    --shadow:0 1px 2px rgba(16,22,32,.06),0 8px 22px rgba(16,22,32,.07);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    line-height:1.65;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
+  .wrap{max-width:760px;margin:0 auto;padding:44px 18px 80px}
+  .toggle{position:fixed;top:10px;right:10px;background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:8px 12px;font-size:.8rem;cursor:pointer;box-shadow:var(--shadow);min-height:40px;z-index:10}
+  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--brand-ink)}
+  h1{font-size:1.72rem;line-height:1.22;letter-spacing:-.02em;margin:.35em 0 .3em;text-wrap:balance}
+  h2{font-size:1.28rem;margin:2.4em 0 .5em;letter-spacing:-.01em;border-top:2px solid var(--line);padding-top:1.1em}
+  h3{font-size:1.06rem;margin:1.7em 0 .3em}
+  .lead{color:var(--muted);font-size:1.02rem;margin:0 0 4px}
+  .meta{color:var(--muted);font-size:.8rem;margin:8px 0 0}
+  p{margin:.55em 0}
+  ul{margin:.4em 0;padding-left:1.15em}
+  li{margin:.3em 0}
+  li ul{margin:.2em 0}
+  strong{font-weight:700}
+  .anchbar{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 4px}
+  .chip{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:7px 11px;font-size:.82rem;flex:1 1 auto;min-width:120px}
+  .chip b{display:block;font-size:1.02rem;color:var(--ink)}
+  .chip span{color:var(--muted);font-size:.72rem}
+  .verdict{background:linear-gradient(180deg,var(--brand-soft),var(--card) 70%);border:1.5px solid var(--brand);border-radius:15px;padding:18px 18px;margin:22px 0;box-shadow:var(--shadow)}
+  .verdict .tag{display:inline-block;background:var(--warn);color:#fff;font-weight:800;font-size:.78rem;padding:3px 11px;border-radius:20px;margin-bottom:8px}
+  .callout{background:var(--paper);border-left:3px solid var(--brand);border-radius:8px;padding:12px 14px;margin:14px 0;font-size:.93rem}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.86rem;display:block;overflow-x:auto}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:var(--paper);font-weight:700}
+  .stars{color:var(--brand);letter-spacing:1px}
+  .j-pos{color:var(--pos);font-weight:700}
+  .j-warn{color:var(--warn);font-weight:700}
+  .j-neg{color:var(--neg);font-weight:700}
+  details{background:var(--card);border:1px solid var(--line);border-radius:12px;margin:12px 0;box-shadow:var(--shadow);overflow:hidden}
+  summary{cursor:pointer;padding:14px 16px;font-weight:700;font-size:1rem;list-style:none;display:flex;align-items:center;gap:10px}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"▸";color:var(--brand);font-size:.9rem;transition:transform .15s}
+  details[open] summary::before{transform:rotate(90deg)}
+  .dbody{padding:2px 16px 16px}
+  .dbody h3:first-child{margin-top:.4em}
+  .lvbadge{font-size:.68rem;font-weight:800;padding:2px 8px;border-radius:20px;margin-left:auto}
+  .b-pos{background:var(--pos);color:#fff}.b-warn{background:var(--warn);color:#fff}.b-neg{background:var(--neg);color:#fff}
+  figure{margin:16px 0;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 12px 10px}
+  figcaption{font-size:.8rem;color:var(--muted);margin-top:8px;text-align:center}
+  svg{display:block;width:100%;height:auto}
+  .disc{background:var(--paper);border-radius:10px;padding:12px 14px;margin-top:20px;font-size:.82rem;color:var(--muted)}
+  .src{font-size:.76rem;color:var(--muted);margin-top:10px}
+  .back{display:inline-block;margin-top:8px;color:var(--brand-ink);font-size:.86rem;font-weight:700;text-decoration:none}
+</style>
+</head>
+<body>
+<button class="toggle" onclick="(function(){var r=document.documentElement;var d=(r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));r.setAttribute('data-theme',d==='dark'?'light':'dark')})()">◐ 화면 밝기</button>
+<div class="wrap">
+  <div class="eyebrow">시장가 해석 · 역DCF 레버 분해</div>
+  <h1>일라이릴리(LLY) — 시장가는 무엇을 가정하고 있나</h1>
+  <p class="lead">현재가 $1,189가 성립하려면 시장이 매출성장·마진·할인율·특허방어를 각각 얼마로 가정해야 하는지 거꾸로 역산했습니다.</p>
+  <p class="meta">기준일 2026-07-10 · 통화 USD($) · 정보 제공용, 투자자문 아님</p>
+
+  <div class="anchbar">
+    <div class="chip"><b>$1,188.58</b><span>현재가 (7/10)</span></div>
+    <div class="chip"><b>~$1.13T</b><span>시총 · 세계 1위 제약</span></div>
+    <div class="chip"><b>~32.8x</b><span>선행 P/E</span></div>
+    <div class="chip"><b>~$1.17T</b><span>EV (시총+순부채 $38b)</span></div>
+    <div class="chip"><b>β 0.52</b><span>→ WACC ~7~7.5%</span></div>
+  </div>
+  <p class="meta"><b>역DCF란?</b> 적정가를 구하는 보통 DCF를 거꾸로 돌려, "지금 이 가격이 성립하려면 성장률·마진·할인율이 각각 얼마여야 하나"를 역산하는 것. 그 값이 현실적이면 적정, 과하면 고평가, 낮으면 저평가.</p>
+
+  <!-- ============ LAYER 1: 한눈에 ============ -->
+  <h2>① 한눈에 — 결론과 핵심 레버</h2>
+
+  <div class="verdict">
+    <span class="tag">판정: 적정 (고평가에 가까운 적정)</span>
+    <p style="margin:.2em 0"><strong>"성공을 이미 가격에 반영 — 안전마진은 얇다."</strong></p>
+    <p style="margin:.4em 0 0;font-size:.93rem">현재가 $1,189가 성립하려면 시장은 <b>5년 매출 CAGR ~12%(2031 매출 ~$148b)</b> · <b>영업마진 46~48% 유지</b> · <b>낮은 WACC ~7~7.5%</b> · <b>특허절벽 없는 영구성장 ~3%</b>를 동시에 가정해야 합니다. 달성 가능하지만 <b>완벽한 실행을 요구</b> → 적정이되 상방 여유가 적습니다.</p>
+  </div>
+
+  <ul>
+    <li><strong>가장 무거운 레버 = 매출 성장</strong>(비만·당뇨 인크레틴 + 경구 GLP-1). 마진은 이미 최대치라 더 짜낼 게 없고, 성장이 유일하게 큰 밸류를 만듭니다.
+      <ul><li>마운자로+젭바운드 $36.5b(FY25)가 오르포글리프론·레타트루타이드까지 얹혀 <b>$100b+로 3배 가까이</b> 커지는 그림을 사고 있음.</li></ul>
+    </li>
+    <li><strong>숨은 레버 = 낮은 WACC.</strong> 베타 0.52라는 방어주 프리미엄 덕에 관대한 할인율 적용 중. 정상화(8~8.5%)되면 요구 성장률이 급등 → <b>가장 취약한 가정.</b></li>
+    <li><strong>가장 튼튼한 레버 = 특허 방어.</strong> 터제파타이드 물질특허 ~2036(제형 ~2039~41), 근접 절벽 없음 → 높은 영구성장을 정당화. <b>해자는 진짜.</b></li>
+    <li><strong>판정 근거:</strong> 쉬운 레버(마진)는 소진, 관대한 레버(할인율)는 당겨썼고, 남은 상방은 가장 지키기 어려운 레버(무결점 실행 vs 노보·가격전쟁)에 달림 → <b>싸지도 거품도 아닌, 완벽을 요구하는 적정가.</b></li>
+  </ul>
+
+  <figure>
+    <!-- 레버 판정 요약 SVG 표 -->
+    <svg viewBox="0 0 600 250" role="img" aria-label="레버별 판정 요약">
+      <style>
+        .hd{font:700 13px sans-serif;fill:var(--ink)}
+        .cl{font:12px sans-serif;fill:var(--ink)}
+        .st{fill:var(--brand)}
+        .bw{fill:var(--warn)}.bp{fill:var(--pos)}.bn{fill:var(--neg)}
+        .tw{font:700 11px sans-serif;fill:#fff}
+        .ln{stroke:var(--line)}
+      </style>
+      <text x="8" y="18" class="hd">레버</text>
+      <text x="200" y="18" class="hd">시장 암묵 가정</text>
+      <text x="400" y="18" class="hd">판정</text>
+      <text x="520" y="18" class="hd">민감도</text>
+      <line x1="8" y1="26" x2="592" y2="26" class="ln"/>
+      <g>
+        <text x="8" y="55" class="cl">① 매출 성장(5년)</text><text x="200" y="55" class="cl">~12% → 2031 $148b</text>
+        <rect x="400" y="44" width="90" height="16" rx="8" class="bw"/><text x="445" y="56" class="tw" text-anchor="middle">다소 과도~적정</text>
+        <text x="520" y="55" class="st">★★★</text>
+      </g>
+      <line x1="8" y1="70" x2="592" y2="70" class="ln" stroke-dasharray="2 3"/>
+      <g>
+        <text x="8" y="99" class="cl">② 영업/성과 마진</text><text x="200" y="99" class="cl">46~48% 유지</text>
+        <rect x="400" y="88" width="72" height="16" rx="8" class="bp"/><text x="436" y="100" class="tw" text-anchor="middle">적정(달성)</text>
+        <text x="520" y="99" class="st">★</text>
+      </g>
+      <line x1="8" y1="114" x2="592" y2="114" class="ln" stroke-dasharray="2 3"/>
+      <g>
+        <text x="8" y="143" class="cl">③ WACC(할인율)</text><text x="200" y="143" class="cl">~7~7.5%</text>
+        <rect x="400" y="132" width="82" height="16" rx="8" class="bn"/><text x="441" y="144" class="tw" text-anchor="middle">과소(관대)</text>
+        <text x="520" y="143" class="st">★★★</text>
+      </g>
+      <line x1="8" y1="158" x2="592" y2="158" class="ln" stroke-dasharray="2 3"/>
+      <g>
+        <text x="8" y="187" class="cl">④ 영구성장률</text><text x="200" y="187" class="cl">~3%</text>
+        <rect x="400" y="176" width="72" height="16" rx="8" class="bp"/><text x="436" y="188" class="tw" text-anchor="middle">적정(특허)</text>
+        <text x="520" y="187" class="st">★★</text>
+      </g>
+      <line x1="8" y1="202" x2="592" y2="202" class="ln" stroke-dasharray="2 3"/>
+      <g>
+        <text x="8" y="231" class="cl">⑤ 성공확률·특허방어</text><text x="200" y="231" class="cl">오르포 승인+절벽無</text>
+        <rect x="400" y="220" width="90" height="16" rx="8" class="bp"/><text x="445" y="232" class="tw" text-anchor="middle">적정(일부 de-risk)</text>
+        <text x="520" y="231" class="st">★★</text>
+      </g>
+    </svg>
+    <figcaption>레버별 판정 요약 — 민감도 ★ 많을수록 밸류를 크게 움직임</figcaption>
+  </figure>
+
+  <!-- ============ LAYER 2: 왜 ============ -->
+  <h2>② 왜 — 레버별 상세 근거</h2>
+
+  <details>
+    <summary>방법론 — 두 갈래로 교차검증<span class="lvbadge b-pos">FCFF + 출구P/E</span></summary>
+    <div class="dbody">
+      <p>역산은 두 독립적 방법으로 돌려 서로 맞물리는지 확인했습니다.</p>
+      <ul>
+        <li><strong>(A) 10년 FCFF 역DCF</strong> — 잉여현금흐름(FCFF: 회사가 채권자·주주에게 나눠줄 수 있는 현금)을 10년 추정 후 영구가치를 더해 EV($1.17T)와 일치시키는 매출 CAGR을 역산.
+          <ul><li>전제: 영업마진 46%, 세율 15%, 현금전환율 0.72→0.95(초기 공장 capex로 낮다 정상화), WACC 7.5%, 영구성장 3%.</li>
+          <li><b>결과: 요구 1~5년차 매출 CAGR ≈ 12.1%.</b> WACC 7~8%·영구성장 2.5~3.5% 범위에서 <b>8~15.5%</b> 밴드.</li></ul>
+        </li>
+        <li><strong>(B) 출구 P/E 방식</strong> — 현재가 = 5년 뒤 EPS × "성숙기 배수"의 현재가치가 되는 EPS 성장률을 역산.
+          <ul><li>출구 P/E 22x·WACC 8% → <b>요구 5년 EPS CAGR ≈ 16.4%</b>(출구 25x면 13.5%, 20x면 18.7%) → 2031 EPS ~$64~83.</li></ul>
+        </li>
+        <li><strong>두 방법 합치:</strong> 매출 ~12% + 마진확대·자사주로 <b>EPS ~13~16%가 5년 이상 지속</b>된다는 그림. 이게 $1,189의 뼈대.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details open>
+    <summary>레버 ① 매출 성장 — 지배적 레버<span class="lvbadge b-warn">다소 과도~적정</span></summary>
+    <div class="dbody">
+      <p><strong>결론:</strong> 현재가의 8할을 만드는 레버. 시장은 <b>5년 매출 CAGR ~12%</b>(2026 $83.5b → 2031 ~$148b → 2036 ~$203b)를 가정.</p>
+      <figure style="background:transparent;border:none;padding:0">
+        <svg viewBox="0 0 600 210" role="img" aria-label="시장 암묵 매출 궤적">
+          <style>.ax{font:11px sans-serif;fill:var(--muted)}.vl{font:700 13px sans-serif;fill:var(--ink)}.yr{font:12px sans-serif;fill:var(--ink)}.ln{stroke:var(--line)}.bm{fill:var(--muted);opacity:.5}.bb{fill:var(--brand)}.bb2{fill:var(--brand);opacity:.85}</style>
+          <line x1="60" y1="170" x2="580" y2="170" class="ln"/>
+          <rect x="110" y="118" width="90" height="52" rx="4" class="bm"/>
+          <text x="155" y="110" class="vl" text-anchor="middle">$83.5b</text>
+          <text x="155" y="188" class="yr" text-anchor="middle">2026E (가이드)</text>
+          <rect x="270" y="78" width="90" height="92" rx="4" class="bb2"/>
+          <text x="315" y="70" class="vl" text-anchor="middle">~$148b</text>
+          <text x="315" y="188" class="yr" text-anchor="middle">2031 (함의)</text>
+          <rect x="430" y="44" width="90" height="126" rx="4" class="bb"/>
+          <text x="475" y="36" class="vl" text-anchor="middle">~$203b</text>
+          <text x="475" y="188" class="yr" text-anchor="middle">2036 (함의)</text>
+          <text x="60" y="26" class="ax">매출($b) — 시장가가 함축하는 궤적 (CAGR ~12%)</text>
+        </svg>
+      </figure>
+      <p><strong>← 근거(숫자):</strong> 마진·할인율 고정 시 EV를 맞추는 유일한 자유변수가 매출 CAGR이고 그 값이 12%. 마진을 42%로 낮춰도 13.6%, 50%로 높여도 10.6% — <b>마진을 어떻게 흔들어도 요구 성장률은 11~14%대</b>라 성장이 밸류의 중심축.</p>
+      <p><strong>← 왜(인과):</strong> 매출의 56%가 GLP-1(마운자로 ~$23b + 젭바운드 $13.5b = ~$36.5b, +100%). 12% CAGR은 이 프랜차이즈가 <b>$100b+로 3배 가까이</b> 커지고 오르포글리프론·레타트루타이드가 얹히는 것을 전제.</p>
+      <div class="callout"><strong>왜 "다소 과도~적정"인가</strong>
+        <ul>
+          <li><b>긍정:</b> 오르포글리프론 2026.4 FDA 승인(Foundayo) → 파이프라인 리스크 실제 감소. 컨센 2030 매출 ~$10b(에벌류에이트 $12.7b·팩트셋 $14.8b·골드만 $13.6b, 불 $36~40b). 레타트루타이드 체중 -28%로 클래스 최강. 경구제가 TAM 확장.</li>
+          <li><b>부정(과도 리스크):</b> Q1'26에 "마운자로·젭바운드 실현가격 하락" 명시 — <b>노보와 미국 가격전쟁</b> 진행형(자비가 $149~349/월로 인하). 노보 ex-US 점유 1위로 추월. PBM·메디케어·컴파운딩이 실현가 압박 → 물량 폭증해도 가격 깎이면 12% 하회 가능.</li>
+        </ul>
+        <b>판정:</b> 기저 시나리오로는 도달 가능하나 가격 방어 실패 시 미달. 완벽 실행 요구 → <span class="j-warn">다소 과도~적정 경계.</span>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>레버 ② 영업/성과 마진 — 이미 소진된 레버<span class="lvbadge b-pos">적정·상방없음</span></summary>
+    <div class="dbody">
+      <p><strong>결론:</strong> 시장은 <b>성과마진 46~48% 유지</b>를 가정. 무리한 가정이 아니라 <i>이미 달성된 사실</i>이라 리스크는 낮지만 <b>더 짜낼 상방이 없다는 게 문제.</b></p>
+      <p><strong>← 근거:</strong> Q1'26 비GAAP 성과마진 47~48.5%, 매출총이익률 80%+, GAAP 영업마진 ~40%+. 가이던스가 성과마진 47~48.5% 명시.</p>
+      <p><strong>← 왜:</strong> 매출총이익률 80%대 + 매출이 고정비를 압도하며 커지는 <b>영업 레버리지</b> → 규모 확대 시 마진이 구조적 천장(~48~50%)에 붙음.</p>
+      <p><strong>밸류 민감도(왜 약한 레버):</strong> 마진 46%→50%로 4%p 올려도 요구 매출 CAGR은 12.1%→10.6%로 1.5%p만 하락. <b>이미 최고 수준이라 여기서 밸류를 더 만들 여지가 거의 없음.</b> 상방 소진 = <b>안전마진 없음</b> — 가격전쟁으로 실현가 조금만 밀려도 완충장치가 없다.</p>
+      <p><strong>판정:</strong> <span class="j-pos">적정(가정 자체는 견고).</span> 단, 이 레버 소진 탓에 남은 상방은 전부 ①성장·③할인율에 의존.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>레버 ③ WACC(할인율) — 관대하게 당겨쓴 숨은 레버<span class="lvbadge b-neg">과소</span></summary>
+    <div class="dbody">
+      <p><strong>결론:</strong> 시장은 <b>WACC ~7~7.5%</b>라는 낮은 할인율을 적용 중이며, 이 관대함이 현재가를 떠받치는 <i>보이지 않는 지지대</i>.</p>
+      <p><strong>← 근거:</strong> 베타 0.52(시장의 절반 변동성) → CAPM 자기자본비용 = 무위험 4.3% + 0.52×ERP 5% ≈ 6.9%. 순부채 0.6x EBITDA로 미미 → WACC ~7%. 시장 데이터 6.2~8.3% 분산.</p>
+      <p><strong>← 왜:</strong> 방어적 현금흐름·강한 재무·낮은 베타가 "질 좋은 회사엔 낮은 요구수익률" 프리미엄을 만듦.</p>
+      <figure style="background:transparent;border:none;padding:0">
+        <svg viewBox="0 0 600 150" role="img" aria-label="WACC 민감도">
+          <style>.ax{font:11px sans-serif;fill:var(--muted)}.vl{font:700 12px sans-serif;fill:var(--ink)}.lb{font:12px sans-serif;fill:var(--ink)}.rp{fill:var(--pos);opacity:.7}.rw{fill:var(--warn);opacity:.85}.rn{fill:var(--neg);opacity:.85}.bold{font-weight:700}</style>
+          <text x="10" y="18" class="ax">같은 가격을 정당화할 <tspan class="bold">요구 매출 CAGR</tspan> — WACC 1%p가 성장률 ~4%p와 맞먹음</text>
+          <g>
+            <text x="10" y="52" class="lb">WACC 7.0%</text>
+            <rect x="130" y="40" width="198" height="18" rx="4" class="rp"/>
+            <text x="336" y="54" class="vl">요구 CAGR 9.9%</text>
+          </g>
+          <g>
+            <text x="10" y="87" class="lb">WACC 7.5%</text>
+            <rect x="130" y="75" width="242" height="18" rx="4" class="rw"/>
+            <text x="380" y="89" class="vl">12.1% (기저)</text>
+          </g>
+          <g>
+            <text x="10" y="122" class="lb">WACC 8.0%</text>
+            <rect x="130" y="110" width="282" height="18" rx="4" class="rn"/>
+            <text x="420" y="124" class="vl">14.1%</text>
+          </g>
+        </svg>
+      </figure>
+      <p><strong>왜 "과소(관대)"인가:</strong> 베타 0.52는 방어주 시절 유산인데, 이제 릴리는 고성장주 성격이 강함. 베타가 제약 평균(~0.7~0.8)으로 정상화하거나 금리가 오르면 WACC는 8~8.5%로 올라야 맞고, 그 경우 <b>현재가는 요구 성장률 14~16%를 필요로 해 정당화 곤란.</b></p>
+      <p><strong>판정:</strong> <span class="j-neg">과소(관대) — 가장 취약한 가정.</span> 성장 프리미엄과 방어 프리미엄을 동시에 누리는데, 둘은 원래 상충.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>레버 ④ 영구성장률 — 특허가 뒷받침하는 레버<span class="lvbadge b-pos">적정</span></summary>
+    <div class="dbody">
+      <p><strong>결론:</strong> 영구가치(터미널 밸류: DCF의 대부분)는 <b>영구성장률 ~3%</b> 위에 서 있고, 제약 평균(~2%대)보다 높음.</p>
+      <p><strong>← 근거:</strong> 영구성장 2.5%→3.5%로 올리면 요구 매출 CAGR이 13.6%→10.4%로 하락 — <b>영구성장 1%p가 초기 성장 부담을 3%p 이상 덜어줌.</b> 터미널 가정이 밸류의 큰 몫을 짊어짐.</p>
+      <p><strong>← 왜(정당화):</strong> 터제파타이드 물질특허 ~2036, 제형 ~2039~41로 <b>근접 특허절벽 없음.</b> Trulicity(2027)·Jardiance(2028)·Verzenio(2029) 만료는 오지만 비중이 작고 GLP-1 성장이 상쇄. 크라운주얼이 2030년대 중후반까지 보호 → 높은 영구성장 정당화.</p>
+      <p><strong>현실성:</strong> 특허 런웨이가 실제로 길어 3%는 무리 아님. <b>단 전제:</b> 2030년대 후반 터제파타이드 절벽 시 오르포글리프론·레타트루타이드·차세대가 매출을 이어받아야 성립. 파이프라인 교체 실패 시 터미널 밸류 과대.</p>
+      <p><strong>판정:</strong> <span class="j-pos">적정 — 특허 방어가 이 가정을 정당화.</span></p>
+    </div>
+  </details>
+
+  <details>
+    <summary>레버 ⑤ 성공확률·특허방어 — 부분 de-risk<span class="lvbadge b-pos">적정</span></summary>
+    <div class="dbody">
+      <p><strong>결론:</strong> 시장은 파이프라인 성공확률을 낙관적이되 비이성적이지 않게 반영. 핵심 자산 하나가 이미 승인돼 이항(binary) 리스크 감소.</p>
+      <ul>
+        <li><b>오르포글리프론 2026.4 승인 = de-risked.</b> 임상·규제 리스크가 상업화 실행 리스크로 전환.</li>
+        <li><b>레타트루타이드</b>는 아직 P3 → 이항 리스크 잔존, 시장은 부분 확률가중.</li>
+        <li><b>Kisunla</b>(알츠하이머)는 상방 옵션.</li>
+        <li><b>특허절벽 근접 없음</b>이 모든 파이프라인 매출에 긴 회수기간 보장.</li>
+      </ul>
+      <p><strong>현실성:</strong> 승인 자산 기준 견고, 미승인 자산(레타 등)엔 실행·경쟁 리스크 잔존. 노보 경구 아미크레틴·차세대와의 경쟁이 성공확률 일부 상쇄.</p>
+      <p><strong>판정:</strong> <span class="j-pos">적정 — 크라운주얼 승인으로 리스크 실제 감소, 미래 자산엔 낙관 반영.</span></p>
+    </div>
+  </details>
+
+  <details>
+    <summary>보너스 — PEG의 함정("싸 보이는 착시")<span class="lvbadge b-warn">주의</span></summary>
+    <div class="dbody">
+      <p>앵커 PEG ~1.0~1.2는 <b>근접 초고성장</b>(FY25 EPS ~$23 → FY26E ~$36, <b>+55%</b>)에 P/E를 나눈 값. 이 기준이면 32.8x ÷ 55% ≈ <b>0.6으로 매우 싸 보임.</b></p>
+      <p>그러나 +55%는 젭바운드 초기 폭발의 일시적 수치로 <b>구조적으로 감속</b>(지속가능 5년 EPS CAGR ~13~16%). 정상화 성장으로 다시 계산하면 PEG = 32.8 ÷ 16 ≈ <b>2.0으로 오히려 비쌈.</b></p>
+      <p><strong>함의:</strong> 시장은 근접 초고성장을 미래로 연장 적용해 배수를 정당화 중. 성장 감속이 기대보다 빠르면 멀티플 재평가 위험. <b>"2026년 성장엔 싸고, 2029년 이후 성장엔 꽉 찬 가격."</b></p>
+    </div>
+  </details>
+
+  <!-- ============ 최종 판정 ============ -->
+  <h2>③ 최종 판정 — 고평가 / 적정 / 저평가</h2>
+  <div class="verdict">
+    <span class="tag">적정 (약간 고평가 쪽)</span>
+    <p style="margin:.2em 0 .5em"><strong>"성공을 이미 가격에 반영 — 안전마진 얇음."</strong></p>
+    <ul style="margin:0">
+      <li><b>왜 거품/명백한 고평가는 아닌가:</b> 요구 매출 CAGR 12%·EPS 13~16%는 인크레틴 TAM($150b+ 비만시장)·임상 선두·긴 특허 런웨이를 감안하면 공상이 아님. 오르포글리프론 승인으로 핵심 리스크 실제 감소. 목표가 중앙값 $1,251(+5%)도 "약간 위".</li>
+      <li><b>왜 명백한 저평가/바겐도 아닌가:</b> 쉬운 레버(마진)는 최대치로 소진, 관대한 레버(WACC ~7%)는 방어 프리미엄을 미리 당겨씀. 남은 상방은 전부 가장 지키기 어려운 레버 — 노보·미국 가격전쟁·PBM 압박 속 수년 무결점 실행 — 에 의존.</li>
+      <li><b>비대칭성:</b> 상방(모든 레버 순항)은 완만, 하방(WACC 8.5% 정상화 + 가격전쟁으로 성장 10% 하회)은 멀티플·성장 동시 하락으로 급격 → <b>위험보상 소폭 부(-) 기울기.</b></li>
+      <li><b>실무 해석:</b> 장기 보유자에겐 "질 좋은 프랜차이즈를 완전가에 사는" 자리 — 보유는 정당화되나 신규 대량 진입은 안전마진 얇음. 촉매(오르포 매출, 레타 P3, 노보 대비 가격/점유, 금리)에 따라 재평가 여지.</li>
+    </ul>
+  </div>
+
+  <!-- ============ 용어 사전 ============ -->
+  <h2>④ 용어 사전</h2>
+  <ul style="font-size:.92rem">
+    <li><b>역DCF(Reverse DCF):</b> 적정가 대신, 현재가가 성립하려면 필요한 성장률·마진·할인율을 거꾸로 역산하는 기법.</li>
+    <li><b>DCF(현금흐름할인법):</b> 미래에 벌 현금을 오늘 가치로 할인해 기업가치를 구하는 방법.</li>
+    <li><b>FCFF(기업잉여현금흐름):</b> 채권자·주주 모두에게 나눠줄 수 있는 현금 = 세후영업이익 + 감가상각 − capex − 운전자본증가.</li>
+    <li><b>WACC(가중평균자본비용):</b> 투자자가 요구하는 수익률 = 할인율. 낮을수록 미래 현금의 현재가치↑ → 밸류↑.</li>
+    <li><b>베타(β):</b> 시장 대비 주가 변동성. 0.52면 시장의 절반만 출렁 → 방어적.</li>
+    <li><b>영구성장률(g):</b> 명시 추정기간 이후 영원히 지속된다고 가정하는 성장률.</li>
+    <li><b>터미널 밸류(영구가치):</b> 명시기간 이후 현금흐름의 현재가치 합. 보통 DCF 총액의 60~80%.</li>
+    <li><b>선행 P/E:</b> 주가 ÷ 내년 예상 EPS(주당순이익).</li>
+    <li><b>PEG:</b> P/E ÷ 이익성장률(%). 어떤 성장률을 쓰느냐가 함정.</li>
+    <li><b>EV(기업가치):</b> 시가총액 + 순부채.</li>
+    <li><b>GLP-1/인크레틴:</b> 혈당·식욕 조절 호르몬 계열 약물(당뇨·비만). 마운자로·젭바운드·오르포글리프론.</li>
+    <li><b>LOE(특허 만료):</b> 특허가 풀려 복제약 진입, 매출 급감(특허절벽).</li>
+    <li><b>de-risk:</b> 임상·규제 불확실성이 해소(예: FDA 승인)돼 리스크가 줄어드는 것.</li>
+    <li><b>capex:</b> 공장·설비 투자 지출. 릴리는 GLP-1 증산으로 대규모 집행 중 → 단기 FCF 눌림.</li>
+    <li><b>PBM:</b> 약가를 협상하는 처방약급여관리기구. 실현가격 압박 주체.</li>
+  </ul>
+
+  <div class="disc">⚠️ 이 자료는 정보 제공용이며 <b>투자자문이 아닙니다.</b> 모든 수치는 2026-07-10 기준 근사치(~)로 실제와 다를 수 있습니다. 통화는 USD 기준. 역DCF 결과는 가정(WACC·마진·영구성장)에 매우 민감하며, 본문의 밴드는 그 민감도를 보이기 위한 것입니다. 투자 판단과 책임은 본인에게 있습니다.</div>
+  <p class="src">출처: MacroTrends(주가·시총·P/E), Lilly IR/PR(Q1'26 실적·FY26 가이던스), FDA/Lilly(오르포글리프론 승인 2026-04-01), Visible Alpha·Evaluate·FactSet·Goldman·RBC·Citi(피크매출 컨센서스), GuruFocus·ValueInvesting.io(WACC·베타). 역DCF·민감도는 자체 모델.</p>
+  <a class="back" href="index.html">← 리포트 목록으로</a>
+</div>
+</body>
+</html>
