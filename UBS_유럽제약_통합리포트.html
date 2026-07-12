@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UBS 유럽제약 통합 리포트 (질×리스크조정)</title>
+<style>
+  :root{
+    --bg:#ffffff; --fg:#1a1d21; --muted:#5b6470; --line:#e4e8ee;
+    --card:#f7f9fc; --accent:#1f6feb; --accent-soft:#e8f0fe;
+    --good:#0f8a4f; --good-bg:#e6f6ee; --warn:#b5810b; --warn-bg:#fdf4e0;
+    --bad:#c23b3b; --bad-bg:#fbe9e9; --th:#eef2f7;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0d1117; --fg:#e6edf3; --muted:#9aa5b1; --line:#26303c;
+      --card:#161b22; --accent:#589bff; --accent-soft:#12233f;
+      --good:#4cc98a; --good-bg:#10281d; --warn:#e5b556; --warn-bg:#2a2110;
+      --bad:#f08a8a; --bad-bg:#2a1414; --th:#1b222b;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0d1117; --fg:#e6edf3; --muted:#9aa5b1; --line:#26303c;
+    --card:#161b22; --accent:#589bff; --accent-soft:#12233f;
+    --good:#4cc98a; --good-bg:#10281d; --warn:#e5b556; --warn-bg:#2a2110;
+    --bad:#f08a8a; --bad-bg:#2a1414; --th:#1b222b;
+  }
+  :root[data-theme="light"]{
+    --bg:#ffffff; --fg:#1a1d21; --muted:#5b6470; --line:#e4e8ee;
+    --card:#f7f9fc; --accent:#1f6feb; --accent-soft:#e8f0fe;
+    --good:#0f8a4f; --good-bg:#e6f6ee; --warn:#b5810b; --warn-bg:#fdf4e0;
+    --bad:#c23b3b; --bad-bg:#fbe9e9; --th:#eef2f7;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    line-height:1.7; font-size:16px; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1040px; margin:0 auto; padding:32px 20px 80px}
+  header.top{border-bottom:2px solid var(--line); padding-bottom:20px; margin-bottom:28px}
+  header.top h1{font-size:1.7rem; line-height:1.35; margin:0 0 10px}
+  .meta{color:var(--muted); font-size:.9rem}
+  .disclaimer{
+    background:var(--warn-bg); border:1px solid color-mix(in srgb,var(--warn) 40%,transparent);
+    border-radius:10px; padding:12px 16px; font-size:.85rem; color:var(--fg); margin-top:16px;
+  }
+  h2{font-size:1.3rem; margin:44px 0 14px; padding-top:10px; border-top:1px solid var(--line)}
+  h2 .num{color:var(--accent); font-weight:700; margin-right:8px}
+  h3{font-size:1.05rem; margin:26px 0 10px}
+  p{margin:10px 0}
+  strong{font-weight:700}
+  .lead{font-size:1.02rem}
+  .tablewrap{overflow-x:auto; margin:16px 0; border:1px solid var(--line); border-radius:10px}
+  table{border-collapse:collapse; width:100%; font-size:.9rem; min-width:520px}
+  th,td{padding:9px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
+  thead th{background:var(--th); font-weight:700; white-space:nowrap; position:sticky; top:0}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover{background:var(--card)}
+  .rank{display:inline-flex; align-items:center; justify-content:center; min-width:26px; height:26px; padding:0 7px; border-radius:7px; font-weight:800; font-size:.85rem}
+  .r1{background:var(--good-bg); color:var(--good)}
+  .r2{background:var(--accent-soft); color:var(--accent)}
+  .r-mid{background:var(--warn-bg); color:var(--warn)}
+  .r-low{background:var(--bad-bg); color:var(--bad)}
+  .tag{display:inline-block; padding:2px 9px; border-radius:20px; font-size:.78rem; font-weight:700; white-space:nowrap}
+  .t-buy{background:var(--good-bg); color:var(--good)}
+  .t-cond{background:var(--warn-bg); color:var(--warn)}
+  .t-avoid{background:var(--bad-bg); color:var(--bad)}
+  .callout{background:var(--card); border-left:4px solid var(--accent); border-radius:0 10px 10px 0; padding:14px 18px; margin:18px 0}
+  .pos{color:var(--good); font-weight:700}
+  .neg{color:var(--bad); font-weight:700}
+  .toc{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 22px; margin:22px 0}
+  .toc ul{margin:6px 0 0; padding-left:20px} .toc li{margin:3px 0}
+  .toc a{color:var(--accent); text-decoration:none} .toc a:hover{text-decoration:underline}
+  .themed-note{font-size:.82rem; color:var(--muted); font-style:italic; margin-top:4px}
+  code{background:var(--card); padding:1px 5px; border-radius:5px; font-size:.85em}
+  .sources li{margin:6px 0; font-size:.85rem; color:var(--muted)}
+  footer{margin-top:50px; padding-top:18px; border-top:1px solid var(--line); font-size:.82rem; color:var(--muted)}
+  .toggle{position:fixed; top:14px; right:14px; background:var(--card); border:1px solid var(--line); color:var(--fg); border-radius:8px; padding:6px 12px; font-size:.8rem; cursor:pointer}
+  @media(max-width:600px){ .wrap{padding:20px 14px 60px} header.top h1{font-size:1.35rem} }
+</style>
+<button class="toggle" onclick="(function(){var r=document.documentElement;var d=(r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));r.setAttribute('data-theme',d==='dark'?'light':'dark')})()">◐ 테마</button>
+<div class="wrap">
+<h1>UBS 유럽 제약 — 통합 리포트 (질 관점 × 리스크조정 관점)</h1>
+<blockquote>
+<p>작성 2026-07-11 · 두 개의 선행 리포트를 하나로 통합.
+<strong>① 단일관점(질) 리포트</strong> = 재무제표·특허·DCF 기반 '프랜차이즈 질' 순위 · <strong>② 3관점(리스크조정) 리포트</strong> = 비관·낙관·시장가해석 멀티에이전트 + 해자/SWOT.
+두 리포트는 <strong>의도적으로 다른 렌즈</strong>이며, 이 통합본은 둘을 화해시켜 <strong>하나의 실행안</strong>으로 정리한다.
+⚠️ 수치는 2026년 중반 근사치, 매매 전 원공시 재확인 필요. <strong>투자자문 아님.</strong></p>
+</blockquote>
+<hr />
+<h2>1. 왜 두 리포트의 결론이 달랐나</h2>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>① 질 관점 (리포트 1)</th>
+<th>② 리스크조정 관점 (리포트 2)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>질문</strong></td>
+<td>"어느 회사가 가장 좋은가?"</td>
+<td>"그 좋음이 이미 주가에 반영됐나? 리스크 대비 보상은?"</td>
+</tr>
+<tr>
+<td><strong>방법</strong></td>
+<td>재무 시계열·특허 스케줄·DCF·멀티플</td>
+<td>비관/낙관 + 역DCF(시장 내재기대) + 해자/SWOT</td>
+</tr>
+<tr>
+<td><strong>최선호</strong></td>
+<td><strong>AZN</strong>(성장+방어, PEG 최우수)</td>
+<td><strong>로슈</strong>(방어 퀄리티+무료옵션, 상방 비대칭)</td>
+</tr>
+<tr>
+<td><strong>핵심 통찰</strong></td>
+<td>절벽 시점·파이프라인·마진이 내재가치를 좌우</td>
+<td>대부분 이미 가격에 반영 → <strong>초과수익은 시나리오 실현확률 게임</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>→ 모순이 아니라 <strong>보완</strong>이다. '가장 좋은 회사(AZN)'와 '가장 좋은 주식(리스크조정: 로슈·사노피)'은 다를 수 있다. 아래 통합 스탠스는 두 렌즈를 겹쳐 본 결과다.</p>
+<hr />
+<h2>2. 종목별 통합 스탠스 (두 관점 화해)</h2>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>종목</th>
+<th>① 질 관점</th>
+<th>② 리스크조정</th>
+<th>🔵시장 판정</th>
+<th><strong>통합 스탠스</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>로슈</strong></td>
+<td>매수후보(밸류+옵션)</td>
+<td><strong>매수(1순위 코어)</strong></td>
+<td>적정~약간 과소</td>
+<td><strong>✅ 최우선 코어</strong> — 두 관점 모두 긍정, 하방 방어+파이프라인 무료옵션</td>
+</tr>
+<tr>
+<td><strong>머크 KGaA</strong></td>
+<td>매수(최저 멀티플)</td>
+<td>분할매수(밸류·구조)</td>
+<td>적정~소폭 저평가</td>
+<td><strong>✅ 밸류 코어</strong> — 두 관점 일치, 바이오공정 확인하며 분할</td>
+</tr>
+<tr>
+<td><strong>AZN</strong></td>
+<td><strong>최선호</strong>(질 최고)</td>
+<td>시장비중(풀밸류)</td>
+<td>적정~다소 고평가</td>
+<td><strong>◐ 질(質) 코어, 진입 규율</strong> — 질은 최고지만 이미 반영 → 눌림목 분할</td>
+</tr>
+<tr>
+<td><strong>노바티스</strong></td>
+<td>중립(절벽 근접)</td>
+<td>보유~매수(과보수 저평가)</td>
+<td>과소~적정</td>
+<td><strong>◐ 방어 보유</strong> — 하방 방어(40%마진·배당), 2027 성장 증명이 촉매</td>
+</tr>
+<tr>
+<td><strong>사노피</strong></td>
+<td>회피(밸류트랩)</td>
+<td><strong>매수(상방 비대칭)</strong></td>
+<td>저평가</td>
+<td><strong>⚠ 관점 상충 → 소규모 밸류 베팅</strong> — 상방 크나 Dupixent 40% 집중 → 작게, 트리거 대기</td>
+</tr>
+<tr>
+<td><strong>갈더마</strong></td>
+<td>조건부(비싼 값)</td>
+<td>비중축소~관망</td>
+<td>고평가(perfection)</td>
+<td><strong>⛔ 관망/소규모</strong> — 성장 최고지만 하방&gt;상방, 조정 시에만</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>두 관점이 일치하는 고확신 종목:</strong> 로슈(긍정)·머크 KGaA(밸류). <strong>가장 논쟁적:</strong> 사노피(질 회피 ↔ 리스크조정 매수), AZN(질 최고 ↔ 풀밸류).</p>
+<hr />
+<h2>3. 최종 포트폴리오 (바스켓 내 100%)</h2>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>종목</th>
+<th>방어형</th>
+<th><strong>균형형(기본)</strong></th>
+<th>공격형(밸류·비대칭)</th>
+<th>통합 근거</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>로슈</td>
+<td>26%</td>
+<td><strong>22%</strong></td>
+<td>20%</td>
+<td>두 관점 긍정, 방어+옵션</td>
+</tr>
+<tr>
+<td>노바티스</td>
+<td>24%</td>
+<td><strong>18%</strong></td>
+<td>14%</td>
+<td>하방 방어 코어</td>
+</tr>
+<tr>
+<td>아스트라제네카</td>
+<td>18%</td>
+<td><strong>18%</strong></td>
+<td>14%</td>
+<td>질 최고, 진입 규율</td>
+</tr>
+<tr>
+<td>머크 KGaA</td>
+<td>14%</td>
+<td><strong>16%</strong></td>
+<td>20%</td>
+<td>밸류·구조, 분할</td>
+</tr>
+<tr>
+<td>사노피</td>
+<td>12%</td>
+<td><strong>16%</strong></td>
+<td>22%</td>
+<td>비대칭 상방, 사이즈 제한</td>
+</tr>
+<tr>
+<td>갈더마</td>
+<td>6%</td>
+<td><strong>10%</strong></td>
+<td>10%</td>
+<td>관망/소규모</td>
+</tr>
+<tr>
+<td><strong>합계</strong></td>
+<td><strong>100%</strong></td>
+<td><strong>100%</strong></td>
+<td><strong>100%</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3>실투자금 예시 배분 (균형형 · 원금 1,000만원 기준)</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>종목</th>
+<th>비중</th>
+<th>배분액</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>로슈</td>
+<td>22%</td>
+<td>2,200,000원</td>
+</tr>
+<tr>
+<td>노바티스</td>
+<td>18%</td>
+<td>1,800,000원</td>
+</tr>
+<tr>
+<td>아스트라제네카</td>
+<td>18%</td>
+<td>1,800,000원</td>
+</tr>
+<tr>
+<td>머크 KGaA</td>
+<td>16%</td>
+<td>1,600,000원</td>
+</tr>
+<tr>
+<td>사노피</td>
+<td>16%</td>
+<td>1,600,000원</td>
+</tr>
+<tr>
+<td>갈더마</td>
+<td>10%</td>
+<td>1,000,000원</td>
+</tr>
+<tr>
+<td><strong>합계</strong></td>
+<td>100%</td>
+<td><strong>10,000,000원</strong></td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>금액은 비례 확대/축소 가능(예: 5,000만원이면 각 ×5). 실제 매수 시 환율·수수료·세금(해외주식 양도세 등)·단주 반올림을 반영. <strong>일시 전액보다 2~3회 분할 진입</strong>을 권장(특히 AZN·갈더마).</p>
+</blockquote>
+<hr />
+<h2>4. 2026 하반기 ~ 2027 촉매·모니터링 캘린더 (개략, 수시 변동)</h2>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>시기</th>
+<th>종목</th>
+<th>이벤트</th>
+<th>왜 중요한가</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>2026 H2</strong></td>
+<td>로슈</td>
+<td>giredestrant <strong>evERA FDA 결정(~12/18)</strong> + lidERA(초기유방암) 우선심사</td>
+<td>최대 파이프라인 자산의 상업화 관문 — 상방 옵션 실현 여부</td>
+</tr>
+<tr>
+<td>2026 H2</td>
+<td>AZN</td>
+<td>핵심 3상 판독 다수 + camizestrant SERENA-4 + Datroway FDA 결정</td>
+<td>풀밸류를 정당화할 '초과달성' 증명 필요</td>
+</tr>
+<tr>
+<td>2026 H2</td>
+<td>AZN</td>
+<td>baxdrostat(고혈압) 출시 램프</td>
+<td>Farxiga LOE 상쇄 여부의 승부처</td>
+</tr>
+<tr>
+<td>2026 H2</td>
+<td>머크 KGaA</td>
+<td>Q3 실적 — 바이오공정(Process Solutions) 성장 지속 확인</td>
+<td>밸류 재평가 트리거(해자 회복 증명)</td>
+</tr>
+<tr>
+<td>2026 H2</td>
+<td>머크 KGaA</td>
+<td>Bio-Techne 통합 진행 + Mavenclad 美 침식 폭</td>
+<td>레버리지·이익 품질 점검</td>
+</tr>
+<tr>
+<td>2026 H2</td>
+<td>노바티스</td>
+<td>Q3 실적 — Entresto 침식 vs 성장브랜드(Kisqali·Pluvicto) 상쇄</td>
+<td>2027 재가속 서사의 선행 지표</td>
+</tr>
+<tr>
+<td>2026 H2</td>
+<td>사노피</td>
+<td>amlitelimab 추가 3상/적응증 + rilzabrutinib 판독 + Dupixent 특허 소송</td>
+<td>Dupixent 대체력 증명 = 리레이팅 트리거</td>
+</tr>
+<tr>
+<td>2026 H2</td>
+<td>갈더마</td>
+<td>Q3 실적 — Nemluvio AD 램프 + 톡신 가격 경쟁</td>
+<td>priced-for-perfection 유지 여부</td>
+</tr>
+<tr>
+<td><strong>2027</strong></td>
+<td>노바티스</td>
+<td><strong>2027 성장 재가속 증명 원년</strong></td>
+<td>시장이 기다리는 핵심 촉매 — 리레이팅 관건</td>
+</tr>
+<tr>
+<td>2027</td>
+<td>로슈</td>
+<td>giredestrant 초기유방암 출시 + 비만(CT-388) 데이터</td>
+<td>무료옵션의 가치 현실화</td>
+</tr>
+<tr>
+<td>2027</td>
+<td>AZN</td>
+<td>추가 3상 3건 + IRA(Calquence 등) 순차 적용</td>
+<td>파이프라인 vs 가격상한 균형</td>
+</tr>
+<tr>
+<td>2027</td>
+<td>사노피</td>
+<td>Ph3 리드아웃 + Dupixent 특허 판결</td>
+<td>€55(하드클리프) vs €115(대체 성공) 분기점</td>
+</tr>
+<tr>
+<td>2027</td>
+<td>머크 KGaA</td>
+<td>EPS 두 자릿수 반등 확인</td>
+<td>밸류 논리 검증</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>모니터링 원칙:</strong> 세 관점 %가 크게 벌어진 종목(사노피 −27%/+50%, 갈더마 −50%/+33%)일수록 위 이벤트의 실제 결과가 수익률을 좌우 → 해당 이벤트를 트리거로 비중 조정.</p>
+<hr />
+<h2>5. 참조 &amp; 한계</h2>
+<ul>
+<li><strong>상세 근거는 두 원본 리포트 참조:</strong></li>
+<li><code>UBS_유럽제약_종목재평가_및_밸류에이션.(md/html)</code> — 재무 시계열·특허 스케줄·DCF·민감도</li>
+<li><code>UBS_유럽제약_3관점분석.(md/html)</code> — 비관/낙관/시장가해석 + 해자/SWOT + 논쟁의 핵심</li>
+<li><strong>한계:</strong> 비중·배분액은 <em>이 6종목 바스켓 내 상대 배분</em>이며 전체 자산배분 권고가 아니다. 개인의 위험성향·기존 보유·환헤지·세금 미반영. 밸류에이션 %는 목표주가가 아닌 가정 밴드. 캘린더 일정은 개략치로 변동 가능. <strong>투자자문이 아니다 — 최종 판단·책임은 투자자 본인.</strong></li>
+</ul>
+</div>
+</body></html>
