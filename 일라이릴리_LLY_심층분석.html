@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>일라이릴리(LLY) — 심층 기업분석</title>
+<style>
+  :root{
+    --bg:#ffffff; --paper:#f4f6f9; --card:#ffffff; --line:#e3e8ef; --ink:#111620; --muted:#5b6572;
+    --brand:#b3122c; --brand-soft:#fbe9ec; --brand-ink:#a10f26;
+    --up:#0f8452; --up-bg:#e7f5ee; --down:#c33c34; --down-bg:#fbeae8; --watch:#a9781a; --watch-bg:#faf2df;
+    --shadow:0 1px 2px rgba(16,22,32,.06),0 6px 20px rgba(16,22,32,.06);
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#0a0e13; --paper:#0e141b; --card:#131a23; --line:#243040; --ink:#e8eef5; --muted:#95a1b1;
+    --brand:#e06b7d; --brand-soft:#2b1216; --brand-ink:#f0919e;
+    --up:#4bcb8c; --up-bg:#0f281e; --down:#ef8880; --down-bg:#2b1614; --watch:#e0b552; --watch-bg:#2a2110;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }}
+  :root[data-theme="dark"]{
+    --bg:#0a0e13; --paper:#0e141b; --card:#131a23; --line:#243040; --ink:#e8eef5; --muted:#95a1b1;
+    --brand:#e06b7d; --brand-soft:#2b1216; --brand-ink:#f0919e;
+    --up:#4bcb8c; --up-bg:#0f281e; --down:#ef8880; --down-bg:#2b1614; --watch:#e0b552; --watch-bg:#2a2110;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"]{
+    --bg:#ffffff; --paper:#f4f6f9; --card:#ffffff; --line:#e3e8ef; --ink:#111620; --muted:#5b6572;
+    --brand:#b3122c; --brand-soft:#fbe9ec; --brand-ink:#a10f26;
+    --up:#0f8452; --up-bg:#e7f5ee; --down:#c33c34; --down-bg:#fbeae8; --watch:#a9781a; --watch-bg:#faf2df;
+    --shadow:0 1px 2px rgba(16,22,32,.06),0 6px 20px rgba(16,22,32,.06);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;overflow-x:hidden}
+  .wrap{max-width:900px;margin:0 auto;padding:0 18px 84px}
+  h2{font-size:1.36rem;letter-spacing:-.01em;margin:0;text-wrap:balance}
+  h3{font-size:1.06rem;margin:18px 0 8px;letter-spacing:-.01em;text-wrap:balance}
+  h4{font-size:.96rem;margin:14px 0 6px}
+  p{margin:.55em 0}
+  a{color:var(--brand-ink)}
+  small{font-size:.82em}
+  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--brand-ink);opacity:.9}
+  .toggle{position:fixed;top:10px;right:10px;z-index:20;background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:8px 12px;font-size:.8rem;cursor:pointer;box-shadow:var(--shadow);min-height:40px}
+  .hero{padding:52px 0 26px;border-bottom:1px solid var(--line)}
+  .hero h1{font-size:1.95rem;line-height:1.2;letter-spacing:-.02em;margin:.35em 0 .3em;text-wrap:balance}
+  .hero .lead{font-size:1.04rem;color:var(--muted);max-width:60ch}
+  .hero .meta{margin-top:16px;font-size:.8rem;color:var(--muted)}
+  .thesis{margin-top:18px;padding:15px 17px;background:var(--brand-soft);border-radius:12px;font-size:.97rem}
+  .thesis b{color:var(--brand-ink)}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:20px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 12px;box-shadow:var(--shadow)}
+  .kpi .l{font-size:.68rem;color:var(--muted);font-weight:600}
+  .kpi .v{font-size:1.12rem;font-weight:800;color:var(--brand-ink);margin-top:2px}
+  .kpi .s{font-size:.66rem;color:var(--muted);margin-top:1px}
+  section{padding:38px 0;border-bottom:1px solid var(--line);scroll-margin-top:12px}
+  .sec-head{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
+  .sec-head .n{font-size:.86rem;font-weight:800;color:var(--brand-ink)}
+  .lead-s{color:var(--muted);margin:2px 0 16px;font-size:.92rem}
+  /* summary table */
+  table{width:100%;border-collapse:collapse;font-size:.86rem;margin:12px 0;display:block;overflow-x:auto;white-space:nowrap}
+  @media(min-width:640px){table{display:table;white-space:normal}}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:.74rem;color:var(--muted);font-weight:700;background:var(--paper)}
+  td b{color:var(--brand-ink)}
+  tr:last-child td{border-bottom:none}
+  .num{text-align:right;font-variant-numeric:tabular-nums}
+  /* two-layer detail */
+  details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:0;margin:12px 0;box-shadow:var(--shadow);overflow:hidden}
+  details>summary{cursor:pointer;list-style:none;padding:14px 16px;font-weight:700;font-size:.98rem;display:flex;justify-content:space-between;align-items:center;gap:10px}
+  details>summary::-webkit-details-marker{display:none}
+  details>summary::after{content:"＋";color:var(--brand-ink);font-weight:800;font-size:1.1rem}
+  details[open]>summary::after{content:"－"}
+  details>summary:hover{color:var(--brand-ink)}
+  .dbody{padding:2px 16px 16px}
+  .dbody h4:first-child{margin-top:4px}
+  .tagm{display:inline-block;font-size:.68rem;font-weight:800;padding:2px 8px;border-radius:20px;margin-left:6px}
+  .m-up{background:var(--up-bg);color:var(--up)} .m-down{background:var(--down-bg);color:var(--down)} .m-both{background:var(--brand-soft);color:var(--brand-ink)}
+  .callout{background:var(--paper);border-left:3px solid var(--brand);border-radius:8px;padding:10px 13px;margin:12px 0;font-size:.9rem}
+  .callout b{color:var(--brand-ink)}
+  ul.tight{margin:6px 0;padding-left:18px}
+  ul.tight li{margin:5px 0;font-size:.9rem;line-height:1.5}
+  .dr{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:13px 0}
+  .dr .col{border-radius:12px;padding:13px 15px;border:1px solid var(--line)}
+  .dr .up{background:var(--up-bg)} .dr .down{background:var(--down-bg)}
+  .dr h5{margin:0 0 7px;font-size:.9rem}
+  .dr .up h5{color:var(--up)} .dr .down h5{color:var(--down)}
+  .dr ul{margin:0;padding-left:1px;list-style:none}
+  .dr li{position:relative;padding-left:17px;margin:6px 0;font-size:.87rem;line-height:1.46}
+  .dr .up li::before{content:"▲";position:absolute;left:0;color:var(--up);font-size:.64rem;top:.35em}
+  .dr .down li::before{content:"▼";position:absolute;left:0;color:var(--down);font-size:.64rem;top:.35em}
+  @media(max-width:560px){.kpis{grid-template-columns:repeat(2,1fr)}.dr{grid-template-columns:1fr}}
+  .chart{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 16px 10px;margin:16px 0;box-shadow:var(--shadow)}
+  .chart .ct{font-weight:800;font-size:.95rem;margin-bottom:2px}
+  .chart .cs{font-size:.78rem;color:var(--muted);margin-bottom:12px}
+  .chart svg{width:100%;height:auto;display:block}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.76rem;color:var(--muted);margin-top:8px}
+  .legend span{display:inline-flex;align-items:center;gap:5px}
+  .legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
+  /* valuation bars */
+  .vrow{display:grid;grid-template-columns:88px 1fr 96px;gap:9px;align-items:center;margin:11px 0}
+  .vrow .vn{font-weight:700;font-size:.82rem}
+  .vtrack{position:relative;height:22px;background:var(--paper);border-radius:6px;overflow:hidden}
+  .vbar{position:absolute;top:0;bottom:0;border-radius:6px;opacity:.9}
+  .vprice{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink);z-index:3}
+  .vval{font-size:.78rem;font-weight:800;text-align:right}
+  .moat{display:grid;grid-template-columns:1fr;gap:9px;margin:12px 0}
+  .mo{display:grid;grid-template-columns:130px 78px 1fr;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:10px 13px;box-shadow:var(--shadow);font-size:.86rem}
+  .mo .mn{font-weight:800}
+  .mo .stars{color:var(--watch);font-size:.82rem;letter-spacing:1px}
+  .mo .md{color:var(--muted);font-size:.82rem}
+  @media(max-width:560px){.mo{grid-template-columns:1fr;gap:3px}.mo .md{grid-column:1}}
+  .disc{background:var(--paper);border-radius:11px;padding:13px 15px;margin-top:20px;font-size:.82rem;color:var(--muted)}
+  .toc{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
+  .toc a{font-size:.8rem;text-decoration:none;background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:5px 12px;color:var(--ink)}
+  .toc a:hover{border-color:var(--brand);color:var(--brand-ink)}
+  .backhome{font-size:.82rem;margin-top:8px;display:inline-block}
+</style>
+</head>
+<body>
+<button class="toggle" onclick="(function(){var r=document.documentElement;var d=(r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));r.setAttribute('data-theme',d==='dark'?'light':'dark')})()">◐ 화면 밝기</button>
+<div class="wrap">
+
+<div class="hero">
+  <div class="eyebrow">종목 심층분석 · 레버(동인)까지</div>
+  <h1>일라이릴리 (Eli Lilly, NYSE:LLY)</h1>
+  <p class="lead">"당뇨·비만 인크레틴(GLP-1) 플랫폼"으로 재탄생한 세계 1위 제약사. 초고마진·넓은 해자·폭발 성장 — 다만 밸류에이션이 완벽에 가까운 실행을 요구한다.</p>
+  <p class="meta">기준일 2026-07-12 · 보고통화 USD · 정보 제공용, 투자자문 아님 · <a class="backhome" href="index.html">← 리포트 모음</a></p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="l">주가 / 시총</div><div class="v">~$1,189</div><div class="s">~$1.06~1.12T · 제약 세계1위</div></div>
+    <div class="kpi"><div class="l">FY25 매출</div><div class="v">~$65.2b</div><div class="s">+45% YoY</div></div>
+    <div class="kpi"><div class="l">선행 PER</div><div class="v">~30~31x</div><div class="s">EV/EBITDA ~29x · PEG ~1.0~1.2</div></div>
+    <div class="kpi"><div class="l">컨센 목표가</div><div class="v">~$1,251</div><div class="s">범위 $850~1,500</div></div>
+  </div>
+
+  <div class="thesis">
+    <b>한 줄 논지.</b> 매출의 <b>~56%(~$36.5b)</b>가 티르제파타이드(마운자로+젭바운드) 단일 계열에서 나오며 <b>+100%</b> 성장 중. 볼륨(+65%)이 가격하락(-13%)을 압도해 <b>영업마진 ~40%+</b>. 특허(~2036)·제조 스케일·R&D 플랫폼의 3중 해자가 견고하나, <b>선행 PER ~30x</b>는 장기 두 자릿수 성장과 마진 유지를 이미 가격에 반영 — 상방은 열려 있고 하방(정책·경쟁·디레이팅)도 실재하는 <b>비대칭</b> 구조.
+  </div>
+
+  <div class="toc">
+    <a href="#s1">① 사업·수익구조</a>
+    <a href="#s2">② 5개년 재무</a>
+    <a href="#s3">③ 경쟁구도</a>
+    <a href="#s4">④ 경제적 해자</a>
+    <a href="#s5">⑤ 매크로</a>
+    <a href="#s6">⑥ 가치평가</a>
+    <a href="#s7">⑦ 종합·리스크</a>
+  </div>
+</div>
+
+<!-- ================= 한눈에 요약 표 ================= -->
+<section id="glance">
+  <div class="sec-head"><span class="n">한눈에</span><h2>결론 + 핵심 레버</h2></div>
+  <table>
+    <tr><th>항목</th><th>결론</th><th>그렇게 된 핵심 레버</th></tr>
+    <tr><td><b>정체성</b></td><td>세계 1위 제약사, 사실상 GLP-1 플랫폼 기업</td><td>티르제파타이드 계열이 매출 ~56%, +100% 성장</td></tr>
+    <tr><td><b>수익구조</b></td><td>소수 블록버스터 고집중·초고마진</td><td>GM ~80%+ · OM ~40%+ · 특허가 가격결정력 보증</td></tr>
+    <tr><td><b>성장</b></td><td>FY25 +45% → FY26E +28%</td><td>볼륨 +65%가 가격 -13% 압도</td></tr>
+    <tr><td><b>파이프라인</b></td><td>경구 오르포글리프론(2026.4 승인)·3중작용제 레타트루타이드</td><td>주사→알약 전환으로 TAM 급확대, 원가·확장성 우위</td></tr>
+    <tr><td><b>경쟁</b></td><td>노보노디스크 추월(美 GLP-1 ~60%)</td><td>임상 우월성 + 제조 스케일</td></tr>
+    <tr><td><b>해자</b></td><td>넓고 깊음, 향후 5~10년 강화 우세</td><td>특허 ~2036 × 제조 $50b+ × R&D 플랫폼</td></tr>
+    <tr><td><b>밸류</b></td><td>성장으로 정당화되나 완벽 실행 요구</td><td>선행 PER ~30x · PEG ~1.0~1.2</td></tr>
+  </table>
+</section>
+
+<!-- ================= (1) 사업·수익구조 ================= -->
+<section id="s1">
+  <div class="sec-head"><span class="n">01</span><h2>사업 모델 · 수익 구조</h2></div>
+  <p class="lead-s">어디서, 얼마를, 왜 그렇게 버는가 — '돈 버는 방식'의 해부.</p>
+
+  <div class="callout"><b>본질:</b> 특허받은 분자를 초고마진으로 파는 순수 오리지널 제약사. 가격결정력=특허 독점, 초고마진=낮은 한계비용, 반복매출=만성질환 평생치료. 이 셋이 결합해 <b>매출총이익률 ~80%+</b>가 나온다.</div>
+
+  <div class="chart">
+    <div class="ct">FY25 매출 구성 (~$65.2b)</div>
+    <div class="cs">티르제파타이드(마운자로+젭바운드) 단일 계열이 절반 이상 — 성장 폭발력이자 집중 리스크의 원천</div>
+    <svg viewBox="0 0 400 190" role="img" aria-label="FY25 매출 구성 막대">
+      <!-- stacked horizontal bar: total width 360 for 65.2b => scale 5.52 px per $b -->
+      <g font-size="9" fill="var(--muted)">
+        <!-- Mounjaro 23b -->
+        <rect x="20" y="30" width="127" height="34" rx="3" fill="#b3122c"/>
+        <text x="83" y="51" fill="#fff" text-anchor="middle" font-weight="700">마운자로 ~$23b</text>
+        <!-- Zepbound 13.5b -->
+        <rect x="149" y="30" width="75" height="34" rx="3" fill="#e0576b"/>
+        <text x="186" y="51" fill="#fff" text-anchor="middle" font-weight="700">젭바운드 13.5</text>
+        <!-- Verzenio ~5.5 -->
+        <rect x="226" y="30" width="30" height="34" rx="3" fill="#3d7bbf"/>
+        <!-- Jardiance ~3.5 -->
+        <rect x="258" y="30" width="19" height="34" rx="3" fill="#5a97d6"/>
+        <!-- Trulicity ~3.5 -->
+        <rect x="279" y="30" width="19" height="34" rx="3" fill="#8fb8e0"/>
+        <!-- Taltz ~3 -->
+        <rect x="300" y="30" width="17" height="34" rx="3" fill="#a9781a"/>
+        <!-- others ~13 -->
+        <rect x="319" y="30" width="61" height="34" rx="3" fill="#9aa4b0"/>
+        <text x="349" y="51" fill="#fff" text-anchor="middle" font-weight="700">기타</text>
+      </g>
+      <text x="20" y="20" font-size="10" fill="var(--ink)" font-weight="700">인크레틴 합산 ~$36.5b = 매출의 ~56% (+100%)</text>
+      <line x1="20" y1="72" x2="224" y2="72" stroke="var(--brand)" stroke-width="2"/>
+      <text x="122" y="86" font-size="9" fill="var(--brand-ink)" text-anchor="middle" font-weight="700">← 티르제파타이드 계열 →</text>
+    </svg>
+    <div class="legend">
+      <span><i style="background:#b3122c"></i>마운자로(당뇨)</span>
+      <span><i style="background:#e0576b"></i>젭바운드(비만)</span>
+      <span><i style="background:#3d7bbf"></i>버제니오(종양)</span>
+      <span><i style="background:#5a97d6"></i>자디앙스</span>
+      <span><i style="background:#8fb8e0"></i>트룰리시티</span>
+      <span><i style="background:#a9781a"></i>탈츠</span>
+      <span><i style="background:#9aa4b0"></i>기타</span>
+    </div>
+  </div>
+
+  <details open>
+    <summary>왜 — '돈 버는 방식' 상세</summary>
+    <div class="dbody">
+      <h4>① 가격결정력의 원천 = 특허 독점</h4>
+      <p>신약이 임상으로 효능·안전을 입증하고 FDA 승인을 받으면 물질특허 기간 동안 동일성분 경쟁이 법적으로 차단된다. 이 기간 릴리는 사실상 가격을 스스로 정한다. 티르제파타이드는 ~2036까지 이 독점이 보장된다.</p>
+      <h4>② 초고마진 = 낮은 한계비용 + 운영 레버리지</h4>
+      <p>약 한 단위 추가 원가(원료·충전·포장)는 판매가 대비 매우 낮아 GM ~80%+. R&D(연 ~$11b+)·판관비가 큰 고정비이나, 매출이 이를 빠르게 넘어서며 <b>영업이익이 매출보다 훨씬 빠르게 증가</b>(FY25 영업이익 +104%).</p>
+      <h4>③ 반복매출 = 만성질환</h4>
+      <p>당뇨·비만·자가면역·암은 대부분 평생치료. 처방 궤도에 오른 환자는 이탈이 적어 매출이 반복적·예측가능.</p>
+      <h4>④ 성장의 회계학 — 볼륨이 가격을 압도</h4>
+      <p>Q1'26 매출 +56% = <b>볼륨 +65%</b> + <b>실현가격 -13%</b>. 리베이트·경쟁·정책으로 순가격은 매년 마이너스지만 신규환자 유입이 훨씬 빨라 매출 급증. <b>투자 관건 = 볼륨이 가격하락을 언제까지 앞서느냐.</b></p>
+      <h4>⑤ 지역·유통</h4>
+      <p>미국 ~60%+ 편중이나 미국 외가 더 빠르게 성장(Q1'26 US +43%, ex-US +81%). 자사 D2C <b>LillyDirect</b>로 자가부담 환자 직접판매(오르포글리프론 self-pay 월 $149, 보험 시 월 $25) — 유통·리베이트 마진 일부 내부화.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ================= (2) 5개년 재무 ================= -->
+<section id="s2">
+  <div class="sec-head"><span class="n">02</span><h2>5개년 재무제표 + 해석</h2></div>
+  <p class="lead-s">숫자와 '그렇게 된 원인' — 무엇이 성장·마진·현금을 끌었고 무엇이 눌렀나.</p>
+
+  <div class="chart">
+    <div class="ct">매출 & 영업마진 궤적 (FY21→FY25)</div>
+    <div class="cs">2021~22 정체 → 2023 선행투자로 마진 함몰 → 2024~25 운영 레버리지 폭발</div>
+    <svg viewBox="0 0 400 210" role="img" aria-label="매출과 영업마진 추이">
+      <!-- axes -->
+      <g font-size="9" fill="var(--muted)">
+        <text x="8" y="30">$65b</text><text x="8" y="170">$0</text>
+        <!-- x labels -->
+        <text x="55" y="200" text-anchor="middle">FY21</text>
+        <text x="125" y="200" text-anchor="middle">FY22</text>
+        <text x="195" y="200" text-anchor="middle">FY23</text>
+        <text x="265" y="200" text-anchor="middle">FY24</text>
+        <text x="335" y="200" text-anchor="middle">FY25</text>
+      </g>
+      <!-- revenue bars: max 65 => scale, baseline y=165, top area 30..165 =135px -->
+      <!-- 28.3->59px,28.5->59,34.1->71,45->93,65.2->135 -->
+      <g fill="#b3122c" opacity="0.88">
+        <rect x="38" y="106" width="34" height="59" rx="2"/>
+        <rect x="108" y="106" width="34" height="59" rx="2"/>
+        <rect x="178" y="94" width="34" height="71" rx="2"/>
+        <rect x="248" y="72" width="34" height="93" rx="2"/>
+        <rect x="318" y="30" width="34" height="135" rx="2"/>
+      </g>
+      <g font-size="8.5" fill="var(--ink)" font-weight="700" text-anchor="middle">
+        <text x="55" y="100">28.3</text><text x="125" y="100">28.5</text><text x="195" y="88">34.1</text><text x="265" y="66">45.0</text><text x="335" y="24">65.2</text>
+      </g>
+      <!-- operating margin line: 27,30,19,29,40 (%). map 0..50% to y 165..30 (135px/50=2.7) -->
+      <!-- 27->92.1,30->84,19->113.7,29->86.7,40->57 (y=165-val*2.7) -->
+      <polyline points="55,92 125,84 195,114 265,87 335,57" fill="none" stroke="var(--watch)" stroke-width="2.5"/>
+      <g fill="var(--watch)">
+        <circle cx="55" cy="92" r="3.5"/><circle cx="125" cy="84" r="3.5"/><circle cx="195" cy="114" r="3.5"/><circle cx="265" cy="87" r="3.5"/><circle cx="335" cy="57" r="3.5"/>
+      </g>
+      <g font-size="8.5" fill="var(--watch)" font-weight="700" text-anchor="middle">
+        <text x="55" y="83">27%</text><text x="128" y="75">30%</text><text x="195" y="127">19%</text><text x="265" y="78">29%</text><text x="335" y="49">40%</text>
+      </g>
+    </svg>
+    <div class="legend"><span><i style="background:#b3122c"></i>매출($b)</span><span><i style="background:#a9781a"></i>영업마진(%)</span></div>
+  </div>
+
+  <table>
+    <tr><th>지표</th><th class="num">FY21</th><th class="num">FY22</th><th class="num">FY23</th><th class="num">FY24</th><th class="num">FY25</th></tr>
+    <tr><td>매출</td><td class="num">28.3</td><td class="num">28.5</td><td class="num">34.1</td><td class="num">45.0</td><td class="num"><b>65.2</b></td></tr>
+    <tr><td>성장률</td><td class="num">—</td><td class="num">+1%</td><td class="num">+20%</td><td class="num">+32%</td><td class="num"><b>+45%</b></td></tr>
+    <tr><td>매출총이익률</td><td class="num">~74%</td><td class="num">~77%</td><td class="num">~79%</td><td class="num">~81%</td><td class="num"><b>~80%+</b></td></tr>
+    <tr><td>영업마진</td><td class="num">~27%</td><td class="num">~30%</td><td class="num">~19%</td><td class="num">~29%</td><td class="num"><b>~40%</b></td></tr>
+    <tr><td>GAAP 순이익</td><td class="num">5.58</td><td class="num">6.24</td><td class="num">5.24</td><td class="num">10.59</td><td class="num"><b>20.64</b></td></tr>
+    <tr><td>GAAP EPS</td><td class="num">6.1</td><td class="num">6.9</td><td class="num">5.8</td><td class="num">11.7</td><td class="num"><b>~22.9</b></td></tr>
+    <tr><td>OCF</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">8.82</td><td class="num"><b>16.81</b></td></tr>
+    <tr><td>FCF</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">3.76</td><td class="num"><b>10.37</b></td></tr>
+    <tr><td>순부채</td><td colspan="4" class="num">—</td><td class="num"><b>~38 (~0.6x EBITDA)</b></td></tr>
+  </table>
+  <p style="font-size:.78rem;color:var(--muted)">단위 $b(EPS·마진 제외). 근사치. FY26E: OCF ~$20.5b·캐펙스 ~$10b·FCF ~$10.4b·비GAAP EPS $35.5~37.</p>
+
+  <details open>
+    <summary>왜 — 연도별 레버 해부</summary>
+    <div class="dbody">
+      <h4>FY21~22 (정체, +1%)</h4>
+      <p>코로나 항체 매출이 팬데믹 종료로 급감하며 기저 성장 상쇄. 마운자로는 2022.5 승인 직후라 기여 미미 → 성장 눌림.</p>
+      <h4>FY23 (+20%, 그러나 마진·EPS 하락)</h4>
+      <p>마운자로 램프업으로 톱라인 회복했으나 <b>영업마진 ~19%로 급락</b>. 원인은 대규모 IPR&D 상각·인수비용 + 파이프라인 투자 급증. <b>미래 성장을 위한 의도적 재투자</b> — 부실이 아닌 선행투자.</p>
+      <h4>FY24 (+32%, 순이익 +102%)</h4>
+      <p>젭바운드(2023.11 비만 승인) 첫 온전 기여. <b>운영 레버리지 발현</b> — 매출이 고정비를 넘어서며 순이익이 매출의 3배 속도로 증가.</p>
+      <h4>FY25 (+45%, 순이익 +95%, OM ~40%)</h4>
+      <ul class="tight">
+        <li><b>볼륨 폭발</b> — 마운자로 +99%, 젭바운드 +175%. 구조적 수요 + 공급병목 해소.</li>
+        <li><b>운영 레버리지 만개</b> — GM 80%+에 비용증가율 &lt; 매출증가율 → OM 29%→40% 점프.</li>
+        <li><b>현금 전환</b> — OCF ~$16.8b, FCF +176%.</li>
+      </ul>
+      <h4>무엇이 눌렀나</h4>
+      <ul class="tight">
+        <li><b>가격 하락</b> — 리베이트·경쟁·MFN으로 실현가 매년 마이너스.</li>
+        <li><b>캐펙스</b> — 공급확대 위해 연 ~$8~10b 투자 → FCF가 순이익 하회.</li>
+        <li><b>자기잠식</b> — 트룰리시티가 마운자로로 이전되며 감소.</li>
+      </ul>
+      <div class="callout"><b>급소:</b> 지금의 초고마진은 인크레틴 볼륨이 고정비를 압도한 결과. 성장이 둔화되면 이 레버리지가 <b>역방향</b>으로 작동할 수 있다.</div>
+    </div>
+  </details>
+</section>
+
+<!-- ================= (3) 경쟁구도 ================= -->
+<section id="s3">
+  <div class="sec-head"><span class="n">03</span><h2>경쟁 구도 · 경쟁력</h2></div>
+  <p class="lead-s">누구와 싸우고, 왜 이기고(또는 지고) 있나.</p>
+
+  <div class="chart">
+    <div class="ct">비만약 효능 정면비교 (SURMOUNT-5, 72주)</div>
+    <div class="cs">젭바운드(릴리) vs 위고비(노보) — 효능 우위가 점유율 우위로 직결</div>
+    <svg viewBox="0 0 400 96" role="img" aria-label="체중감소 비교">
+      <g font-size="10" fill="var(--ink)" font-weight="700">
+        <text x="10" y="30">젭바운드</text>
+        <text x="10" y="70">위고비</text>
+      </g>
+      <!-- scale 20% => 300px => 15px per % -->
+      <rect x="90" y="18" width="300" height="20" rx="4" fill="#b3122c"/>
+      <text x="380" y="33" font-size="10" fill="#fff" text-anchor="end" font-weight="800">-20%</text>
+      <rect x="90" y="58" width="210" height="20" rx="4" fill="#3d7bbf"/>
+      <text x="292" y="73" font-size="10" fill="#fff" text-anchor="end" font-weight="800">-14%</text>
+      <text x="90" y="93" font-size="8.5" fill="var(--brand-ink)" font-weight="700">상대 47% 우위</text>
+    </svg>
+  </div>
+
+  <div class="chart">
+    <div class="ct">양강 인크레틴 매출 & 美 GLP-1 점유</div>
+    <div class="cs">릴리 ~$36.5b vs 노보 ~$32b (FY25) · 미국 GLP-1 신규점유 릴리 ~60%</div>
+    <svg viewBox="0 0 400 96" role="img" aria-label="릴리 대 노보 매출">
+      <g font-size="10" fill="var(--ink)" font-weight="700">
+        <text x="10" y="30">릴리</text><text x="10" y="70">노보</text>
+      </g>
+      <rect x="60" y="18" width="331" height="20" rx="4" fill="#b3122c"/>
+      <text x="384" y="33" font-size="10" fill="#fff" text-anchor="end" font-weight="800">$36.5b · 점유↑</text>
+      <rect x="60" y="58" width="290" height="20" rx="4" fill="#3d7bbf"/>
+      <text x="343" y="73" font-size="10" fill="#fff" text-anchor="end" font-weight="800">$32b · 점유↓</text>
+    </svg>
+  </div>
+
+  <details open>
+    <summary>왜 이기나 — 3중 우위</summary>
+    <div class="dbody">
+      <h4>① 임상 우월성</h4>
+      <p>티르제파타이드는 GLP-1+GIP <b>이중작용제</b>로 단일작용제(세마글루타이드)보다 효능↑. 젭바운드 -20% vs 위고비 -14%(상대 47% 우위).</p>
+      <h4>② 제조 스케일</h4>
+      <p>미국 $27b+ 포함 누적 $50b+ 증설로 <b>공급병목을 경쟁보다 빨리 해소</b>. 비만약은 "만들 수 있는 만큼 팔리는" 공급제약 시장 → 캐파 자체가 점유율 무기.</p>
+      <h4>③ 차세대 파이프라인 선점</h4>
+      <ul class="tight">
+        <li><b>오르포글리프론</b>(경구 소분자 GLP-1): 2026.4.1 FDA 비만 승인(첫 경구 소분자). 알약이라 주사 기피층·글로벌 대량공급 유리, 소분자라 원가·확장성 우월. 피크 ~$10~16b. 당뇨 적응증 2026년 제출 예정.</li>
+        <li><b>레타트루타이드</b>(GLP-1/GIP/글루카곤 3중작용제): 임상 체중감소 ~-28%, 차세대 효능 프론티어, Phase 3.</li>
+      </ul>
+      <h4>인접 전장 & 신흥 위협</h4>
+      <ul class="tight">
+        <li>종양(버제니오·제이피르카)·면역(탈츠·옴보·엡글리스)·알츠하이머(Kisunla, vs 레켐비)로 다각화.</li>
+        <li><b>신흥 위협</b> — 암젠(MariTide)·로슈(CT-388/petrelintide)·바이킹(VK2735). 화이자 경구(다누글리프론)는 사실상 실패. 향후 3~5년 데이터가 릴리 점유 상단을 제약할 변수.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<!-- ================= (4) 해자 ================= -->
+<section id="s4">
+  <div class="sec-head"><span class="n">04</span><h2>경제적 해자</h2></div>
+  <p class="lead-s">유형·강도·지속성·침식/강화 방향 — 근거와 함께.</p>
+
+  <div class="moat">
+    <div class="mo"><span class="mn">특허(무형자산)</span><span class="stars">★★★★★</span><span class="md">티르제파타이드 물질 ~2036·제형 ~2039~41. 근접 절벽 없음</span></div>
+    <div class="mo"><span class="mn">R&D 플랫폼</span><span class="stars">★★★★★</span><span class="md">인크레틴 과학 리더십 — 파이프라인-인-어-플랫폼. 계속 강화</span></div>
+    <div class="mo"><span class="mn">규모의 경제(제조)</span><span class="stars">★★★★☆</span><span class="md">$50b+ 캐펙스로 대량생산. 후발이 수년간 못 따라오는 캐파 장벽</span></div>
+    <div class="mo"><span class="mn">브랜드·선점</span><span class="stars">★★★★☆</span><span class="md">마운자로·젭바운드 인지, 의사·환자 친숙, LillyDirect</span></div>
+    <div class="mo"><span class="mn">전환비용</span><span class="stars">★★★☆☆</span><span class="md">만성 평생치료·타이트레이션·내약성 적응 → 이탈 마찰(중간)</span></div>
+    <div class="mo"><span class="mn">네트워크효과</span><span class="stars">★★☆☆☆</span><span class="md">직접 네트워크는 약함(임상데이터 축적이 간접우위)</span></div>
+  </div>
+
+  <details open>
+    <summary>왜 — 폭·깊이·방향</summary>
+    <div class="dbody">
+      <p><b>폭이 넓다:</b> 단일 해자가 아니라 <b>특허 × 제조 스케일 × R&D 플랫폼</b>이 상호 보강. 특허가 만료돼도 다음 세대 분자(오르포글리프론·레타트루타이드)로 갈아탈 준비 → 해자를 스스로 갱신.</p>
+      <p><b>깊이가 깊다:</b> GM 80%+·OM 40%+·높은 ROIC 자체가 해자의 재무적 증거(경쟁이 마진을 아직 잠식 못 함).</p>
+      <p><b>가장 견고한 축 = R&D 플랫폼:</b> 특허는 언젠가 만료되나, 인크레틴 과학의 축적된 데이터·노하우·연속 신약창출 능력은 복제 난이도가 매우 높은 '진짜' 무형자산. 1세대(주사)→2세대(경구)→3세대(3중)로 프론티어를 계속 여는 것이 증거.</p>
+      <div class="dr">
+        <div class="col up"><h5>강화 요인</h5><ul>
+          <li>오르포글리프론·레타트루타이드 성공 → 특허시계 리셋, 지배 연장</li>
+          <li>제조 캐파 선점 → 공급제약 시장서 점유 굳히기</li>
+          <li>비만 적응증 확장(심혈관·수면무호흡·MASH·신장) → TAM 극대화</li>
+        </ul></div>
+        <div class="col down"><h5>침식 요인</h5><ul>
+          <li>MFN·IRA로 실현가격 구조적 압박(이미 -13%/분기)</li>
+          <li>암젠·로슈·바이킹 2세대 데이터가 좋으면 점유·프리미엄 축소</li>
+          <li>2036+ 티르제파타이드 절벽(먼 미래, 매출 바통 이전이 관건)</li>
+        </ul></div>
+      </div>
+      <div class="callout"><b>결론:</b> 해자는 현재 <b>넓고 깊으며 향후 5~10년 강화 방향</b>이 우세. 진짜 시험대는 2030년대 초중반 — 티르제파타이드 절벽 전에 차세대가 매출 바통을 잇느냐가 분수령.</div>
+    </div>
+  </details>
+</section>
+
+<!-- ================= (5) 매크로 ================= -->
+<section id="s5">
+  <div class="sec-head"><span class="n">05</span><h2>매크로 영향</h2></div>
+  <p class="lead-s">일반론 금지 — 릴리에 '실제로' 작용하는 전달 경로.</p>
+  <table>
+    <tr><th>요인</th><th>전달 경로(무엇을·어느 방향)</th><th>왜 릴리에 특히 중요</th></tr>
+    <tr><td><b>美 약가정책(MFN)</b><span class="tagm m-down">마진·매출↓</span></td><td>실현가격 ↓ → 매출·마진 압박</td><td>매출 대부분이 미국 처방약. 고가·대량 GLP-1이 정책 표적되기 쉬움</td></tr>
+    <tr><td><b>IRA 협상</b><span class="tagm m-down">매출↓</span></td><td>특정 품목 가격 강제 인하</td><td>자디앙스 이미 대상. 티르제파타이드가 ~2027+ 대상 시 최대 매출원 직격</td></tr>
+    <tr><td><b>비만 커버리지 확대</b><span class="tagm m-up">매출↑</span></td><td>볼륨 ↑ → TAM 확대</td><td>메디케어 비만 보장 확대 시 릴리 최대 수혜(상방 매크로)</td></tr>
+    <tr><td><b>금리/WACC</b><span class="tagm m-down">밸류↓</span></td><td>할인율 → 밸류에이션 배수</td><td>현금흐름이 먼 미래에 몰린 장기성장주 → PER 30x의 취약점</td></tr>
+    <tr><td><b>제조 캐파</b><span class="tagm m-both">성장속도</span></td><td>볼륨 상한 → 성장률</td><td>"만들 수 있는 만큼 팔린다" → 증설속도=성장률. 캐펙스가 FCF 압박</td></tr>
+    <tr><td><b>관세·리쇼어링</b><span class="tagm m-both">원가</span></td><td>공급·원가 안정</td><td>미국 $27b+ 증설로 선제 완화</td></tr>
+    <tr><td><b>USD 환율</b><span class="tagm m-both">환산</span></td><td>미국 외 매출 환산</td><td>미국 편중이라 노출 중간, ex-US 성장으로 점증</td></tr>
+  </table>
+  <div class="callout"><b>교차 통찰:</b> 가장 결정적인 둘은 <b>① 약가정책(마진·매출 하방)</b>과 <b>② 금리(밸류에이션 배수)</b>. 동시 악화 시 "성장 유지 + 멀티플 압축" 이중고. 반대로 비만 커버리지 확대라는 상방이 있어 방향은 비대칭.</div>
+</section>
+
+<!-- ================= (6) 가치평가 ================= -->
+<section id="s6">
+  <div class="sec-head"><span class="n">06</span><h2>가치평가 — 4관점 + 레버</h2></div>
+  <p class="lead-s">결과 숫자만이 아니라 '어떤 레버가 그 결과를 만들었나'.</p>
+
+  <div class="chart">
+    <div class="ct">시나리오별 적정가치 vs 현재가 (~$1,189)</div>
+    <div class="cs">검은 선 = 현재가. 결과를 가르는 3대 레버: 비만점유·실현가격·영업마진 (+ WACC)</div>
+    <!-- price line at $1189, scale 0..1700 across track -->
+    <div class="vrow"><span class="vn">비관 DCF</span>
+      <div class="vtrack"><div class="vbar" style="left:47%;width:9%;background:var(--down)"></div><div class="vprice" style="left:70%"></div></div>
+      <span class="vval" style="color:var(--down)">~$800~950</span></div>
+    <div class="vrow"><span class="vn">현재가/역DCF</span>
+      <div class="vtrack"><div class="vbar" style="left:0;width:70%;background:var(--muted);opacity:.35"></div><div class="vprice" style="left:70%"></div></div>
+      <span class="vval">~$1,189</span></div>
+    <div class="vrow"><span class="vn">컨센 목표</span>
+      <div class="vtrack"><div class="vbar" style="left:50%;width:38%;background:var(--watch)"></div><div class="vprice" style="left:70%"></div></div>
+      <span class="vval" style="color:var(--watch)">$1,251<br><small>($850~1,500)</small></span></div>
+    <div class="vrow"><span class="vn">낙관 DCF</span>
+      <div class="vtrack"><div class="vbar" style="left:82%;width:12%;background:var(--up)"></div><div class="vprice" style="left:70%"></div></div>
+      <span class="vval" style="color:var(--up)">~$1,400~1,600</span></div>
+  </div>
+
+  <details open>
+    <summary>DCF 낙관 → ~$1,400~1,600 : 무엇이 밀어올렸나</summary>
+    <div class="dbody">
+      <p><b>레버 조합:</b> 매출 CAGR ~17%(2030 ~$120b+), 영업마진 ~45%로 확장, FCF마진 ~35%, WACC 7.5%, 영구성장 4%.</p>
+      <ul class="tight">
+        <li><b>비만 TAM 확대</b>(최대 레버) — 적응증 확장으로 시장 $150b+, 릴리 ~50% 유지.</li>
+        <li><b>오르포글리프론(피크 ~$16b)+레타트루타이드</b>가 2·3차 성장파 → 성장 지속기간 연장(fade 지연) → 터미널 가치 급증.</li>
+        <li>운영 레버리지 지속으로 마진 45% → FCF 절대액 증폭.</li>
+        <li><b>민감도:</b> 영구성장 3%→4.5% 시 밸류 ~15%+↑. '성장 지속기간'에 극도로 민감.</li>
+      </ul>
+    </div>
+  </details>
+  <details>
+    <summary>DCF 비관 → ~$800~950 : 무엇이 눌렀나</summary>
+    <div class="dbody">
+      <p><b>레버 조합:</b> 매출 CAGR ~8~10%로 둔화(2030 ~$90b 플래토), 영업마진 ~35%로 압축, 실현가격 연 -8~10%, WACC 8.5%, 영구성장 3%.</p>
+      <ul class="tight">
+        <li><b>가격 훼손 가속</b>(최대 하방) — MFN+IRA+경구 경쟁으로 볼륨 늘어도 순가격 하락이 매출·마진 잠식.</li>
+        <li><b>점유율 상실</b> — 암젠·로슈·노보 경구가 비만 점유 상단 삭감.</li>
+        <li>마진 45%→35% 압축만으로 FCF 급감.</li>
+        <li><b>민감도:</b> WACC 7.5%→8.5%만으로 장기성장주 특성상 밸류 ~15~20%↓.</li>
+      </ul>
+    </div>
+  </details>
+  <details>
+    <summary>역DCF(현재가가 반영한 기대)</summary>
+    <div class="dbody">
+      <p><b>~$1,189가 요구하는 조건:</b> 매출 ~15~18% CAGR을 8~10년(2030년대 중반 ~$130~160b), 영업마진 40%+ 유지, 비만시장 $100b+에서 릴리 ~50% 점유 사수, WACC ~8%·터미널 ~4%.</p>
+      <p><b>해석:</b> 시장은 "거의 완벽에 가까운 장기 실행"을 요구. 현재가는 낙관과 기본 사이를 반영 — 컨센 실현 시 정당, 가격·점유·마진 중 하나라도 어긋나면 하방. PEG ~1.0~1.2는 "성장 대비 과하지 않다"는 신호이나 그 성장이 <b>전제조건부</b>인 것이 핵심.</p>
+    </div>
+  </details>
+  <details>
+    <summary>상대평가(피어 멀티플)</summary>
+    <div class="dbody">
+      <table>
+        <tr><th>회사</th><th class="num">선행 PER</th><th class="num">매출성장</th><th>코멘트</th></tr>
+        <tr><td><b>일라이릴리</b></td><td class="num"><b>~30~31x</b></td><td class="num"><b>+28%</b></td><td>프리미엄, PEG ~1.0~1.2</td></tr>
+        <tr><td>노보노디스크</td><td class="num">~18~20x</td><td class="num">둔화</td><td>점유상실·MFN</td></tr>
+        <tr><td>애브비</td><td class="num">~15x</td><td class="num">중저</td><td>휴미라 절벽 후 회복</td></tr>
+        <tr><td>머크</td><td class="num">~12x</td><td class="num">저</td><td>키트루다 절벽(~2028)</td></tr>
+        <tr><td>화이자</td><td class="num">~9x</td><td class="num">정체</td><td>코로나 후 공백</td></tr>
+      </table>
+      <p><b>레버 해석:</b> ~30x는 피어(9~20x) 대비 명백한 프리미엄이나 성장률(28% vs 한 자릿수)로 나누면 <b>PEG 기준으로는 피어와 비슷하거나 저렴</b>. "절대 PER은 비싸고 성장조정 PER은 합리적"이라는 이중성. 프리미엄 정당성은 전적으로 <b>비만 성장 지속성</b>에 걸려 있음 — 둔화 신호 시 멀티플이 피어로 수렴(디레이팅)하며 주가 급락 위험.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ================= (7) 종합 ================= -->
+<section id="s7">
+  <div class="sec-head"><span class="n">07</span><h2>종합 · 리스크 · 결론</h2></div>
+
+  <table>
+    <tr><th>구분</th><th>스탠스</th><th>레버별 근거</th></tr>
+    <tr><td><b>품질</b></td><td>최상급</td><td>GM 80%+/OM 40%+ · 넓고 깊은 해자 · 자기갱신형 R&D</td></tr>
+    <tr><td><b>성장</b></td><td>최상급</td><td>FY25 +45%, FY26E +28%, 볼륨(+65%)이 가격(-13%) 압도</td></tr>
+    <tr><td><b>밸런스시트</b></td><td>견고</td><td>순부채 ~0.6x EBITDA, 증설·인수 여력</td></tr>
+    <tr><td><b>밸류에이션</b></td><td>부담</td><td>선행 PER ~30x·EV/EBITDA ~29x — 완벽 실행 요구</td></tr>
+    <tr><td><b>비대칭</b></td><td>상방 열림·하방 존재</td><td>TAM이 컨센 초과 시 현재가도 저렴 / 정책·점유 훼손 시 디레이팅</td></tr>
+  </table>
+
+  <div class="dr">
+    <div class="col up"><h5>강세론(왜 오를 수 있나)</h5><ul>
+      <li>비만 TAM이 컨센 상회(적응증 확장)</li>
+      <li>오르포글리프론·레타트루타이드 2·3차 성장파로 지속기간 연장</li>
+      <li>제조 캐파 선점으로 점유 사수</li>
+      <li>마진 45%로 추가 확장 → 낙관 ~$1,400~1,600</li>
+    </ul></div>
+    <div class="col down"><h5>약세론(왜 내릴 수 있나)</h5><ul>
+      <li>MFN·IRA로 실현가격 구조적 훼손</li>
+      <li>암젠·로슈·노보 경구가 점유·프리미엄 압박</li>
+      <li>성장 둔화 신호 시 30x→피어 디레이팅</li>
+      <li>금리 상승으로 WACC↑·멀티플 압축 → 비관 ~$800~950</li>
+    </ul></div>
+  </div>
+
+  <h3>촉매 캘린더(모니터링)</h3>
+  <ul class="tight">
+    <li><b>분기 실적</b> — 볼륨 vs 가격 스프레드, 비만 미국 점유율 추이</li>
+    <li><b>오르포글리프론</b> — 당뇨 적응증 FDA 제출·승인, 실판매 램프</li>
+    <li><b>레타트루타이드</b> — Phase 3 판독</li>
+    <li><b>경쟁 데이터</b> — 암젠 MariTide·로슈 CT-388·바이킹 VK2735</li>
+    <li><b>정책</b> — MFN 이행, IRA 협상 리스트, 메디케어 비만 커버리지</li>
+    <li><b>캐파</b> — 신규 공장 가동·공급 정상화</li>
+  </ul>
+
+  <h3>리스크 관리</h3>
+  <ul class="tight">
+    <li><b>집중 리스크</b> — 매출 56%가 단일 분자. 티르제파타이드 안전성 이슈·정책 타깃화가 최대 단일 위험.</li>
+    <li><b>밸류에이션 리스크</b> — 높은 멀티플 = 실망 민감도 큼. 실행이 컨센을 살짝만 밑돌아도 조정.</li>
+    <li><b>분산·진입</b> — 방어적이라면 분할매수·비중조절로 멀티플 압축 리스크 관리(구체 배분·금액은 개인 위험성향·기준통화에 따라 달라져 별도 확인 필요).</li>
+  </ul>
+
+  <div class="callout"><b>최종:</b> 릴리는 <b>품질·성장 최상급</b>의 카테고리 리더로, 넓고 깊은 해자가 향후 5~10년 강화 방향. 다만 현재가는 이미 강한 미래를 반영해 <b>안전마진이 얇다</b>. 밸류를 가르는 3대 레버는 <b>비만 점유율·실현가격·영업마진</b>이며, 여기에 <b>금리(WACC)</b>가 배수를 별도로 흔든다.</div>
+</section>
+
+<div class="disc">
+  ⚠️ 본 자료는 <b>정보 제공용이며 투자자문이 아닙니다.</b> 통화는 <b>USD</b> 기준, 수치는 <b>2026-07-12</b> 근처 근사치(~)로 실제와 다를 수 있습니다. 주가·시총·멀티플은 시장 변동에 따라 수시로 바뀌며, 배분·금액은 예시일 뿐 개인 상황(위험성향·자금·세금·환율)을 반영하지 않았습니다. 투자 판단과 책임은 본인에게 있습니다.<br><br>
+  주요 출처: SEC EDGAR(LLY FY25 8-K/10-K, Q1'26 8-K/10-Q), investor.lilly.com, PR Newswire(Q1 2026 실적, 2026-04-30), AJMC·PBS(오르포글리프론 FDA 승인 2026-04-01), DrugPatentWatch·Lilly Patent Notice(특허), Motley Fool·CNBC·24/7 Wall St.(릴리 vs 노보), MarketBeat·Public·Macrotrends(밸류·목표가).
+  <br><br><a href="index.html">← 리포트 모음으로</a>
+</div>
+
+</div>
+</body>
+</html>
