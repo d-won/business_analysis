@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>유럽 제약주 6종목 — 쉽게 보는 핵심 요약</title>
 <style>
   :root{
@@ -30,122 +27,143 @@
     --shadow:0 1px 2px rgba(16,22,32,.06),0 6px 20px rgba(16,22,32,.06);
   }
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
   body{margin:0;background:var(--bg);color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
-    line-height:1.65;font-size:16px;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
-  .wrap{max-width:900px;margin:0 auto;padding:0 20px 96px}
-  h2{font-size:1.42rem;letter-spacing:-.01em;margin:0;text-wrap:balance}
-  h3{font-size:1.12rem;margin:0;letter-spacing:-.01em}
+    line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;overflow-x:hidden}
+  .wrap{max-width:900px;margin:0 auto;padding:0 18px 84px}
+  h2{font-size:1.36rem;letter-spacing:-.01em;margin:0;text-wrap:balance}
+  h3{font-size:1.08rem;margin:0;letter-spacing:-.01em;text-wrap:balance}
   p{margin:.5em 0}
   a{color:var(--brand-ink)}
-  .eyebrow{font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--brand-ink);opacity:.85}
-  /* ---- top bar ---- */
-  .toggle{position:fixed;top:12px;right:12px;z-index:20;background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:7px 12px;font-size:.8rem;cursor:pointer;box-shadow:var(--shadow)}
-  /* ---- hero ---- */
-  .hero{padding:64px 0 34px;border-bottom:1px solid var(--line)}
-  .hero h1{font-size:2.15rem;line-height:1.22;letter-spacing:-.02em;margin:.35em 0 .3em;text-wrap:balance}
-  .hero .lead{font-size:1.08rem;color:var(--muted);max-width:62ch}
-  .hero .meta{margin-top:18px;font-size:.82rem;color:var(--muted)}
-  .thesis{margin-top:22px;padding:16px 20px;background:var(--brand-soft);border-radius:12px;font-size:1rem}
+  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--brand-ink);opacity:.85}
+  .toggle{position:fixed;top:10px;right:10px;z-index:20;background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:8px 12px;font-size:.8rem;cursor:pointer;box-shadow:var(--shadow);min-height:40px}
+  .hero{padding:52px 0 30px;border-bottom:1px solid var(--line)}
+  .hero h1{font-size:1.95rem;line-height:1.2;letter-spacing:-.02em;margin:.35em 0 .3em;text-wrap:balance}
+  .hero .lead{font-size:1.04rem;color:var(--muted);max-width:60ch}
+  .hero .meta{margin-top:16px;font-size:.8rem;color:var(--muted)}
+  .thesis{margin-top:20px;padding:15px 17px;background:var(--brand-soft);border-radius:12px;font-size:.98rem}
   .thesis b{color:var(--brand-ink)}
-  /* ---- section ---- */
-  section{padding:46px 0;border-bottom:1px solid var(--line)}
-  .sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:22px}
-  .sec-head .n{font-size:.9rem;font-weight:800;color:var(--brand-ink);font-variant-numeric:tabular-nums}
-  /* ---- drivers primer ---- */
-  .forces{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  @media(max-width:640px){.forces{grid-template-columns:1fr}}
-  .force{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow)}
-  .force h4{margin:0 0 6px;font-size:1rem}
-  .force p{margin:0;font-size:.92rem;color:var(--muted)}
-  .force .tagm{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 8px;border-radius:20px;margin-bottom:8px}
+  section{padding:40px 0;border-bottom:1px solid var(--line);scroll-margin-top:12px}
+  .sec-head{display:flex;align-items:baseline;gap:10px;margin-bottom:18px}
+  .sec-head .n{font-size:.88rem;font-weight:800;color:var(--brand-ink)}
+  .lead-s{color:var(--muted);margin:-6px 0 16px;font-size:.92rem}
+  /* cards / grids */
+  .forces{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .force{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 16px;box-shadow:var(--shadow)}
+  .force h4{margin:0 0 6px;font-size:.98rem}
+  .force p{margin:0;font-size:.9rem;color:var(--muted)}
+  .force .tagm{display:inline-block;font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:20px;margin-bottom:8px}
   .m-up{background:var(--up-bg);color:var(--up)} .m-down{background:var(--down-bg);color:var(--down)} .m-both{background:var(--brand-soft);color:var(--brand-ink)}
-  /* ---- dashboard cards ---- */
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  @media(max-width:640px){.grid{grid-template-columns:1fr}}
-  .mini{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .mini{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 16px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:9px}
   .mini .top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
-  .mini .nm{font-weight:800;font-size:1.05rem}
-  .mini .sub{font-size:.78rem;color:var(--muted)}
-  .pill{font-size:.74rem;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap}
+  .mini .nm{font-weight:800;font-size:1.02rem}
+  .mini .sub{font-size:.76rem;color:var(--muted)}
+  .pill{font-size:.72rem;font-weight:800;padding:3px 9px;border-radius:20px;white-space:nowrap}
   .p-buy{background:var(--up-bg);color:var(--up)} .p-hold{background:var(--watch-bg);color:var(--watch)} .p-avoid{background:var(--down-bg);color:var(--down)}
-  /* valuation meter */
   .meter{margin-top:2px}
-  .meter .track{position:relative;height:8px;border-radius:6px;background:linear-gradient(90deg,var(--up) 0%,var(--up) 30%,#9aa4b0 45%,#9aa4b0 55%,var(--down) 70%,var(--down) 100%);opacity:.32}
+  .meter .track{position:relative;height:8px;border-radius:6px;background:linear-gradient(90deg,var(--up) 0%,var(--up) 30%,#9aa4b0 45%,#9aa4b0 55%,var(--down) 70%,var(--down) 100%);opacity:.34}
   .meter .dot{position:absolute;top:50%;width:14px;height:14px;border-radius:50%;background:var(--card);border:3px solid var(--ink);transform:translate(-50%,-50%);box-shadow:0 1px 3px rgba(0,0,0,.3)}
-  .meter .lbls{display:flex;justify-content:space-between;font-size:.68rem;color:var(--muted);margin-top:5px}
-  /* ---- company section ---- */
-  .co{padding:30px 0;border-top:1px dashed var(--line)}
+  .meter .lbls{display:flex;justify-content:space-between;font-size:.66rem;color:var(--muted);margin-top:5px}
+  /* CSS 막대 차트 (모바일 최적) */
+  .rrleg{font-size:.86rem;color:var(--muted);margin:0 0 12px}
+  .rrow{display:grid;grid-template-columns:64px 38px 1fr 42px;gap:7px;align-items:center;margin:9px 0}
+  .rrow .rn{font-weight:700;font-size:.8rem}
+  .rrow .bear{text-align:right;color:var(--down);font-weight:800;font-size:.76rem}
+  .rrow .bull{color:var(--up);font-weight:800;font-size:.76rem}
+  .rrtrack{position:relative;height:19px;background:var(--paper);border-radius:5px}
+  .rrtrack .zero{position:absolute;left:50%;top:-3px;bottom:-3px;width:2px;background:var(--muted);opacity:.55;transform:translateX(-1px)}
+  .rrtrack .loss{position:absolute;right:50%;top:2px;bottom:2px;background:var(--down);border-radius:4px 0 0 4px;opacity:.9}
+  .rrtrack .gain{position:absolute;left:50%;top:2px;bottom:2px;background:var(--up);border-radius:0 4px 4px 0;opacity:.92}
+  .axis0{text-align:center;font-size:.7rem;color:var(--muted);margin-top:4px}
+  .pe{display:grid;grid-template-columns:74px 1fr 60px;gap:8px;align-items:center;margin:8px 0}
+  .pe .pn{font-weight:700;font-size:.8rem}
+  .pe .ptrack{height:17px;background:var(--paper);border-radius:5px;overflow:hidden}
+  .pe .pbar{height:100%;background:var(--brand);border-radius:5px}
+  .pe .pv{font-size:.76rem;font-weight:800;text-align:right}
+  .smgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .sm{border:1px solid var(--line);border-radius:11px;padding:10px 11px 7px;background:var(--card);box-shadow:var(--shadow)}
+  .sm-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px}
+  .sm-nm{font-weight:700;font-size:.8rem}
+  .sm-v{font-weight:800;font-size:.95rem;color:var(--brand-ink)} .sm-v small{font-size:.6rem;color:var(--muted);font-weight:600}
+  .sm-f{font-size:.72rem;color:var(--muted);margin-top:2px}
+  /* company deep cards */
+  .co{padding:26px 0;border-top:1px dashed var(--line)}
   .co:first-of-type{border-top:none}
-  .co-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:4px}
-  .co-head .rank{width:30px;height:30px;border-radius:9px;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.95rem;flex-shrink:0}
+  .co-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+  .co-head .rank{width:28px;height:28px;border-radius:8px;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.92rem;flex-shrink:0}
   :root[data-theme="dark"] .co-head .rank{color:#0a0e13}
-  @media (prefers-color-scheme:dark){.co-head .rank{color:#0a0e13}}
-  .co-head .nm{font-size:1.28rem;font-weight:800;letter-spacing:-.01em}
-  .co-head .flag{font-size:.8rem;color:var(--muted);font-weight:600}
-  .co .oneline{font-size:1rem;color:var(--ink);margin:8px 0 16px}
+  .co-head .nm{font-size:1.2rem;font-weight:800;letter-spacing:-.01em}
+  .co-head .flag{font-size:.78rem;color:var(--muted);font-weight:600}
+  .co .oneline{font-size:.98rem;margin:8px 0 14px}
   .co .oneline b{color:var(--brand-ink)}
-  .dr{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
-  @media(max-width:640px){.dr{grid-template-columns:1fr}}
-  .dr .col{border-radius:12px;padding:14px 16px;border:1px solid var(--line)}
+  .dr{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:13px 0}
+  .dr .col{border-radius:12px;padding:13px 15px;border:1px solid var(--line)}
   .dr .up{background:var(--up-bg)} .dr .down{background:var(--down-bg)}
-  .dr h5{margin:0 0 8px;font-size:.92rem;display:flex;align-items:center;gap:6px}
+  .dr h5{margin:0 0 7px;font-size:.9rem}
   .dr .up h5{color:var(--up)} .dr .down h5{color:var(--down)}
-  .dr ul{margin:0;padding-left:2px;list-style:none}
-  .dr li{position:relative;padding-left:18px;margin:7px 0;font-size:.9rem;line-height:1.5}
-  .dr .up li::before{content:"▲";position:absolute;left:0;color:var(--up);font-size:.7rem;top:.25em}
-  .dr .down li::before{content:"▼";position:absolute;left:0;color:var(--down);font-size:.7rem;top:.25em}
-  .keyvar{display:flex;gap:10px;align-items:flex-start;background:var(--brand-soft);border-radius:11px;padding:12px 15px;margin:14px 0;font-size:.94rem}
+  .dr ul{margin:0;padding-left:1px;list-style:none}
+  .dr li{position:relative;padding-left:17px;margin:6px 0;font-size:.88rem;line-height:1.48}
+  .dr .up li::before{content:"▲";position:absolute;left:0;color:var(--up);font-size:.66rem;top:.3em}
+  .dr .down li::before{content:"▼";position:absolute;left:0;color:var(--down);font-size:.66rem;top:.3em}
+  .keyvar{display:flex;gap:9px;align-items:flex-start;background:var(--brand-soft);border-radius:11px;padding:11px 14px;margin:13px 0;font-size:.92rem}
   .keyvar .k{font-weight:800;color:var(--brand-ink);white-space:nowrap}
-  .concl{display:flex;gap:10px;align-items:baseline;font-size:.97rem;margin-top:10px}
-  .concl .badge{font-size:.74rem;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap}
-  /* ---- portfolio ---- */
-  .alloc{display:flex;flex-direction:column;gap:11px;margin-top:6px}
-  .arow{display:grid;grid-template-columns:110px 1fr 92px;gap:12px;align-items:center}
-  @media(max-width:560px){.arow{grid-template-columns:90px 1fr 78px}}
-  .arow .an{font-weight:700;font-size:.92rem}
-  .arow .bar{height:22px;background:var(--brand);border-radius:6px;min-width:2px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;color:#fff;font-size:.76rem;font-weight:700}
+  .concl{display:flex;gap:9px;align-items:baseline;font-size:.94rem;margin-top:9px;flex-wrap:wrap}
+  .concl .badge{font-size:.72rem;font-weight:800;padding:3px 9px;border-radius:20px;white-space:nowrap}
+  /* risk section */
+  .rk{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 4px}
+  .rk .item{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--down);border-radius:10px;padding:11px 13px;box-shadow:var(--shadow)}
+  .rk .item b{font-size:.9rem} .rk .item p{margin:3px 0 0;font-size:.85rem;color:var(--muted)}
+  .bigrisk{background:var(--down-bg);border:1px solid color-mix(in srgb,var(--down) 30%,transparent);border-radius:12px;padding:15px 17px;margin:16px 0}
+  .bigrisk h4{margin:0 0 8px;font-size:1rem;color:var(--down)}
+  .bigrisk ul{margin:0;padding-left:18px} .bigrisk li{margin:6px 0;font-size:.92rem}
+  .rules{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+  .rule{display:flex;gap:10px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 13px;box-shadow:var(--shadow)}
+  .rule .rc{width:24px;height:24px;border-radius:7px;background:var(--brand-soft);color:var(--brand-ink);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.82rem;flex-shrink:0}
+  .rule .rt{font-size:.9rem} .rule .rt b{color:var(--brand-ink)}
+  /* macro */
+  .mac{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+  .mac .m{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+  .mac .m .ic{font-size:1.2rem} .mac .m h4{margin:4px 0 5px;font-size:.96rem} .mac .m p{margin:0;font-size:.87rem;color:var(--muted)}
+  /* portfolio */
+  .alloc{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+  .arow{display:grid;grid-template-columns:96px 1fr 88px;gap:10px;align-items:center}
+  .arow .an{font-weight:700;font-size:.88rem}
+  .arow .bar{height:22px;background:var(--brand);border-radius:6px;min-width:24px;display:flex;align-items:center;justify-content:flex-end;padding-right:7px;color:#fff;font-size:.74rem;font-weight:700}
   :root[data-theme="dark"] .arow .bar{color:#0a0e13}
-  @media (prefers-color-scheme:dark){.arow .bar{color:#0a0e13}}
-  .arow .amt{text-align:right;font-size:.86rem;color:var(--muted);font-variant-numeric:tabular-nums}
-  .tilts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
-  @media(max-width:640px){.tilts{grid-template-columns:1fr}}
-  .tilt{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--card);box-shadow:var(--shadow);font-size:.88rem}
-  .tilt h4{margin:0 0 8px;font-size:.98rem}
+  .arow .amt{text-align:right;font-size:.82rem;color:var(--muted)}
+  .tilts{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:18px}
+  .tilt{border:1px solid var(--line);border-radius:12px;padding:13px 15px;background:var(--card);box-shadow:var(--shadow);font-size:.86rem}
+  .tilt h4{margin:0 0 8px;font-size:.96rem}
   .tilt .r{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--line)}
   .tilt .r:last-child{border-bottom:none}
-  /* ---- timeline ---- */
-  .tl{display:flex;flex-direction:column;gap:0}
-  .tl .row{display:grid;grid-template-columns:96px 1fr;gap:16px;padding:14px 0;border-top:1px solid var(--line)}
+  .tl{display:flex;flex-direction:column}
+  .tl .row{display:grid;grid-template-columns:84px 1fr;gap:13px;padding:13px 0;border-top:1px solid var(--line)}
   .tl .row:first-child{border-top:none}
-  .tl .when{font-weight:800;font-size:.82rem;color:var(--brand-ink);padding-top:2px}
-  .tl .ev{font-size:.92rem}
-  .tl .ev .co-tag{font-weight:700}
-  .tl .ev small{color:var(--muted)}
-  /* ---- glossary ---- */
-  .gloss{columns:2;column-gap:26px}
-  @media(max-width:640px){.gloss{columns:1}}
+  .tl .when{font-weight:800;font-size:.8rem;color:var(--brand-ink)}
+  .tl .ev{font-size:.9rem} .tl .ev .co-tag{font-weight:700} .tl .ev small{color:var(--muted)}
   .gloss dt{font-weight:800;font-size:.9rem;margin-top:10px;color:var(--brand-ink)}
-  .gloss dd{margin:2px 0 0;font-size:.88rem;color:var(--muted)}
-  .note{font-size:.82rem;color:var(--muted);background:var(--paper);border-radius:10px;padding:12px 15px;margin-top:16px}
-  footer{padding:34px 0 0;font-size:.82rem;color:var(--muted)}
-  .disc{background:var(--watch-bg);border:1px solid color-mix(in srgb,var(--watch) 35%,transparent);border-radius:11px;padding:13px 16px;font-size:.84rem;margin-top:14px}
-  .smgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-  @media(max-width:640px){.smgrid{grid-template-columns:1fr 1fr}}
-  .sm{border:1px solid var(--line);border-radius:11px;padding:11px 12px 8px;background:var(--card);box-shadow:var(--shadow)}
-  .sm-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px}
-  .sm-nm{font-weight:700;font-size:.86rem}
-  .sm-v{font-weight:800;font-size:1rem;color:var(--brand-ink)} .sm-v small{font-size:.62rem;color:var(--muted);font-weight:600;margin-left:1px}
-  .sm-f{font-size:.75rem;color:var(--muted);margin-top:3px}
+  .gloss dd{margin:2px 0 0;font-size:.87rem;color:var(--muted)}
+  .note{font-size:.82rem;color:var(--muted);background:var(--paper);border-radius:10px;padding:12px 14px;margin-top:14px}
+  footer{padding:30px 0 0;font-size:.82rem;color:var(--muted)}
+  .disc{background:var(--watch-bg);border:1px solid color-mix(in srgb,var(--watch) 35%,transparent);border-radius:11px;padding:13px 15px;font-size:.83rem;margin-top:13px}
+  /* ---------- 모바일 ---------- */
+  @media(max-width:620px){
+    .wrap{padding:0 14px 70px}
+    .hero{padding:40px 0 26px} .hero h1{font-size:1.6rem} .hero .lead{font-size:.98rem}
+    section{padding:34px 0}
+    h2{font-size:1.24rem}
+    .forces,.grid,.dr,.rk,.mac{grid-template-columns:1fr}
+    .tilts{grid-template-columns:1fr}
+    .smgrid{grid-template-columns:1fr 1fr}
+    .arow{grid-template-columns:76px 1fr 80px;gap:8px}
+    .rrow{grid-template-columns:56px 34px 1fr 38px;gap:5px}
+    .co-head .nm{font-size:1.1rem}
+  }
 </style>
-</head>
-<body>
 <button class="toggle" onclick="(function(){var r=document.documentElement;var d=(r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));r.setAttribute('data-theme',d==='dark'?'light':'dark')})()">◐ 화면 밝기</button>
-
 <div class="wrap">
-
-<!-- HERO -->
 <header class="hero">
   <div class="eyebrow">유럽 제약주 · 쉬운 핵심 요약</div>
   <h1>좋은 회사와 좋은 주식은<br>다를 수 있습니다</h1>
@@ -153,10 +171,8 @@
   <div class="thesis">핵심 한 줄: <b>로슈·머크KGaA</b>는 지금 사도 무난한 <b>안정형</b>, <b>사노피</b>는 싸지만 위험도 있는 <b>도전형</b>, <b>아스트라제네카·갈더마</b>는 회사는 좋지만 <b>값이 이미 비싸</b> 눌림목을 기다릴 종목입니다.</div>
   <div class="meta">작성 2026-07-11 · 대상 6종목: 로슈 · 아스트라제네카 · 머크KGaA · 노바티스 · 사노피 · 갈더마 · <b>투자자문 아님(정보 제공용)</b></div>
 </header>
-
-<!-- 1. 주가를 움직이는 힘 -->
 <section id="forces">
-  <div class="sec-head"><span class="n">01</span><h2>제약주 주가를 움직이는 5가지 힘</h2></div>
+  <div class="sec-head"><span class="n">1</span><h2>제약주 주가를 움직이는 5가지 힘</h2></div>
   <p style="color:var(--muted);margin-top:-8px;margin-bottom:18px">종목을 보기 전에, 제약회사 주가가 왜 오르내리는지부터 알면 훨씬 쉽습니다.</p>
   <div class="forces">
     <div class="force"><span class="tagm m-down">내리는 힘</span><h4>① 특허 만료 (특허절벽)</h4><p>약은 일정 기간 '독점 판매' 권리가 있습니다. 이 기간이 끝나면 값싼 복제약이 쏟아져 매출이 절벽처럼 떨어집니다. 언제·얼마나 만료되는지가 가장 큰 변수.</p></div>
@@ -168,9 +184,21 @@
   </div>
 </section>
 
-<!-- 2. 한눈에 -->
+<!-- 매크로 -->
+<section id="macro">
+  <div class="sec-head"><span class="n">02</span><h2>지금 시장 환경 (매크로)</h2></div>
+  <p class="lead-s">개별 회사만큼 중요한 게 '전체 배경'입니다. 이 5가지가 6종목 전부에 동시에 영향을 줍니다.</p>
+  <div class="mac">
+    <div class="m"><div class="ic">📉</div><h4>금리</h4><p>금리가 <b>내리면</b> 미래 이익의 가치가 커져 제약 같은 안정주에 유리, 배당 매력도 커집니다. <b>오르면</b> 반대. 지금은 금리 인하 기대가 우호적 요인.</p></div>
+    <div class="m"><div class="ic">💱</div><h4>환율 (중요)</h4><p>이 회사들은 유로·스위스프랑·달러로 법니다. <b>원화로 투자하면 환율이 수익률을 좌우</b>합니다 — 주가가 그대로여도 유로·프랑이 강해지면 원화 이익↑, 약해지면 손해.</p></div>
+    <div class="m"><div class="ic">🏛️</div><h4>미국 약가정책·관세</h4><p>미국이 약값을 낮추는 정책(IRA)은 매출에 부담. 의약품 <b>관세</b> 위협도 리스크. 6종목 모두 미국 매출 비중이 커 공통 변수.</p></div>
+    <div class="m"><div class="ic">🛡️</div><h4>경기 방어 성격</h4><p>사람은 아파도 약은 삽니다. 그래서 제약은 <b>경기를 덜 타는 방어주</b>. AI·기술주가 과열될 때 대안으로 자금이 들어오는 이유(이번 UBS 논리의 핵심).</p></div>
+    <div class="m" style="background:var(--brand-soft);border-color:transparent"><div class="ic">🧭</div><h4 style="color:var(--brand-ink)">한 줄 요약</h4><p style="color:var(--ink)">지금은 <b>'AI 일변도의 대안 + 금리 인하 기대'</b>가 유럽 제약에 우호적. 단 <b>약가정책·환율</b>이 언제든 흔들 수 있는 변수입니다.</p></div>
+  </div>
+</section>
+
 <section id="glance">
-  <div class="sec-head"><span class="n">02</span><h2>6종목 한눈에 보기</h2></div>
+  <div class="sec-head"><span class="n">3</span><h2>6종목 한눈에 보기</h2></div>
   <p style="color:var(--muted);margin-top:-8px;margin-bottom:18px">막대의 점(●)이 <b>왼쪽이면 쌈, 오른쪽이면 비쌈</b>. 색 라벨은 지금의 추천 행동입니다.</p>
   <div class="grid">
 
@@ -201,105 +229,25 @@
   </div>
 </section>
 
-
-<!-- 3. 숫자로 한눈에 -->
+<!-- 숫자로 한눈에 -->
 <section id="numbers">
-  <div class="sec-head"><span class="n">03</span><h2>숫자로 한눈에</h2></div>
+  <div class="sec-head"><span class="n">04</span><h2>숫자로 한눈에</h2></div>
+  <h3 style="margin-bottom:6px">📊 얼마나 내리고 얼마나 오를까</h3>
+  <p class="rrleg"><span style="color:var(--down);font-weight:700">■ 왼쪽</span> = 하락 여력 · <span style="color:var(--up);font-weight:700">■ 오른쪽</span> = 상승 여력. 오른쪽으로 길수록 매력적입니다.</p>
+  <div class="rrow"><span class="rn">사노피</span><span class="bear">-27%</span><div class="rrtrack"><span class="zero"></span><span class="loss" style="width:27.0%"></span><span class="gain" style="width:50.0%"></span></div><span class="bull">+50%</span></div><div class="rrow"><span class="rn">로슈</span><span class="bear">-30%</span><div class="rrtrack"><span class="zero"></span><span class="loss" style="width:30.0%"></span><span class="gain" style="width:37.0%"></span></div><span class="bull">+37%</span></div><div class="rrow"><span class="rn">아스트라제네카</span><span class="bear">-40%</span><div class="rrtrack"><span class="zero"></span><span class="loss" style="width:40.0%"></span><span class="gain" style="width:40.0%"></span></div><span class="bull">+40%</span></div><div class="rrow"><span class="rn">머크 KGaA</span><span class="bear">-35%</span><div class="rrtrack"><span class="zero"></span><span class="loss" style="width:35.0%"></span><span class="gain" style="width:29.0%"></span></div><span class="bull">+29%</span></div><div class="rrow"><span class="rn">노바티스</span><span class="bear">-32%</span><div class="rrtrack"><span class="zero"></span><span class="loss" style="width:32.0%"></span><span class="gain" style="width:23.0%"></span></div><span class="bull">+23%</span></div><div class="rrow"><span class="rn">갈더마</span><span class="bear">-50%</span><div class="rrtrack"><span class="zero"></span><span class="loss" style="width:50.0%"></span><span class="gain" style="width:33.0%"></span></div><span class="bull">+33%</span></div>
+  <div class="axis0">가운데 선 = 현재가</div>
 
-  <h3 style="margin-bottom:6px">📊 리스크 · 리워드 — 얼마나 내리고 얼마나 오를까</h3>
-  <p style="color:var(--muted);margin:0 0 14px;font-size:.92rem"><span style="color:var(--down);font-weight:700">■ 왼쪽(빨강)</span>=하락 여력, <span style="color:var(--up);font-weight:700">■ 오른쪽(초록)</span>=상승 여력. 오른쪽으로 길수록 매력적. <b>사노피·로슈</b>가 상승 쪽으로 기운 반면, <b>갈더마</b>는 하락 폭이 더 큽니다.</p>
-  <svg viewBox="0 0 720 340" width="100%" role="img" aria-label="종목별 하락·상승 여력 범위" style="max-width:100%">
-<line x1="172.7" y1="48" x2="172.7" y2="306" stroke="var(--line)" stroke-width="1"/>
-<text x="172.7" y="324" fill="var(--muted)" font-size="11" text-anchor="middle">-50%</text>
-<line x1="286.4" y1="48" x2="286.4" y2="306" stroke="var(--line)" stroke-width="1"/>
-<text x="286.4" y="324" fill="var(--muted)" font-size="11" text-anchor="middle">-25%</text>
-<line x1="400.0" y1="48" x2="400.0" y2="306" stroke="var(--line)" stroke-width="1" stroke-dasharray="4 4"/>
-<text x="400.0" y="324" fill="var(--muted)" font-size="11" text-anchor="middle">현재가</text>
-<line x1="513.6" y1="48" x2="513.6" y2="306" stroke="var(--line)" stroke-width="1"/>
-<text x="513.6" y="324" fill="var(--muted)" font-size="11" text-anchor="middle">+25%</text>
-<line x1="627.3" y1="48" x2="627.3" y2="306" stroke="var(--line)" stroke-width="1"/>
-<text x="627.3" y="324" fill="var(--muted)" font-size="11" text-anchor="middle">+50%</text>
-<text x="12" y="79.0" fill="var(--ink)" font-size="12.5" font-weight="700">사노피</text>
-<rect x="277.3" y="67.0" width="122.7" height="16" rx="4" fill="var(--down)" opacity="0.9"/>
-<rect x="400.0" y="67.0" width="227.3" height="16" rx="4" fill="var(--up)" opacity="0.92"/>
-<rect x="399.0" y="66.0" width="2" height="18" fill="var(--bg)"/>
-<text x="270.3" y="79.0" fill="var(--down)" font-size="11.5" font-weight="700" text-anchor="end">-27%</text>
-<text x="634.3" y="79.0" fill="var(--up)" font-size="11.5" font-weight="700">+50%</text>
-<text x="12" y="121.0" fill="var(--ink)" font-size="12.5" font-weight="700">로슈</text>
-<rect x="263.6" y="109.0" width="136.4" height="16" rx="4" fill="var(--down)" opacity="0.9"/>
-<rect x="400.0" y="109.0" width="168.2" height="16" rx="4" fill="var(--up)" opacity="0.92"/>
-<rect x="399.0" y="108.0" width="2" height="18" fill="var(--bg)"/>
-<text x="256.6" y="121.0" fill="var(--down)" font-size="11.5" font-weight="700" text-anchor="end">-30%</text>
-<text x="575.2" y="121.0" fill="var(--up)" font-size="11.5" font-weight="700">+37%</text>
-<text x="12" y="163.0" fill="var(--ink)" font-size="12.5" font-weight="700">아스트라제네카</text>
-<rect x="218.2" y="151.0" width="181.8" height="16" rx="4" fill="var(--down)" opacity="0.9"/>
-<rect x="400.0" y="151.0" width="181.8" height="16" rx="4" fill="var(--up)" opacity="0.92"/>
-<rect x="399.0" y="150.0" width="2" height="18" fill="var(--bg)"/>
-<text x="211.2" y="163.0" fill="var(--down)" font-size="11.5" font-weight="700" text-anchor="end">-40%</text>
-<text x="588.8" y="163.0" fill="var(--up)" font-size="11.5" font-weight="700">+40%</text>
-<text x="12" y="205.0" fill="var(--ink)" font-size="12.5" font-weight="700">머크 KGaA</text>
-<rect x="240.9" y="193.0" width="159.1" height="16" rx="4" fill="var(--down)" opacity="0.9"/>
-<rect x="400.0" y="193.0" width="131.8" height="16" rx="4" fill="var(--up)" opacity="0.92"/>
-<rect x="399.0" y="192.0" width="2" height="18" fill="var(--bg)"/>
-<text x="233.9" y="205.0" fill="var(--down)" font-size="11.5" font-weight="700" text-anchor="end">-35%</text>
-<text x="538.8" y="205.0" fill="var(--up)" font-size="11.5" font-weight="700">+29%</text>
-<text x="12" y="247.0" fill="var(--ink)" font-size="12.5" font-weight="700">노바티스</text>
-<rect x="254.5" y="235.0" width="145.5" height="16" rx="4" fill="var(--down)" opacity="0.9"/>
-<rect x="400.0" y="235.0" width="104.5" height="16" rx="4" fill="var(--up)" opacity="0.92"/>
-<rect x="399.0" y="234.0" width="2" height="18" fill="var(--bg)"/>
-<text x="247.5" y="247.0" fill="var(--down)" font-size="11.5" font-weight="700" text-anchor="end">-32%</text>
-<text x="511.5" y="247.0" fill="var(--up)" font-size="11.5" font-weight="700">+23%</text>
-<text x="12" y="289.0" fill="var(--ink)" font-size="12.5" font-weight="700">갈더마</text>
-<rect x="172.7" y="277.0" width="227.3" height="16" rx="4" fill="var(--down)" opacity="0.9"/>
-<rect x="400.0" y="277.0" width="150.0" height="16" rx="4" fill="var(--up)" opacity="0.92"/>
-<rect x="399.0" y="276.0" width="2" height="18" fill="var(--bg)"/>
-<text x="165.7" y="289.0" fill="var(--down)" font-size="11.5" font-weight="700" text-anchor="end">-50%</text>
-<text x="557.0" y="289.0" fill="var(--up)" font-size="11.5" font-weight="700">+33%</text>
-</svg>
+  <h3 style="margin:26px 0 6px">💰 지금 비싼가 싼가 (선행 PER)</h3>
+  <p class="rrleg">막대가 <b>짧을수록 쌈.</b> 사노피가 가장 싸고, 갈더마는 고성장을 반영해 유독 깁니다.</p>
+  <div class="pe"><span class="pn">사노피</span><div class="ptrack"><div class="pbar" style="width:18%"></div></div><span class="pv">9배 <span style="color:var(--muted);font-weight:600">가장 쌈</span></span></div><div class="pe"><span class="pn">노바티스</span><div class="ptrack"><div class="pbar" style="width:27%"></div></div><span class="pv">13.5배</span></div><div class="pe"><span class="pn">머크 KGaA</span><div class="ptrack"><div class="pbar" style="width:32%"></div></div><span class="pv">16배</span></div><div class="pe"><span class="pn">아스트라제네카</span><div class="ptrack"><div class="pbar" style="width:34%"></div></div><span class="pv">17배</span></div><div class="pe"><span class="pn">로슈</span><div class="ptrack"><div class="pbar" style="width:35%"></div></div><span class="pv">17.6배</span></div><div class="pe"><span class="pn">갈더마</span><div class="ptrack"><div class="pbar" style="width:94%"></div></div><span class="pv">47배 <span style="color:var(--muted);font-weight:600">고성장 반영</span></span></div>
 
-  <h3 style="margin:30px 0 6px">💰 지금 비싼가 싼가 — 선행 PER 비교</h3>
-  <p style="color:var(--muted);margin:0 0 14px;font-size:.92rem">이익 대비 주가 배수. <b>낮을수록 쌈.</b> 사노피가 가장 싸고, 갈더마는 고성장을 반영해 유독 높습니다(수치가 높다고 무조건 나쁜 건 아님).</p>
-  <svg viewBox="0 0 720 264" width="100%" role="img" aria-label="선행 PER 비교" style="max-width:100%">
-<line x1="150.0" y1="30" x2="150.0" y2="234" stroke="var(--line)" stroke-width="1"/>
-<text x="150.0" y="250" fill="var(--muted)" font-size="11" text-anchor="middle">0배</text>
-<line x1="244.0" y1="30" x2="244.0" y2="234" stroke="var(--line)" stroke-width="1"/>
-<text x="244.0" y="250" fill="var(--muted)" font-size="11" text-anchor="middle">10배</text>
-<line x1="338.0" y1="30" x2="338.0" y2="234" stroke="var(--line)" stroke-width="1"/>
-<text x="338.0" y="250" fill="var(--muted)" font-size="11" text-anchor="middle">20배</text>
-<line x1="432.0" y1="30" x2="432.0" y2="234" stroke="var(--line)" stroke-width="1"/>
-<text x="432.0" y="250" fill="var(--muted)" font-size="11" text-anchor="middle">30배</text>
-<line x1="526.0" y1="30" x2="526.0" y2="234" stroke="var(--line)" stroke-width="1"/>
-<text x="526.0" y="250" fill="var(--muted)" font-size="11" text-anchor="middle">40배</text>
-<line x1="620.0" y1="30" x2="620.0" y2="234" stroke="var(--line)" stroke-width="1"/>
-<text x="620.0" y="250" fill="var(--muted)" font-size="11" text-anchor="middle">50배</text>
-<text x="12" y="53.0" fill="var(--ink)" font-size="12.5" font-weight="700">사노피</text>
-<rect x="150" y="40.0" width="84.6" height="18" rx="4" fill="var(--brand)"/>
-<text x="241.6" y="53.0" fill="var(--ink)" font-size="11.5" font-weight="700">9배 ← 가장 쌈</text>
-<text x="12" y="87.0" fill="var(--ink)" font-size="12.5" font-weight="700">노바티스</text>
-<rect x="150" y="74.0" width="126.9" height="18" rx="4" fill="var(--brand)"/>
-<text x="283.9" y="87.0" fill="var(--ink)" font-size="11.5" font-weight="700">13.5배</text>
-<text x="12" y="121.0" fill="var(--ink)" font-size="12.5" font-weight="700">머크 KGaA</text>
-<rect x="150" y="108.0" width="150.4" height="18" rx="4" fill="var(--brand)"/>
-<text x="307.4" y="121.0" fill="var(--ink)" font-size="11.5" font-weight="700">16배</text>
-<text x="12" y="155.0" fill="var(--ink)" font-size="12.5" font-weight="700">아스트라제네카</text>
-<rect x="150" y="142.0" width="159.8" height="18" rx="4" fill="var(--brand)"/>
-<text x="316.8" y="155.0" fill="var(--ink)" font-size="11.5" font-weight="700">17배</text>
-<text x="12" y="189.0" fill="var(--ink)" font-size="12.5" font-weight="700">로슈</text>
-<rect x="150" y="176.0" width="165.4" height="18" rx="4" fill="var(--brand)"/>
-<text x="322.4" y="189.0" fill="var(--ink)" font-size="11.5" font-weight="700">17.6배</text>
-<text x="12" y="223.0" fill="var(--ink)" font-size="12.5" font-weight="700">갈더마</text>
-<rect x="150" y="210.0" width="441.8" height="18" rx="4" fill="var(--brand)"/>
-<text x="598.8" y="223.0" fill="var(--ink)" font-size="11.5" font-weight="700">47배 (고성장 프리미엄)</text>
-</svg>
-
-  <h3 style="margin:30px 0 10px">📈 매출은 늘고 있나 — 최근 매출 추이</h3>
-  <div class="smgrid"><div class="sm"><div class="sm-h"><span class="sm-nm">로슈</span><span class="sm-v">61.5<small>Cb</small></span></div><svg viewBox="0 0 200 64" width="100%" style="display:block"><polygon points="8,56 8.0,8.0 69.3,56.0 130.7,37.2 192.0,26.8 192,56" fill="var(--brand-soft)"/><polyline points="8.0,8.0 69.3,56.0 130.7,37.2 192.0,26.8" fill="none" stroke="var(--brand)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="192.0" cy="26.8" r="3.6" fill="var(--brand)" stroke="var(--card)" stroke-width="2"/></svg><div class="sm-f">'22→'25 · <b style="color:var(--down)">-3%</b></div></div><div class="sm"><div class="sm-h"><span class="sm-nm">아스트라제네카</span><span class="sm-v">58.7<small>Ub</small></span></div><svg viewBox="0 0 200 64" width="100%" style="display:block"><polygon points="8,56 8.0,56.0 54.0,40.2 100.0,37.1 146.0,18.4 192.0,8.0 192,56" fill="var(--brand-soft)"/><polyline points="8.0,56.0 54.0,40.2 100.0,37.1 146.0,18.4 192.0,8.0" fill="none" stroke="var(--brand)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="192.0" cy="8.0" r="3.6" fill="var(--brand)" stroke="var(--card)" stroke-width="2"/></svg><div class="sm-f">'21→'25 · <b style="color:var(--up)">+57%</b></div></div><div class="sm"><div class="sm-h"><span class="sm-nm">머크 KGaA</span><span class="sm-v">21.1<small>Eb</small></span></div><svg viewBox="0 0 200 64" width="100%" style="display:block"><polygon points="8,56 8.0,56.0 54.0,8.0 100.0,31.0 146.0,27.2 192.0,29.1 192,56" fill="var(--brand-soft)"/><polyline points="8.0,56.0 54.0,8.0 100.0,31.0 146.0,27.2 192.0,29.1" fill="none" stroke="var(--brand)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="192.0" cy="29.1" r="3.6" fill="var(--brand)" stroke="var(--card)" stroke-width="2"/></svg><div class="sm-f">'21→'25 · <b style="color:var(--up)">+7%</b></div></div><div class="sm"><div class="sm-h"><span class="sm-nm">노바티스</span><span class="sm-v">54.5<small>Ub</small></span></div><svg viewBox="0 0 200 64" width="100%" style="display:block"><polygon points="8,56 8.0,56.0 100.0,30.2 192.0,8.0 192,56" fill="var(--brand-soft)"/><polyline points="8.0,56.0 100.0,30.2 192.0,8.0" fill="none" stroke="var(--brand)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="192.0" cy="8.0" r="3.6" fill="var(--brand)" stroke="var(--card)" stroke-width="2"/></svg><div class="sm-f">'23→'25 · <b style="color:var(--up)">+20%</b></div></div><div class="sm"><div class="sm-h"><span class="sm-nm">사노피</span><span class="sm-v">43.6<small>Eb</small></span></div><svg viewBox="0 0 200 64" width="100%" style="display:block"><polygon points="8,56 8.0,19.5 100.0,56.0 192.0,8.0 192,56" fill="var(--brand-soft)"/><polyline points="8.0,19.5 100.0,56.0 192.0,8.0" fill="none" stroke="var(--brand)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="192.0" cy="8.0" r="3.6" fill="var(--brand)" stroke="var(--card)" stroke-width="2"/></svg><div class="sm-f">'22→'25* · <b style="color:var(--up)">+1%</b></div></div><div class="sm"><div class="sm-h"><span class="sm-nm">갈더마</span><span class="sm-v">5.21<small>Ub</small></span></div><svg viewBox="0 0 200 64" width="100%" style="display:block"><polygon points="8,56 8.0,56.0 69.3,41.7 130.7,31.9 192.0,8.0 192,56" fill="var(--brand-soft)"/><polyline points="8.0,56.0 69.3,41.7 130.7,31.9 192.0,8.0" fill="none" stroke="var(--brand)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="192.0" cy="8.0" r="3.6" fill="var(--brand)" stroke="var(--card)" stroke-width="2"/></svg><div class="sm-f">'22→'25 · <b style="color:var(--up)">+45%</b></div></div></div>
-  <p style="color:var(--muted);margin:10px 0 0;font-size:.8rem">각 회사 보고통화 기준(십억). AZN·갈더마가 뚜렷한 우상향, 머크·사노피는 사업 분할·환율로 정체. <small>*사노피는 소비자사업(오펠라) 분리로 기준 변동.</small></p>
+  <h3 style="margin:26px 0 10px">📈 매출은 늘고 있나</h3>
+  <div class="smgrid"><div class="sm"><div class="sm-h"><span class="sm-nm">로슈</span><span class="sm-v">61.5<small>Cb</small></span></div><svg viewBox="0 0 200 60" width="100%" style="display:block"><polygon points="7,53 7.0,7.0 69.0,53.0 131.0,35.0 193.0,25.0 193,53" fill="var(--brand-soft)"/><polyline points="7.0,7.0 69.0,53.0 131.0,35.0 193.0,25.0" fill="none" stroke="var(--brand)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="193.0" cy="25.0" r="3.6" fill="var(--brand)" stroke="var(--card)" stroke-width="2"/></svg><div class="sm-f">'22→'25 · <b style="color:var(--down)">-3%</b></div></div><div class="sm"><div class="sm-h"><span class="sm-nm">아스트라제네카</span><span class="sm-v">58.7<small>Ub</small></span></div><svg viewBox="0 0 200 60" width="100%" style="display:block"><polygon points="7,53 7.0,53.0 53.5,37.9 100.0,34.9 146.5,16.9 193.0,7.0 193,53" fill="var(--brand-soft)"/><polyline points="7.0,53.0 53.5,37.9 100.0,34.9 146.5,16.9 193.0,7.0" fill="none" stroke="var(--brand)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="193.0" cy="7.0" r="3.6" fill="var(--brand)" stroke="var(--card)" stroke-width="2"/></svg><div class="sm-f">'21→'25 · <b style="color:var(--up)">+57%</b></div></div><div class="sm"><div class="sm-h"><span class="sm-nm">머크 KGaA</span><span class="sm-v">21.1<small>Eb</small></span></div><svg viewBox="0 0 200 60" width="100%" style="display:block"><polygon points="7,53 7.0,53.0 53.5,7.0 100.0,29.1 146.5,25.4 193.0,27.2 193,53" fill="var(--brand-soft)"/><polyline points="7.0,53.0 53.5,7.0 100.0,29.1 146.5,25.4 193.0,27.2" fill="none" stroke="var(--brand)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="193.0" cy="27.2" r="3.6" fill="var(--brand)" stroke="var(--card)" stroke-width="2"/></svg><div class="sm-f">'21→'25 · <b style="color:var(--up)">+7%</b></div></div><div class="sm"><div class="sm-h"><span class="sm-nm">노바티스</span><span class="sm-v">54.5<small>Ub</small></span></div><svg viewBox="0 0 200 60" width="100%" style="display:block"><polygon points="7,53 7.0,53.0 100.0,28.2 193.0,7.0 193,53" fill="var(--brand-soft)"/><polyline points="7.0,53.0 100.0,28.2 193.0,7.0" fill="none" stroke="var(--brand)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="193.0" cy="7.0" r="3.6" fill="var(--brand)" stroke="var(--card)" stroke-width="2"/></svg><div class="sm-f">'23→'25 · <b style="color:var(--up)">+20%</b></div></div><div class="sm"><div class="sm-h"><span class="sm-nm">사노피</span><span class="sm-v">43.6<small>Eb</small></span></div><svg viewBox="0 0 200 60" width="100%" style="display:block"><polygon points="7,53 7.0,18.0 100.0,53.0 193.0,7.0 193,53" fill="var(--brand-soft)"/><polyline points="7.0,18.0 100.0,53.0 193.0,7.0" fill="none" stroke="var(--brand)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="193.0" cy="7.0" r="3.6" fill="var(--brand)" stroke="var(--card)" stroke-width="2"/></svg><div class="sm-f">'22→'25* · <b style="color:var(--up)">+1%</b></div></div><div class="sm"><div class="sm-h"><span class="sm-nm">갈더마</span><span class="sm-v">5.21<small>Ub</small></span></div><svg viewBox="0 0 200 60" width="100%" style="display:block"><polygon points="7,53 7.0,53.0 69.0,39.3 131.0,29.9 193.0,7.0 193,53" fill="var(--brand-soft)"/><polyline points="7.0,53.0 69.0,39.3 131.0,29.9 193.0,7.0" fill="none" stroke="var(--brand)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="193.0" cy="7.0" r="3.6" fill="var(--brand)" stroke="var(--card)" stroke-width="2"/></svg><div class="sm-f">'22→'25 · <b style="color:var(--up)">+45%</b></div></div></div>
+  <p class="note" style="margin-top:10px">각 회사 보고통화(십억). AZN·갈더마 뚜렷한 우상향, 머크·사노피는 사업분할·환율로 정체. <small>*사노피는 소비자사업 분리로 기준 변동.</small></p>
 </section>
 
-<!-- 4. 종목별 -->
 <section id="deep">
-  <div class="sec-head"><span class="n">04</span><h2>종목별 — 무엇이 주가를 움직이나</h2></div>
+  <div class="sec-head"><span class="n">5</span><h2>종목별 — 무엇이 주가를 움직이나</h2></div>
 
   <!-- 로슈 -->
   <div class="co">
@@ -407,9 +355,40 @@
 
 </section>
 
-<!-- 4. 포트폴리오 -->
+<!-- 리스크 -->
+<section id="risk">
+  <div class="sec-head"><span class="n">06</span><h2>리스크 체크 — 뭘 조심하나</h2></div>
+
+  <h3 style="margin-bottom:10px">종목별 '가장 큰 위험' 한 가지</h3>
+  <div class="rk">
+    <div class="item"><b>로슈</b><p>연말 유방암 신약 승인이 <b>실패·지연</b>되면 실망 매물.</p></div>
+    <div class="item"><b>아스트라제네카</b><p>이미 비싼 값 → 임상 실패·실적 실망에 <b>크게 하락</b>.</p></div>
+    <div class="item"><b>머크 KGaA</b><p>바이오 장비 수요 <b>회복이 멈추면</b> 밸류 논리 흔들림.</p></div>
+    <div class="item"><b>노바티스</b><p>2027년 <b>성장 재개를 증명 못 하면</b> 재평가 지연.</p></div>
+    <div class="item"><b>사노피</b><p>매출 40% 듀피젠트의 <b>후속 신약 실패</b> = 한 약 쏠림 리스크.</p></div>
+    <div class="item"><b>갈더마</b><p>PER 50배 고평가 → 성장 <b>조금만 둔화해도 큰 조정</b>.</p></div>
+  </div>
+
+  <div class="bigrisk">
+    <h4>⚠️ 이건 '분산 투자'가 아닙니다 — 포트폴리오 전체 위험</h4>
+    <ul>
+      <li><b>다 같은 배를 탔습니다.</b> 6종목 모두 유럽 제약 → 약가정책·업종 악재엔 <b>다 같이 빠집니다.</b> 진짜 분산이 아니라 '한 업종 묶음'이니, <b>전체 자산의 일부(예: 위험자산의 10~15%)</b>로만 담으세요.</li>
+      <li><b>환율 위험.</b> 원화 투자자는 유로·프랑·달러가 약해지면 주가와 무관하게 손해. 장기 보유면 환헤지 여부를 고민.</li>
+      <li><b>쏠림 위험.</b> 사노피처럼 약 하나에 매출이 몰린 종목은 <b>비중을 작게.</b></li>
+    </ul>
+  </div>
+
+  <h3 style="margin:18px 0 10px">실전 리스크 관리 4규칙</h3>
+  <div class="rules">
+    <div class="rule"><span class="rc">1</span><span class="rt"><b>나눠서 산다.</b> 한 번에 전액 대신 2~3회 분할. 특히 비싼 AZN·갈더마는 하락할 때만.</span></div>
+    <div class="rule"><span class="rc">2</span><span class="rt"><b>한 종목에 몰지 않는다.</b> 종목당 상한(예: 25%)을 정하고, 고평가·쏠림 종목은 더 작게.</span></div>
+    <div class="rule"><span class="rc">3</span><span class="rt"><b>'이유가 깨지면' 판다.</b> 매수한 핵심 근거(예: 신약 성공)가 무너지는 사건이 나오면 축소·재검토 = 손절 규칙.</span></div>
+    <div class="rule"><span class="rc">4</span><span class="rt"><b>세금·비용을 계산에 넣는다.</b> 해외주식은 양도차익 <b>22% 과세(연 250만원 공제)</b>, 배당엔 원천징수. 실수익은 이걸 뺀 값.</span></div>
+  </div>
+</section>
+
 <section id="portfolio">
-  <div class="sec-head"><span class="n">05</span><h2>어떻게 나눠 담을까 (예시 배분)</h2></div>
+  <div class="sec-head"><span class="n">7</span><h2>어떻게 나눠 담을까 (예시 배분)</h2></div>
   <p style="color:var(--muted);margin-top:-8px;margin-bottom:6px">아래는 <b>이 6종목만으로 1,000만원</b>을 담는다면의 예시입니다(균형형). 금액은 비례해서 늘리거나 줄이면 됩니다.</p>
   <div class="alloc">
     <div class="arow"><span class="an">로슈</span><div class="bar" style="width:100%">22%</div><span class="amt">2,200,000원</span></div>
@@ -432,10 +411,8 @@
   </div>
   <div class="note">💡 <b>실전 팁:</b> 한 번에 전액보다 <b>2~3회에 나눠</b> 사면 고점 매수 위험을 줄입니다. 특히 비싼 AZN·갈더마는 하락할 때 담으세요. 실제 매수 시 환율·수수료·해외주식 세금도 고려하세요.</div>
 </section>
-
-<!-- 5. 캘린더 -->
 <section id="calendar">
-  <div class="sec-head"><span class="n">06</span><h2>앞으로 챙겨볼 일정 (주가를 흔들 이벤트)</h2></div>
+  <div class="sec-head"><span class="n">8</span><h2>앞으로 챙겨볼 일정 (주가를 흔들 이벤트)</h2></div>
   <p style="color:var(--muted);margin-top:-8px;margin-bottom:18px">아래 일정의 결과가 각 주가를 크게 움직입니다. 대략적 시점이며 변동될 수 있습니다.</p>
   <div class="tl">
     <div class="row"><span class="when">2026 연말</span><span class="ev"><span class="co-tag">로슈</span> — 유방암 신약(지레데스트란트) <b>미국 FDA 승인 결정(~12/18)</b> <small>· 상방 옵션 실현 여부</small></span></div>
@@ -447,10 +424,8 @@
     <div class="row"><span class="when">2027년</span><span class="ev"><span class="co-tag">사노피</span> — 신약 임상 결과 + 듀피젠트 특허 판결 <small>· 크게 오르거나 내리는 분기점</small></span></div>
   </div>
 </section>
-
-<!-- 6. 용어 -->
 <section id="glossary">
-  <div class="sec-head"><span class="n">07</span><h2>쉽게 풀어보는 용어</h2></div>
+  <div class="sec-head"><span class="n">9</span><h2>쉽게 풀어보는 용어</h2></div>
   <dl class="gloss">
     <dt>특허절벽</dt><dd>약의 독점 판매 기간이 끝나 복제약이 쏟아지며 매출이 절벽처럼 떨어지는 것.</dd>
     <dt>파이프라인</dt><dd>회사가 개발 중인 신약 후보들. 많고 좋을수록 미래 성장 기대.</dd>
@@ -464,12 +439,9 @@
     <dt>IRA(미국 약가 정책)</dt><dd>미국이 일부 약값을 낮추는 제도. 제약사 매출·이익에 부담.</dd>
   </dl>
 </section>
-
 <footer>
   <p>이 요약은 두 개의 상세 리포트를 쉽게 풀어 쓴 것입니다: <b>①</b> 재무·특허·가치평가 심층본, <b>②</b> 비관·낙관·시장가 3관점 분석본. 상세 근거가 필요하면 해당 리포트를 참고하세요.</p>
   <div class="disc">⚠️ <b>투자 유의:</b> 이 자료는 정보 제공용이며 투자자문이 아닙니다. 수치는 2026년 중반 기준 근사치로 실제와 다를 수 있고, 배분·금액은 예시일 뿐 개인의 상황(위험성향·자금·세금·환율)을 반영하지 않았습니다. <b>투자 판단과 책임은 본인에게 있습니다.</b></div>
 </footer>
-
 </div>
-</body>
-</html>
+</body></html>
