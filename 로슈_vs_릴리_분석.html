@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>로슈 vs 일라이릴리 — 안정 vs 성장, 쉽게 보는 비교</title>
+<style>
+  :root{
+    --bg:#ffffff; --paper:#f4f6f9; --card:#ffffff; --line:#e3e8ef; --ink:#111620; --muted:#5b6572;
+    --brand:#1c3d5f; --brand-soft:#eaf0f7; --brand-ink:#1c3d5f;
+    --up:#0f8452; --up-bg:#e7f5ee; --down:#c33c34; --down-bg:#fbeae8; --watch:#a9781a; --watch-bg:#faf2df;
+    --shadow:0 1px 2px rgba(16,22,32,.06),0 6px 20px rgba(16,22,32,.06);
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#0a0e13; --paper:#0e141b; --card:#131a23; --line:#243040; --ink:#e8eef5; --muted:#95a1b1;
+    --brand:#6ea8d8; --brand-soft:#12233a; --brand-ink:#a9cef0;
+    --up:#4bcb8c; --up-bg:#0f281e; --down:#ef8880; --down-bg:#2b1614; --watch:#e0b552; --watch-bg:#2a2110;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }}
+  :root[data-theme="dark"]{
+    --bg:#0a0e13; --paper:#0e141b; --card:#131a23; --line:#243040; --ink:#e8eef5; --muted:#95a1b1;
+    --brand:#6ea8d8; --brand-soft:#12233a; --brand-ink:#a9cef0;
+    --up:#4bcb8c; --up-bg:#0f281e; --down:#ef8880; --down-bg:#2b1614; --watch:#e0b552; --watch-bg:#2a2110;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"]{
+    --bg:#ffffff; --paper:#f4f6f9; --card:#ffffff; --line:#e3e8ef; --ink:#111620; --muted:#5b6572;
+    --brand:#1c3d5f; --brand-soft:#eaf0f7; --brand-ink:#1c3d5f;
+    --up:#0f8452; --up-bg:#e7f5ee; --down:#c33c34; --down-bg:#fbeae8; --watch:#a9781a; --watch-bg:#faf2df;
+    --shadow:0 1px 2px rgba(16,22,32,.06),0 6px 20px rgba(16,22,32,.06);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;overflow-x:hidden}
+  .wrap{max-width:900px;margin:0 auto;padding:0 18px 84px}
+  h2{font-size:1.36rem;letter-spacing:-.01em;margin:0;text-wrap:balance}
+  h3{font-size:1.08rem;margin:0;letter-spacing:-.01em;text-wrap:balance}
+  p{margin:.5em 0}
+  a{color:var(--brand-ink)}
+  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--brand-ink);opacity:.85}
+  .toggle{position:fixed;top:10px;right:10px;z-index:20;background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:8px 12px;font-size:.8rem;cursor:pointer;box-shadow:var(--shadow);min-height:40px}
+  .hero{padding:52px 0 30px;border-bottom:1px solid var(--line)}
+  .hero h1{font-size:1.95rem;line-height:1.2;letter-spacing:-.02em;margin:.35em 0 .3em;text-wrap:balance}
+  .hero .lead{font-size:1.04rem;color:var(--muted);max-width:60ch}
+  .hero .meta{margin-top:16px;font-size:.8rem;color:var(--muted)}
+  .thesis{margin-top:20px;padding:15px 17px;background:var(--brand-soft);border-radius:12px;font-size:.98rem}
+  .thesis b{color:var(--brand-ink)}
+  section{padding:40px 0;border-bottom:1px solid var(--line);scroll-margin-top:12px}
+  .sec-head{display:flex;align-items:baseline;gap:10px;margin-bottom:18px}
+  .sec-head .n{font-size:.88rem;font-weight:800;color:var(--brand-ink)}
+  .lead-s{color:var(--muted);margin:-6px 0 16px;font-size:.92rem}
+  /* cards / grids */
+  .forces{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .force{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 16px;box-shadow:var(--shadow)}
+  .force h4{margin:0 0 6px;font-size:.98rem}
+  .force p{margin:0;font-size:.9rem;color:var(--muted)}
+  .force .tagm{display:inline-block;font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:20px;margin-bottom:8px}
+  .m-up{background:var(--up-bg);color:var(--up)} .m-down{background:var(--down-bg);color:var(--down)} .m-both{background:var(--brand-soft);color:var(--brand-ink)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .mini{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 16px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:9px}
+  .mini .top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+  .mini .nm{font-weight:800;font-size:1.02rem}
+  .mini .sub{font-size:.76rem;color:var(--muted)}
+  .pill{font-size:.72rem;font-weight:800;padding:3px 9px;border-radius:20px;white-space:nowrap}
+  .p-buy{background:var(--up-bg);color:var(--up)} .p-hold{background:var(--watch-bg);color:var(--watch)} .p-avoid{background:var(--down-bg);color:var(--down)}
+  .meter{margin-top:2px}
+  .meter .track{position:relative;height:8px;border-radius:6px;background:linear-gradient(90deg,var(--up) 0%,var(--up) 30%,#9aa4b0 45%,#9aa4b0 55%,var(--down) 70%,var(--down) 100%);opacity:.34}
+  .meter .dot{position:absolute;top:50%;width:14px;height:14px;border-radius:50%;background:var(--card);border:3px solid var(--ink);transform:translate(-50%,-50%);box-shadow:0 1px 3px rgba(0,0,0,.3)}
+  .meter .lbls{display:flex;justify-content:space-between;font-size:.66rem;color:var(--muted);margin-top:5px}
+  /* CSS 막대 차트 (모바일 최적) */
+  .rrleg{font-size:.86rem;color:var(--muted);margin:0 0 12px}
+  .rrow{display:grid;grid-template-columns:64px 38px 1fr 42px;gap:7px;align-items:center;margin:9px 0}
+  .rrow .rn{font-weight:700;font-size:.8rem}
+  .rrow .bear{text-align:right;color:var(--down);font-weight:800;font-size:.76rem}
+  .rrow .bull{color:var(--up);font-weight:800;font-size:.76rem}
+  .rrtrack{position:relative;height:19px;background:var(--paper);border-radius:5px}
+  .rrtrack .zero{position:absolute;left:50%;top:-3px;bottom:-3px;width:2px;background:var(--muted);opacity:.55;transform:translateX(-1px)}
+  .rrtrack .loss{position:absolute;right:50%;top:2px;bottom:2px;background:var(--down);border-radius:4px 0 0 4px;opacity:.9}
+  .rrtrack .gain{position:absolute;left:50%;top:2px;bottom:2px;background:var(--up);border-radius:0 4px 4px 0;opacity:.92}
+  .axis0{text-align:center;font-size:.7rem;color:var(--muted);margin-top:4px}
+  .pe{display:grid;grid-template-columns:74px 1fr 60px;gap:8px;align-items:center;margin:8px 0}
+  .pe .pn{font-weight:700;font-size:.8rem}
+  .pe .ptrack{height:17px;background:var(--paper);border-radius:5px;overflow:hidden}
+  .pe .pbar{height:100%;background:var(--brand);border-radius:5px}
+  .pe .pv{font-size:.76rem;font-weight:800;text-align:right}
+  .smgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .sm{border:1px solid var(--line);border-radius:11px;padding:10px 11px 7px;background:var(--card);box-shadow:var(--shadow)}
+  .sm-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px}
+  .sm-nm{font-weight:700;font-size:.8rem}
+  .sm-v{font-weight:800;font-size:.95rem;color:var(--brand-ink)} .sm-v small{font-size:.6rem;color:var(--muted);font-weight:600}
+  .sm-f{font-size:.72rem;color:var(--muted);margin-top:2px}
+  .about{background:var(--paper);border-radius:11px;padding:12px 14px;margin:0 0 14px;display:flex;flex-direction:column;gap:7px}
+  .about .ab{display:flex;gap:9px;align-items:flex-start;font-size:.89rem;line-height:1.5}
+  .about .abi{flex-shrink:0;font-size:.95rem}
+  .about .abt b{color:var(--brand-ink)}
+  /* company deep cards */
+  .co{padding:26px 0;border-top:1px dashed var(--line)}
+  .co:first-of-type{border-top:none}
+  .co-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+  .co-head .rank{width:28px;height:28px;border-radius:8px;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.92rem;flex-shrink:0}
+  :root[data-theme="dark"] .co-head .rank{color:#0a0e13}
+  .co-head .nm{font-size:1.2rem;font-weight:800;letter-spacing:-.01em}
+  .co-head .flag{font-size:.78rem;color:var(--muted);font-weight:600}
+  .co .oneline{font-size:.98rem;margin:8px 0 14px}
+  .co .oneline b{color:var(--brand-ink)}
+  .dr{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:13px 0}
+  .dr .col{border-radius:12px;padding:13px 15px;border:1px solid var(--line)}
+  .dr .up{background:var(--up-bg)} .dr .down{background:var(--down-bg)}
+  .dr h5{margin:0 0 7px;font-size:.9rem}
+  .dr .up h5{color:var(--up)} .dr .down h5{color:var(--down)}
+  .dr ul{margin:0;padding-left:1px;list-style:none}
+  .dr li{position:relative;padding-left:17px;margin:6px 0;font-size:.88rem;line-height:1.48}
+  .dr .up li::before{content:"▲";position:absolute;left:0;color:var(--up);font-size:.66rem;top:.3em}
+  .dr .down li::before{content:"▼";position:absolute;left:0;color:var(--down);font-size:.66rem;top:.3em}
+  .keyvar{display:flex;gap:9px;align-items:flex-start;background:var(--brand-soft);border-radius:11px;padding:11px 14px;margin:13px 0;font-size:.92rem}
+  .keyvar .k{font-weight:800;color:var(--brand-ink);white-space:nowrap}
+  .concl{display:flex;gap:9px;align-items:baseline;font-size:.94rem;margin-top:9px;flex-wrap:wrap}
+  .concl .badge{font-size:.72rem;font-weight:800;padding:3px 9px;border-radius:20px;white-space:nowrap}
+  /* risk section */
+  .rk{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 4px}
+  .rk .item{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--down);border-radius:10px;padding:11px 13px;box-shadow:var(--shadow)}
+  .rk .item b{font-size:.9rem} .rk .item p{margin:3px 0 0;font-size:.85rem;color:var(--muted)}
+  .bigrisk{background:var(--down-bg);border:1px solid color-mix(in srgb,var(--down) 30%,transparent);border-radius:12px;padding:15px 17px;margin:16px 0}
+  .bigrisk h4{margin:0 0 8px;font-size:1rem;color:var(--down)}
+  .bigrisk ul{margin:0;padding-left:18px} .bigrisk li{margin:6px 0;font-size:.92rem}
+  .rules{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+  .rule{display:flex;gap:10px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 13px;box-shadow:var(--shadow)}
+  .rule .rc{width:24px;height:24px;border-radius:7px;background:var(--brand-soft);color:var(--brand-ink);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.82rem;flex-shrink:0}
+  .rule .rt{font-size:.9rem} .rule .rt b{color:var(--brand-ink)}
+  /* macro */
+  .mac{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+  .mac .m{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+  .mac .m .ic{font-size:1.2rem} .mac .m h4{margin:4px 0 5px;font-size:.96rem} .mac .m p{margin:0;font-size:.87rem;color:var(--muted)}
+  /* portfolio */
+  .alloc{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+  .arow{display:grid;grid-template-columns:96px 1fr 88px;gap:10px;align-items:center}
+  .arow .an{font-weight:700;font-size:.88rem}
+  .arow .bar{height:22px;background:var(--brand);border-radius:6px;min-width:24px;display:flex;align-items:center;justify-content:flex-end;padding-right:7px;color:#fff;font-size:.74rem;font-weight:700}
+  :root[data-theme="dark"] .arow .bar{color:#0a0e13}
+  .arow .amt{text-align:right;font-size:.82rem;color:var(--muted)}
+  .tilts{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:18px}
+  .tilt{border:1px solid var(--line);border-radius:12px;padding:13px 15px;background:var(--card);box-shadow:var(--shadow);font-size:.86rem}
+  .tilt h4{margin:0 0 8px;font-size:.96rem}
+  .tilt .r{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--line)}
+  .tilt .r:last-child{border-bottom:none}
+  .tl{display:flex;flex-direction:column}
+  .tl .row{display:grid;grid-template-columns:84px 1fr;gap:13px;padding:13px 0;border-top:1px solid var(--line)}
+  .tl .row:first-child{border-top:none}
+  .tl .when{font-weight:800;font-size:.8rem;color:var(--brand-ink)}
+  .tl .ev{font-size:.9rem} .tl .ev .co-tag{font-weight:700} .tl .ev small{color:var(--muted)}
+  .gloss dt{font-weight:800;font-size:.9rem;margin-top:10px;color:var(--brand-ink)}
+  .gloss dd{margin:2px 0 0;font-size:.87rem;color:var(--muted)}
+  .note{font-size:.82rem;color:var(--muted);background:var(--paper);border-radius:10px;padding:12px 14px;margin-top:14px}
+  footer{padding:30px 0 0;font-size:.82rem;color:var(--muted)}
+  .disc{background:var(--watch-bg);border:1px solid color-mix(in srgb,var(--watch) 35%,transparent);border-radius:11px;padding:13px 15px;font-size:.83rem;margin-top:13px}
+  /* ---------- 모바일 ---------- */
+  @media(max-width:620px){
+    .wrap{padding:0 14px 70px}
+    .hero{padding:40px 0 26px} .hero h1{font-size:1.6rem} .hero .lead{font-size:.98rem}
+    section{padding:34px 0}
+    h2{font-size:1.24rem}
+    .forces,.grid,.dr,.rk,.mac{grid-template-columns:1fr}
+    .tilts{grid-template-columns:1fr}
+    .smgrid{grid-template-columns:1fr 1fr}
+    .arow{grid-template-columns:76px 1fr 80px;gap:8px}
+    .rrow{grid-template-columns:56px 34px 1fr 38px;gap:5px}
+    .co-head .nm{font-size:1.1rem}
+  }
+</style>
+<button class="toggle" onclick="(function(){var r=document.documentElement;var d=(r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));r.setAttribute('data-theme',d==='dark'?'light':'dark')})()">◐ 화면 밝기</button>
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">종목 비교 · 쉽게 보는 요약</div>
+  <h1>안정의 로슈 vs<br>성장의 일라이릴리</h1>
+  <p class="lead">성격이 정반대인 두 제약주를 <b>어려운 용어 없이</b> 비교했습니다. <b>로슈</b>는 싸고 안정적인 방어주, <b>릴리</b>는 비싸지만 세계 최고 성장(비만·GLP-1)입니다. 무엇이 주가를 움직이는지 중심으로 봅니다.</p>
+  <div class="thesis">한 줄: <b>로슈</b>는 하락 방어·배당 중심의 '지켜주는' 종목, <b>릴리</b>는 폭발 성장이 이미 값에 반영돼 '증명이 필요한' 종목. 둘을 섞으면 <b>안정+성장</b>을 함께 가져갑니다.</div>
+  <div class="meta">작성 2026-07-11 · 기준통화 원화(KRW) · 위험성향 균형형 · <b>투자자문 아님(정보 제공용)</b></div>
+</header>
+
+<section id="macro"><div class="sec-head"><span class="n">01</span><h2>지금 시장 환경 (매크로)</h2></div>
+<p class="lead-s">두 회사에 공통으로 영향을 주는 배경입니다.</p>
+<div class="mac">
+  <div class="m"><div class="ic">📉</div><h4>금리</h4><p>금리가 내리면 미래 이익 가치↑ → 두 종목 다 우호적(특히 성장주 릴리의 밸류에 민감).</p></div>
+  <div class="m"><div class="ic">💱</div><h4>환율</h4><p>로슈는 <b>스위스프랑·달러</b>, 릴리는 <b>달러</b>로 법니다. 원화 투자자는 프랑·달러 약세 시 손해 — 환율이 수익률을 좌우.</p></div>
+  <div class="m"><div class="ic">🏛️</div><h4>미국 약가정책</h4><p>둘 다 미국 매출 비중이 큼. 약값 인하(IRA)·관세는 공통 부담. <b>릴리는 GLP-1 가격</b>이 특히 핵심 변수.</p></div>
+  <div class="m"><div class="ic">💉</div><h4>GLP-1(비만) 붐</h4><p>다이어트약 시장이 2035년 ~$190b로 전망. <b>릴리의 최대 성장 동력</b>이자, 로슈도 비만 신약으로 뒤늦게 참전.</p></div>
+</div></section>
+
+<section id="glance"><div class="sec-head"><span class="n">02</span><h2>두 종목 한눈에</h2></div>
+<p class="lead-s">점(●)이 왼쪽이면 쌈, 오른쪽이면 비쌈.</p>
+<div class="grid">
+  <div class="mini"><div class="top"><div><div class="nm">로슈 <span class="sub">Roche · 스위스</span></div></div><span class="pill p-buy">매수 · 안정</span></div>
+    <div class="sub">항암제 + 병원 진단검사 세계 1위</div>
+    <div class="meter"><div class="track"><span class="dot" style="left:40%"></span></div><div class="lbls"><span>쌈</span><span>적정</span><span>비쌈</span></div></div></div>
+  <div class="mini"><div class="top"><div><div class="nm">일라이릴리 <span class="sub">LLY · 미국</span></div></div><span class="pill p-hold">분할매수 · 성장</span></div>
+    <div class="sub">당뇨·비만(GLP-1) 세계 1위, 시총 세계 최대 제약</div>
+    <div class="meter"><div class="track"><span class="dot" style="left:80%"></span></div><div class="lbls"><span>쌈</span><span>적정</span><span>비쌈</span></div></div></div>
+</div></section>
+
+<section id="numbers"><div class="sec-head"><span class="n">03</span><h2>숫자로 한눈에</h2></div>
+<h3 style="margin-bottom:6px">📊 얼마나 내리고 얼마나 오를까</h3>
+<p class="rrleg"><span style="color:var(--down);font-weight:700">■ 왼쪽</span>=하락 여력 · <span style="color:var(--up);font-weight:700">■ 오른쪽</span>=상승 여력.</p>
+<div class="rrow"><span class="rn">일라이릴리</span><span class="bear">-40%</span><div class="rrtrack"><span class="zero"></span><span class="loss" style="width:40.0%"></span><span class="gain" style="width:40.0%"></span></div><span class="bull">+40%</span></div><div class="rrow"><span class="rn">로슈</span><span class="bear">-30%</span><div class="rrtrack"><span class="zero"></span><span class="loss" style="width:30.0%"></span><span class="gain" style="width:37.0%"></span></div><span class="bull">+37%</span></div><div class="axis0">가운데 선 = 현재가</div>
+<h3 style="margin:26px 0 6px">💰 지금 비싼가 싼가 (선행 PER)</h3>
+<p class="rrleg">막대가 <b>짧을수록 쌈.</b> 로슈 ~17배(방어주), 릴리 ~31배(성장 프리미엄).</p>
+<div class="pe"><span class="pn">로슈</span><div class="ptrack"><div class="pbar" style="width:35%"></div></div><span class="pv">17.5배 <span style="color:var(--muted);font-weight:600">싼 편</span></span></div><div class="pe"><span class="pn">일라이릴리</span><div class="ptrack"><div class="pbar" style="width:62%"></div></div><span class="pv">31배 <span style="color:var(--muted);font-weight:600">성장 반영</span></span></div>
+<h3 style="margin:26px 0 10px">📈 매출 성장 대비 — 극과 극</h3>
+<div class="smgrid"><div class="sm"><div class="sm-h"><span class="sm-nm">로슈</span><span class="sm-v">61.5<small>Cb</small></span></div><svg viewBox="0 0 200 60" width="100%" style="display:block"><polygon points="7,53 7.0,7.0 69.0,53.0 131.0,35.0 193.0,25.0 193,53" fill="var(--brand-soft)"/><polyline points="7.0,7.0 69.0,53.0 131.0,35.0 193.0,25.0" fill="none" stroke="var(--brand)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="193.0" cy="25.0" r="3.6" fill="var(--brand)" stroke="var(--card)" stroke-width="2"/></svg><div class="sm-f">'22→'25 · <b style="color:var(--down)">-3%</b></div></div><div class="sm"><div class="sm-h"><span class="sm-nm">일라이릴리</span><span class="sm-v">65.2<small>Ub</small></span></div><svg viewBox="0 0 200 60" width="100%" style="display:block"><polygon points="7,53 7.0,53.0 53.5,52.8 100.0,45.8 146.5,32.2 193.0,7.0 193,53" fill="var(--brand-soft)"/><polyline points="7.0,53.0 53.5,52.8 100.0,45.8 146.5,32.2 193.0,7.0" fill="none" stroke="var(--brand)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="193.0" cy="7.0" r="3.6" fill="var(--brand)" stroke="var(--card)" stroke-width="2"/></svg><div class="sm-f">'21→'25 · <b style="color:var(--up)">+130%</b></div></div></div>
+<p class="note" style="margin-top:10px">로슈는 매출이 사실상 정체(방어), 릴리는 4년 만에 2.3배로 폭발(GLP-1). 이 차이가 밸류에이션 차이를 만듭니다.</p></section>
+
+<section id="deep"><div class="sec-head"><span class="n">04</span><h2>종목별 — 무엇이 주가를 움직이나</h2></div>
+
+<div class="co">
+  <div class="co-head"><span class="rank">R</span><span class="nm">로슈</span><span class="flag">Roche · 스위스 · 매수(안정)</span></div>
+  <p class="oneline">싸고 안정적인 방어주. 하락을 잘 막아주고, 신약이 터지면 상방도 있는 <b>'중심축'</b>.</p>
+  <div class="about"><div class="ab"><span class="abi">🏢</span><span class="abt"><b>무슨 사업</b> — 스위스 제약사. 항암제 중심 '제약'과 병원 검사장비·진단시약 '진단'(세계 1위) 두 축.</span></div><div class="ab"><span class="abi">💰</span><span class="abt"><b>최대 매출</b> — 제약 부문(전체 CHF61.5b 중 CHF47.7b). 유방암 3형제·오크레부스(CHF4.9b)·헴리브라(CHF4.8b).</span></div><div class="ab"><span class="abi">🚀</span><span class="abt"><b>신성장</b> — 유방암 신약 <b>지레데스트란트</b>(최대 CHF5b+ 잠재) + 비만·치매 신약.</span></div></div>
+  <p style="font-size:.86rem;color:var(--muted);margin:0 0 12px">💬 <b>세 관점 요약</b> — 🔴비관: 특허절벽·환율 반영해 적정가 CHF255(-30%). 🟢낙관: 파이프라인 상방으로 CHF470(+37%). 🔵시장가: 선행 ~17.5배는 파이프라인에 값을 거의 안 매긴 <b>적정~약간 저평가</b>.</p>
+  <div class="dr">
+    <div class="col up"><h5>▲ 오르게 하는 힘</h5><ul><li>유방암 신약(지레데스트란트) 연말 승인 가능 — 회사가 '최대 매출 약' 기대</li><li>비만·치매 신약이 '공짜 보너스'처럼 붙어 있음</li><li>39년 연속 배당 인상(현재 ~2.9%) — 하락장 버팀목</li></ul></div>
+    <div class="col down"><h5>▼ 내리게 하는 힘</h5><ul><li>주력 항암제 일부가 2028~29년 복제약에 매출 내줌</li><li>스위스프랑 강세로 원화·달러 환산 매출 깎임</li></ul></div>
+  </div>
+  <div class="keyvar"><span class="k">🔑 핵심 변수</span><span>연말 <b>유방암 신약 FDA 승인 여부</b>. 통과하면 상방이 크게 열림.</span></div>
+  <div class="keyvar" style="background:var(--paper)"><span class="k">🏰 해자</span><span>보통(narrow) — 방어적 현금창출은 넓지만, 특허 해자는 서서히 침식.</span></div>
+  <div class="concl"><span class="badge p-buy">결론 · 매수(안정)</span><span>현재가 CHF338.80 · 시총 CHF269b · 선행 ~17.5배. 하락 방어 + 신약 옵션.</span></div>
+</div>
+
+<div class="co">
+  <div class="co-head"><span class="rank">L</span><span class="nm">일라이릴리</span><span class="flag">Eli Lilly · 미국 · 분할매수(성장)</span></div>
+  <p class="oneline">비만·당뇨약(GLP-1)으로 <b>세계에서 가장 비싼 제약사(시총 ~$1.1조)</b>가 됐습니다. 성장은 최고, 값도 최고.</p>
+  <div class="about"><div class="ab"><span class="abi">🏢</span><span class="abt"><b>무슨 사업</b> — 미국 최대 제약사. 당뇨·비만(GLP-1) 세계 1위 + 항암·면역·알츠하이머.</span></div><div class="ab"><span class="abi">💰</span><span class="abt"><b>최대 매출</b> — 비만·당뇨약 마운자로+젭바운드 합산 ~$36.5b, 전체 매출 $65.2b의 <b>56%</b>. 100%+ 성장 중.</span></div><div class="ab"><span class="abi">🚀</span><span class="abt"><b>신성장</b> — 먹는 GLP-1 <b>오르포글리프론</b>(2026.4 승인) + 3중작용제 <b>레타트루타이드</b>(체중 -28%, 최고 효능).</span></div></div>
+  <p style="font-size:.86rem;color:var(--muted);margin:0 0 12px">💬 <b>세 관점 요약</b> — 🔴비관: 완벽가격이라 성장 둔화·약가 압력 시 -30~-45%. 🟢낙관: 비만 시장 $190b·먹는약 확장으로 +25~50%. 🔵시장가: 선행 ~31배는 '향후 5년 20%+ 성장·마진 45%·약가 유지'를 이미 가정 → <b>적정~다소 고평가(안전마진 없음)</b>.</p>
+  <div class="dr">
+    <div class="col up"><h5>▲ 오르게 하는 힘</h5><ul><li>비만 치료 시장 폭발(자격자의 10% 미만만 치료 중) — TAM $190b(2035)</li><li><b>먹는 GLP-1</b>으로 주사 못 닿는 시장까지 10배 확대</li><li>최고 효능 파이프라인(레타트루타이드 -28%)</li><li>대규모 설비투자가 성숙하며 이익률 레버리지</li></ul></div>
+    <div class="col down"><h5>▼ 내리게 하는 힘</h5><ul><li>선행 PER ~31배 = 완벽 반영 → <b>작은 실망에도 급락</b></li><li>GLP-1 <b>가격 인하·정책(IRA)</b> 압력</li><li>노보·화이자·암젠 등 경쟁 격화</li><li>매출 56%가 한 분자(터제파타이드)에 집중</li></ul></div>
+  </div>
+  <div class="keyvar"><span class="k">🔑 핵심 변수</span><span>GLP-1의 <b>'가격 × 물량'</b>. 물량 성장은 거의 확실하니, <b>가격이 유지되느냐</b>가 주가를 가름.</span></div>
+  <div class="keyvar" style="background:var(--paper)"><span class="k">🏰 해자</span><span>넓음(wide) — GLP-1 특허(~2036년+)·제조 규모($50b 투자)·반복되는 신약 혁신.</span></div>
+  <div class="concl"><span class="badge p-hold">결론 · 분할매수(성장)</span><span>현재가 ~$1,189 · 선행 ~31배. 최고 성장이나 값 비쌈 → 조정 시 나눠서.</span></div>
+</div>
+</section>
+
+<section id="risk"><div class="sec-head"><span class="n">05</span><h2>리스크 체크 — 뭘 조심하나</h2></div>
+<div class="rk">
+  <div class="item"><b>로슈</b><p>연말 유방암 신약 승인이 <b>실패·지연</b>되면 실망.</p></div>
+  <div class="item"><b>일라이릴리</b><p>PER 31배 고평가 + GLP-1 <b>가격 하락·경쟁</b> → 큰 조정 위험.</p></div>
+</div>
+<div class="bigrisk"><h4>⚠️ 2종목은 '분산'이 아닙니다</h4><ul>
+  <li><b>딱 2종목 + 둘 다 제약</b> → 업종 악재(약가정책 등)엔 같이 빠집니다. 분산 효과가 거의 없으니 <b>전체 자산의 일부</b>로만.</li>
+  <li><b>환율:</b> 로슈=프랑, 릴리=달러. 원화 강세 시 손해.</li>
+  <li><b>릴리는 변동성이 큼</b>(고밸류 성장주) → 비중을 과하게 싣지 않기.</li>
+</ul></div>
+<h3 style="margin:16px 0 10px">실전 리스크 관리 4규칙</h3>
+<div class="rules">
+  <div class="rule"><span class="rc">1</span><span class="rt"><b>나눠서 산다.</b> 특히 비싼 릴리는 하락할 때 2~3회 분할.</span></div>
+  <div class="rule"><span class="rc">2</span><span class="rt"><b>한쪽에 몰지 않는다.</b> 성장(릴리)과 방어(로슈)를 함께.</span></div>
+  <div class="rule"><span class="rc">3</span><span class="rt"><b>'이유가 깨지면' 판다.</b> 릴리 GLP-1 가격 급락, 로슈 신약 실패 등 핵심 근거 훼손 시 축소.</span></div>
+  <div class="rule"><span class="rc">4</span><span class="rt"><b>세금.</b> 해외주식 양도차익 22%(연 250만원 공제)·배당 원천징수 반영.</span></div>
+</div></section>
+
+<section id="portfolio"><div class="sec-head"><span class="n">06</span><h2>어떻게 나눠 담을까</h2></div>
+<p class="lead-s">2종목만으로 1,000만원을 담는다면(균형형). 금액은 비례 조정.</p>
+<div class="alloc">
+  <div class="arow"><span class="an">로슈</span><div class="bar" style="width:100%">55%</div><span class="amt">5,500,000원</span></div>
+  <div class="arow"><span class="an">일라이릴리</span><div class="bar" style="width:82%">45%</div><span class="amt">4,500,000원</span></div>
+</div>
+<div class="tilts">
+  <div class="tilt"><h4>🛡️ 안정 중시형</h4><div class="r"><span>로슈</span><b>70%</b></div><div class="r"><span>릴리</span><b>30%</b></div><p style="margin:8px 0 0;color:var(--muted);font-size:.82rem">방어·배당 우선, 고밸류 릴리 축소.</p></div>
+  <div class="tilt" style="border-color:var(--brand);border-width:2px"><h4>⚖️ 균형형(기본)</h4><div class="r"><span>로슈</span><b>55%</b></div><div class="r"><span>릴리</span><b>45%</b></div><p style="margin:8px 0 0;color:var(--muted);font-size:.82rem">안정+성장 균형. 표준.</p></div>
+  <div class="tilt"><h4>🚀 성장 노림형</h4><div class="r"><span>릴리</span><b>65%</b></div><div class="r"><span>로슈</span><b>35%</b></div><p style="margin:8px 0 0;color:var(--muted);font-size:.82rem">성장에 무게. 변동성 커짐.</p></div>
+</div>
+<div class="note">💡 릴리는 값이 비싸 <b>하락 시 분할</b>이 특히 중요. 로슈로 하방을 받치고 릴리로 성장을 노리는 조합입니다.</div></section>
+
+<section id="calendar"><div class="sec-head"><span class="n">07</span><h2>앞으로 챙겨볼 일정</h2></div>
+<div class="tl">
+  <div class="row"><span class="when">2026 연말</span><span class="ev"><span class="co-tag">로슈</span> — 유방암 신약(지레데스트란트) <b>미국 FDA 결정</b> <small>· 상방 옵션 실현</small></span></div>
+  <div class="row"><span class="when">2026 하반기</span><span class="ev"><span class="co-tag">릴리</span> — 레타트루타이드 3상 판독 다수 + 먹는약(오르포글리프론) 출시 램프 <small>· 성장 지속 증명</small></span></div>
+  <div class="row"><span class="when">분기마다</span><span class="ev"><span class="co-tag">릴리</span> — GLP-1 <b>가격·물량</b> 추이 (실적) <small>· 주가 최대 변수</small></span></div>
+  <div class="row"><span class="when">상시</span><span class="ev"><span class="co-tag">공통</span> — 미국 약가정책·관세 뉴스 <small>· 둘 다 미국 매출 큼</small></span></div>
+</div></section>
+
+<footer>
+  <p>이 요약은 <code>/종목분석</code> 명령어로 생성됐습니다(로슈 + 일라이릴리). 상세 근거는 웹 최신 자료(각 사 실적·특허·컨센서스)를 기반으로 합니다.</p>
+  <div class="disc">⚠️ <b>투자 유의:</b> 정보 제공용이며 투자자문이 아닙니다. 수치는 2026년 7월 기준 근사치로 실제와 다를 수 있고, 배분·금액은 예시일 뿐 개인 상황(위험성향·자금·세금·환율)을 반영하지 않았습니다. <b>투자 판단과 책임은 본인에게 있습니다.</b></div>
+</footer>
+</div>
+</body></html>
