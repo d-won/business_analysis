@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>유럽 제약주 투자 리포트</title>
+<style>
+  :root{
+    --bg:#ffffff; --paper:#f4f6f9; --card:#ffffff; --line:#e3e8ef; --ink:#111620; --muted:#5b6572;
+    --brand:#1c3d5f; --brand-soft:#eaf0f7; --brand-ink:#1c3d5f;
+    --shadow:0 1px 2px rgba(16,22,32,.06),0 8px 22px rgba(16,22,32,.07);
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#0a0e13; --paper:#0e141b; --card:#131a23; --line:#243040; --ink:#e8eef5; --muted:#95a1b1;
+    --brand:#6ea8d8; --brand-soft:#12233a; --brand-ink:#a9cef0;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 26px rgba(0,0,0,.4);
+  }}
+  :root[data-theme="dark"]{
+    --bg:#0a0e13; --paper:#0e141b; --card:#131a23; --line:#243040; --ink:#e8eef5; --muted:#95a1b1;
+    --brand:#6ea8d8; --brand-soft:#12233a; --brand-ink:#a9cef0;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 26px rgba(0,0,0,.4);
+  }
+  :root[data-theme="light"]{
+    --bg:#ffffff; --paper:#f4f6f9; --card:#ffffff; --line:#e3e8ef; --ink:#111620; --muted:#5b6572;
+    --brand:#1c3d5f; --brand-soft:#eaf0f7; --brand-ink:#1c3d5f;
+    --shadow:0 1px 2px rgba(16,22,32,.06),0 8px 22px rgba(16,22,32,.07);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    line-height:1.6;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
+  .wrap{max-width:720px;margin:0 auto;padding:48px 18px 72px}
+  .toggle{position:fixed;top:10px;right:10px;background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:8px 12px;font-size:.8rem;cursor:pointer;box-shadow:var(--shadow);min-height:40px}
+  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--brand-ink);opacity:.85}
+  h1{font-size:1.75rem;line-height:1.22;letter-spacing:-.02em;margin:.35em 0 .3em;text-wrap:balance}
+  .lead{color:var(--muted);font-size:1.02rem;margin:0 0 8px;max-width:56ch}
+  .meta{color:var(--muted);font-size:.8rem;margin-top:6px}
+  .cards{display:flex;flex-direction:column;gap:13px;margin-top:28px}
+  a.card{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px 19px;box-shadow:var(--shadow);transition:transform .12s ease,border-color .12s ease}
+  a.card:hover{transform:translateY(-2px);border-color:var(--brand)}
+  a.card.feat{border-color:var(--brand);border-width:1.5px;background:linear-gradient(180deg,var(--brand-soft),var(--card) 60%)}
+  .card .row{display:flex;align-items:center;gap:12px}
+  .card .ic{width:44px;height:44px;border-radius:12px;background:var(--brand-soft);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+  .card .tt{font-size:1.12rem;font-weight:800;letter-spacing:-.01em}
+  .card .badge{font-size:.66rem;font-weight:800;color:var(--brand-ink);background:var(--brand-soft);padding:2px 8px;border-radius:20px;margin-left:8px;vertical-align:middle}
+  .card .desc{color:var(--muted);font-size:.9rem;margin:9px 0 0}
+  .card .go{color:var(--brand-ink);font-weight:700;font-size:.86rem;margin-top:10px;display:inline-block}
+  .more{margin-top:26px;padding-top:18px;border-top:1px solid var(--line);font-size:.88rem}
+  .more a{color:var(--brand-ink)}
+  footer{margin-top:26px;font-size:.8rem;color:var(--muted)}
+  .disc{background:var(--paper);border-radius:10px;padding:12px 14px;margin-top:12px}
+</style>
+</head>
+<body>
+<button class="toggle" onclick="(function(){var r=document.documentElement;var d=(r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));r.setAttribute('data-theme',d==='dark'?'light':'dark')})()">◐ 화면 밝기</button>
+<div class="wrap">
+  <div class="eyebrow">UBS 유럽 제약 · 투자 리포트 모음</div>
+  <h1>유럽 제약주 6종목 투자 분석</h1>
+  <p class="lead">로슈 · 아스트라제네카 · 머크KGaA · 노바티스 · 사노피 · 갈더마 — 하나의 리포트를 네 가지 깊이로 정리했습니다. 처음이라면 <b>①번(쉬운 요약)</b>부터 보세요.</p>
+  <p class="meta">최종 업데이트 2026-07-11 · 정보 제공용, 투자자문 아님</p>
+
+  <div class="cards">
+    <a class="card feat" href="UBS_유럽제약_쉬운핵심요약.html">
+      <div class="row"><span class="ic">💊</span><div><span class="tt">① 쉬운 핵심요약</span><span class="badge">추천 · 모바일 최적</span></div></div>
+      <p class="desc">어려운 용어 없이. 기업 소개(사업·매출·신성장), 주가를 움직이는 힘(▲오르는/▼내리는), 매크로·리스크, 차트, 예시 배분까지 한눈에.</p>
+      <span class="go">열기 →</span>
+    </a>
+
+    <a class="card" href="UBS_유럽제약_통합리포트.html">
+      <div class="row"><span class="ic">🧭</span><div><span class="tt">② 통합 리포트</span></div></div>
+      <p class="desc">'질 관점'과 '리스크조정 관점'을 화해시킨 실행안. 종목별 통합 스탠스 + 포트폴리오 배분(방어/균형/공격) + 촉매 캘린더.</p>
+      <span class="go">열기 →</span>
+    </a>
+
+    <a class="card" href="UBS_유럽제약_3관점분석.html">
+      <div class="row"><span class="ic">⚖️</span><div><span class="tt">③ 3관점 분석</span></div></div>
+      <p class="desc">같은 종목을 🔴비관·🟢낙관·🔵시장가해석 세 관점으로. 경제적 해자·SWOT·논쟁의 핵심 포함(멀티에이전트 분석).</p>
+      <span class="go">열기 →</span>
+    </a>
+
+    <a class="card" href="UBS_유럽제약_종목재평가_및_밸류에이션.html">
+      <div class="row"><span class="ic">📊</span><div><span class="tt">④ 심층 밸류에이션</span><span class="badge">전문가용</span></div></div>
+      <p class="desc">5개년 재무 시계열, 약물별 특허 만료 스케줄, 절대(DCF)·상대(멀티플) 가치평가와 민감도 분석.</p>
+      <span class="go">열기 →</span>
+    </a>
+  </div>
+
+  <div class="more">
+    📄 부가 자료: <a href="투자분석_하네스_지시서.md">투자 분석 하네스 지시서</a> (재사용 표준 · 텍스트)
+  </div>
+
+  <footer>
+    <div class="disc">⚠️ 이 자료는 정보 제공용이며 <b>투자자문이 아닙니다.</b> 수치는 2026년 중반 기준 근사치로 실제와 다를 수 있으며, 배분·금액은 예시일 뿐 개인 상황(위험성향·자금·세금·환율)을 반영하지 않았습니다. 투자 판단과 책임은 본인에게 있습니다.</div>
+  </footer>
+</div>
+</body>
+</html>
