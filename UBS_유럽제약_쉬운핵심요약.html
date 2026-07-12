@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>유럽 제약주 6종목 — 쉽게 보는 핵심 요약</title>
+<style>
+  :root{
+    --bg:#ffffff; --paper:#f4f6f9; --card:#ffffff; --line:#e3e8ef; --ink:#111620; --muted:#5b6572;
+    --brand:#1c3d5f; --brand-soft:#eaf0f7; --brand-ink:#1c3d5f;
+    --up:#0f8452; --up-bg:#e7f5ee; --down:#c33c34; --down-bg:#fbeae8; --watch:#a9781a; --watch-bg:#faf2df;
+    --shadow:0 1px 2px rgba(16,22,32,.06),0 6px 20px rgba(16,22,32,.06);
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#0a0e13; --paper:#0e141b; --card:#131a23; --line:#243040; --ink:#e8eef5; --muted:#95a1b1;
+    --brand:#6ea8d8; --brand-soft:#12233a; --brand-ink:#a9cef0;
+    --up:#4bcb8c; --up-bg:#0f281e; --down:#ef8880; --down-bg:#2b1614; --watch:#e0b552; --watch-bg:#2a2110;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }}
+  :root[data-theme="dark"]{
+    --bg:#0a0e13; --paper:#0e141b; --card:#131a23; --line:#243040; --ink:#e8eef5; --muted:#95a1b1;
+    --brand:#6ea8d8; --brand-soft:#12233a; --brand-ink:#a9cef0;
+    --up:#4bcb8c; --up-bg:#0f281e; --down:#ef8880; --down-bg:#2b1614; --watch:#e0b552; --watch-bg:#2a2110;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"]{
+    --bg:#ffffff; --paper:#f4f6f9; --card:#ffffff; --line:#e3e8ef; --ink:#111620; --muted:#5b6572;
+    --brand:#1c3d5f; --brand-soft:#eaf0f7; --brand-ink:#1c3d5f;
+    --up:#0f8452; --up-bg:#e7f5ee; --down:#c33c34; --down-bg:#fbeae8; --watch:#a9781a; --watch-bg:#faf2df;
+    --shadow:0 1px 2px rgba(16,22,32,.06),0 6px 20px rgba(16,22,32,.06);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    line-height:1.65;font-size:16px;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+  .wrap{max-width:900px;margin:0 auto;padding:0 20px 96px}
+  h2{font-size:1.42rem;letter-spacing:-.01em;margin:0;text-wrap:balance}
+  h3{font-size:1.12rem;margin:0;letter-spacing:-.01em}
+  p{margin:.5em 0}
+  a{color:var(--brand-ink)}
+  .eyebrow{font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--brand-ink);opacity:.85}
+  /* ---- top bar ---- */
+  .toggle{position:fixed;top:12px;right:12px;z-index:20;background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:7px 12px;font-size:.8rem;cursor:pointer;box-shadow:var(--shadow)}
+  /* ---- hero ---- */
+  .hero{padding:64px 0 34px;border-bottom:1px solid var(--line)}
+  .hero h1{font-size:2.15rem;line-height:1.22;letter-spacing:-.02em;margin:.35em 0 .3em;text-wrap:balance}
+  .hero .lead{font-size:1.08rem;color:var(--muted);max-width:62ch}
+  .hero .meta{margin-top:18px;font-size:.82rem;color:var(--muted)}
+  .thesis{margin-top:22px;padding:16px 20px;background:var(--brand-soft);border-radius:12px;font-size:1rem}
+  .thesis b{color:var(--brand-ink)}
+  /* ---- section ---- */
+  section{padding:46px 0;border-bottom:1px solid var(--line)}
+  .sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:22px}
+  .sec-head .n{font-size:.9rem;font-weight:800;color:var(--brand-ink);font-variant-numeric:tabular-nums}
+  /* ---- drivers primer ---- */
+  .forces{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:640px){.forces{grid-template-columns:1fr}}
+  .force{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow)}
+  .force h4{margin:0 0 6px;font-size:1rem}
+  .force p{margin:0;font-size:.92rem;color:var(--muted)}
+  .force .tagm{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 8px;border-radius:20px;margin-bottom:8px}
+  .m-up{background:var(--up-bg);color:var(--up)} .m-down{background:var(--down-bg);color:var(--down)} .m-both{background:var(--brand-soft);color:var(--brand-ink)}
+  /* ---- dashboard cards ---- */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:640px){.grid{grid-template-columns:1fr}}
+  .mini{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px}
+  .mini .top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+  .mini .nm{font-weight:800;font-size:1.05rem}
+  .mini .sub{font-size:.78rem;color:var(--muted)}
+  .pill{font-size:.74rem;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap}
+  .p-buy{background:var(--up-bg);color:var(--up)} .p-hold{background:var(--watch-bg);color:var(--watch)} .p-avoid{background:var(--down-bg);color:var(--down)}
+  /* valuation meter */
+  .meter{margin-top:2px}
+  .meter .track{position:relative;height:8px;border-radius:6px;background:linear-gradient(90deg,var(--up) 0%,var(--up) 30%,#9aa4b0 45%,#9aa4b0 55%,var(--down) 70%,var(--down) 100%);opacity:.32}
+  .meter .dot{position:absolute;top:50%;width:14px;height:14px;border-radius:50%;background:var(--card);border:3px solid var(--ink);transform:translate(-50%,-50%);box-shadow:0 1px 3px rgba(0,0,0,.3)}
+  .meter .lbls{display:flex;justify-content:space-between;font-size:.68rem;color:var(--muted);margin-top:5px}
+  /* ---- company section ---- */
+  .co{padding:30px 0;border-top:1px dashed var(--line)}
+  .co:first-of-type{border-top:none}
+  .co-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+  .co-head .rank{width:30px;height:30px;border-radius:9px;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.95rem;flex-shrink:0}
+  :root[data-theme="dark"] .co-head .rank{color:#0a0e13}
+  @media (prefers-color-scheme:dark){.co-head .rank{color:#0a0e13}}
+  .co-head .nm{font-size:1.28rem;font-weight:800;letter-spacing:-.01em}
+  .co-head .flag{font-size:.8rem;color:var(--muted);font-weight:600}
+  .co .oneline{font-size:1rem;color:var(--ink);margin:8px 0 16px}
+  .co .oneline b{color:var(--brand-ink)}
+  .dr{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+  @media(max-width:640px){.dr{grid-template-columns:1fr}}
+  .dr .col{border-radius:12px;padding:14px 16px;border:1px solid var(--line)}
+  .dr .up{background:var(--up-bg)} .dr .down{background:var(--down-bg)}
+  .dr h5{margin:0 0 8px;font-size:.92rem;display:flex;align-items:center;gap:6px}
+  .dr .up h5{color:var(--up)} .dr .down h5{color:var(--down)}
+  .dr ul{margin:0;padding-left:2px;list-style:none}
+  .dr li{position:relative;padding-left:18px;margin:7px 0;font-size:.9rem;line-height:1.5}
+  .dr .up li::before{content:"▲";position:absolute;left:0;color:var(--up);font-size:.7rem;top:.25em}
+  .dr .down li::before{content:"▼";position:absolute;left:0;color:var(--down);font-size:.7rem;top:.25em}
+  .keyvar{display:flex;gap:10px;align-items:flex-start;background:var(--brand-soft);border-radius:11px;padding:12px 15px;margin:14px 0;font-size:.94rem}
+  .keyvar .k{font-weight:800;color:var(--brand-ink);white-space:nowrap}
+  .concl{display:flex;gap:10px;align-items:baseline;font-size:.97rem;margin-top:10px}
+  .concl .badge{font-size:.74rem;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap}
+  /* ---- portfolio ---- */
+  .alloc{display:flex;flex-direction:column;gap:11px;margin-top:6px}
+  .arow{display:grid;grid-template-columns:110px 1fr 92px;gap:12px;align-items:center}
+  @media(max-width:560px){.arow{grid-template-columns:90px 1fr 78px}}
+  .arow .an{font-weight:700;font-size:.92rem}
+  .arow .bar{height:22px;background:var(--brand);border-radius:6px;min-width:2px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;color:#fff;font-size:.76rem;font-weight:700}
+  :root[data-theme="dark"] .arow .bar{color:#0a0e13}
+  @media (prefers-color-scheme:dark){.arow .bar{color:#0a0e13}}
+  .arow .amt{text-align:right;font-size:.86rem;color:var(--muted);font-variant-numeric:tabular-nums}
+  .tilts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+  @media(max-width:640px){.tilts{grid-template-columns:1fr}}
+  .tilt{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--card);box-shadow:var(--shadow);font-size:.88rem}
+  .tilt h4{margin:0 0 8px;font-size:.98rem}
+  .tilt .r{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--line)}
+  .tilt .r:last-child{border-bottom:none}
+  /* ---- timeline ---- */
+  .tl{display:flex;flex-direction:column;gap:0}
+  .tl .row{display:grid;grid-template-columns:96px 1fr;gap:16px;padding:14px 0;border-top:1px solid var(--line)}
+  .tl .row:first-child{border-top:none}
+  .tl .when{font-weight:800;font-size:.82rem;color:var(--brand-ink);padding-top:2px}
+  .tl .ev{font-size:.92rem}
+  .tl .ev .co-tag{font-weight:700}
+  .tl .ev small{color:var(--muted)}
+  /* ---- glossary ---- */
+  .gloss{columns:2;column-gap:26px}
+  @media(max-width:640px){.gloss{columns:1}}
+  .gloss dt{font-weight:800;font-size:.9rem;margin-top:10px;color:var(--brand-ink)}
+  .gloss dd{margin:2px 0 0;font-size:.88rem;color:var(--muted)}
+  .note{font-size:.82rem;color:var(--muted);background:var(--paper);border-radius:10px;padding:12px 15px;margin-top:16px}
+  footer{padding:34px 0 0;font-size:.82rem;color:var(--muted)}
+  .disc{background:var(--watch-bg);border:1px solid color-mix(in srgb,var(--watch) 35%,transparent);border-radius:11px;padding:13px 16px;font-size:.84rem;margin-top:14px}
+</style>
+</head>
+<body>
+<button class="toggle" onclick="(function(){var r=document.documentElement;var d=(r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));r.setAttribute('data-theme',d==='dark'?'light':'dark')})()">◐ 화면 밝기</button>
+
+<div class="wrap">
+
+<!-- HERO -->
+<header class="hero">
+  <div class="eyebrow">유럽 제약주 · 쉬운 핵심 요약</div>
+  <h1>좋은 회사와 좋은 주식은<br>다를 수 있습니다</h1>
+  <p class="lead">UBS가 주목한 유럽 제약 6종목을 <b>어려운 용어 없이</b> 정리했습니다. 각 종목마다 <b>무엇이 주가를 올리고 내리는지</b>를 가장 앞에 두고, 지금 사도 되는지까지 한눈에 볼 수 있게 했습니다.</p>
+  <div class="thesis">핵심 한 줄: <b>로슈·머크KGaA</b>는 지금 사도 무난한 <b>안정형</b>, <b>사노피</b>는 싸지만 위험도 있는 <b>도전형</b>, <b>아스트라제네카·갈더마</b>는 회사는 좋지만 <b>값이 이미 비싸</b> 눌림목을 기다릴 종목입니다.</div>
+  <div class="meta">작성 2026-07-11 · 대상 6종목: 로슈 · 아스트라제네카 · 머크KGaA · 노바티스 · 사노피 · 갈더마 · <b>투자자문 아님(정보 제공용)</b></div>
+</header>
+
+<!-- 1. 주가를 움직이는 힘 -->
+<section id="forces">
+  <div class="sec-head"><span class="n">01</span><h2>제약주 주가를 움직이는 5가지 힘</h2></div>
+  <p style="color:var(--muted);margin-top:-8px;margin-bottom:18px">종목을 보기 전에, 제약회사 주가가 왜 오르내리는지부터 알면 훨씬 쉽습니다.</p>
+  <div class="forces">
+    <div class="force"><span class="tagm m-down">내리는 힘</span><h4>① 특허 만료 (특허절벽)</h4><p>약은 일정 기간 '독점 판매' 권리가 있습니다. 이 기간이 끝나면 값싼 복제약이 쏟아져 매출이 절벽처럼 떨어집니다. 언제·얼마나 만료되는지가 가장 큰 변수.</p></div>
+    <div class="force"><span class="tagm m-both">양방향</span><h4>② 신약 임상 결과</h4><p>개발 중인 약이 시험(임상)에서 효과를 입증하면 미래 매출 기대로 급등, 실패하면 급락합니다. 제약주 변동의 핵심 이벤트.</p></div>
+    <div class="force"><span class="tagm m-up">오르는 힘</span><h4>③ 신약 승인·출시</h4><p>미국 FDA 등 규제기관의 승인을 받으면 실제로 팔 수 있게 됩니다. 승인 = 매출의 시작, 큰 호재.</p></div>
+    <div class="force"><span class="tagm m-both">양방향</span><h4>④ 지금 주가가 비싼가 싼가 (밸류에이션)</h4><p>좋은 소식이 이미 주가에 반영됐다면, 더 좋아져야 오릅니다. 반대로 지나치게 싸면 조금만 좋아져도 오릅니다.</p></div>
+    <div class="force"><span class="tagm m-down">외부 변수</span><h4>⑤ 환율·약가정책·배당</h4><p>유로·스위스프랑이 강해지면 해외 매출이 깎입니다. 미국의 약값 인하 정책(IRA)도 부담. 반대로 높은 배당은 하락을 방어합니다.</p></div>
+    <div class="force" style="background:var(--brand-soft);border-color:transparent"><h4 style="color:var(--brand-ink)">👉 그래서 이 보고서는</h4><p style="color:var(--ink)">각 종목마다 위 5가지가 어떻게 작용하는지를 <b>▲오르는 힘 / ▼내리는 힘</b>으로 나눠 보여주고, <b>가장 중요한 변수 하나</b>를 콕 집어 드립니다.</p></div>
+  </div>
+</section>
+
+<!-- 2. 한눈에 -->
+<section id="glance">
+  <div class="sec-head"><span class="n">02</span><h2>6종목 한눈에 보기</h2></div>
+  <p style="color:var(--muted);margin-top:-8px;margin-bottom:18px">막대의 점(●)이 <b>왼쪽이면 쌈, 오른쪽이면 비쌈</b>. 색 라벨은 지금의 추천 행동입니다.</p>
+  <div class="grid">
+
+    <div class="mini"><div class="top"><div><div class="nm">로슈 <span class="sub">Roche · 스위스</span></div></div><span class="pill p-buy">매수 · 코어</span></div>
+      <div class="sub">항암제 + 병원 진단검사 세계 1위</div>
+      <div class="meter"><div class="track"><span class="dot" style="left:40%"></span></div><div class="lbls"><span>쌈</span><span>적정</span><span>비쌈</span></div></div></div>
+
+    <div class="mini"><div class="top"><div><div class="nm">머크 KGaA <span class="sub">독일</span></div></div><span class="pill p-buy">분할매수</span></div>
+      <div class="sub">약 + 바이오의약품 생산장비·재료 + 반도체 소재</div>
+      <div class="meter"><div class="track"><span class="dot" style="left:42%"></span></div><div class="lbls"><span>쌈</span><span>적정</span><span>비쌈</span></div></div></div>
+
+    <div class="mini"><div class="top"><div><div class="nm">노바티스 <span class="sub">Novartis · 스위스</span></div></div><span class="pill p-hold">보유~매수</span></div>
+      <div class="sub">대형 제약, 업계 최고 이익률(40%)</div>
+      <div class="meter"><div class="track"><span class="dot" style="left:38%"></span></div><div class="lbls"><span>쌈</span><span>적정</span><span>비쌈</span></div></div></div>
+
+    <div class="mini"><div class="top"><div><div class="nm">사노피 <span class="sub">Sanofi · 프랑스</span></div></div><span class="pill p-buy">소규모 매수</span></div>
+      <div class="sub">아토피·천식 신약 '듀피젠트'가 핵심</div>
+      <div class="meter"><div class="track"><span class="dot" style="left:24%"></span></div><div class="lbls"><span>쌈</span><span>적정</span><span>비쌈</span></div></div></div>
+
+    <div class="mini"><div class="top"><div><div class="nm">아스트라제네카 <span class="sub">AZN · 영국</span></div></div><span class="pill p-hold">보유 · 눌림목대기</span></div>
+      <div class="sub">항암제 강자, 신약 파이프라인 유럽 최고</div>
+      <div class="meter"><div class="track"><span class="dot" style="left:68%"></span></div><div class="lbls"><span>쌈</span><span>적정</span><span>비쌈</span></div></div></div>
+
+    <div class="mini"><div class="top"><div><div class="nm">갈더마 <span class="sub">Galderma · 스위스</span></div></div><span class="pill p-avoid">관망</span></div>
+      <div class="sub">피부과 전문 — 보톡스·필러 미용 + 피부병약</div>
+      <div class="meter"><div class="track"><span class="dot" style="left:85%"></span></div><div class="lbls"><span>쌈</span><span>적정</span><span>비쌈</span></div></div></div>
+
+  </div>
+</section>
+
+<!-- 3. 종목별 -->
+<section id="deep">
+  <div class="sec-head"><span class="n">03</span><h2>종목별 — 무엇이 주가를 움직이나</h2></div>
+
+  <!-- 로슈 -->
+  <div class="co">
+    <div class="co-head"><span class="rank">1</span><span class="nm">로슈</span><span class="flag">Roche · 스위스 · 매수(코어)</span></div>
+    <p class="oneline">항암제와 병원 진단검사에서 세계 1위. <b>가장 안정적인 '중심' 종목</b>으로, 두 관점 분석 모두에서 긍정적이었습니다.</p>
+    <div class="dr">
+      <div class="col up"><h5>▲ 오르게 하는 힘</h5><ul>
+        <li>유방암 신약(지레데스트란트)이 곧 미국 승인 가능 — 회사가 "최대 매출 약이 될 수 있다"고 기대</li>
+        <li>비만·치매 신약이 '공짜 보너스'처럼 붙어 있어, 하나만 터져도 상방</li>
+        <li>39년 연속 배당 인상 — 하락장에서 버팀목</li></ul></div>
+      <div class="col down"><h5>▼ 내리게 하는 힘</h5><ul>
+        <li>기존 주력 항암제 몇 개가 복제약에 매출을 내줄 시기(2028~29년)</li>
+        <li>스위스 프랑이 강해 해외 매출이 원화·달러 환산 시 깎임</li></ul></div>
+    </div>
+    <div class="keyvar"><span class="k">🔑 핵심 변수</span><span>올해 말 예정된 <b>유방암 신약 FDA 승인 여부</b>. 통과하면 상방이 크게 열립니다.</span></div>
+    <div class="concl"><span class="badge p-buy">결론 · 매수</span><span>6종목 중 가장 균형 잡힌 '중심축'. 하락은 잘 막아주고 상방 옵션도 보유.</span></div>
+  </div>
+
+  <!-- 머크 KGaA -->
+  <div class="co">
+    <div class="co-head"><span class="rank">2</span><span class="nm">머크 KGaA</span><span class="flag">독일 (미국 Merck와 다른 회사) · 분할매수</span></div>
+    <p class="oneline">약도 팔지만, 진짜 강점은 <b>바이오의약품을 만드는 데 필요한 장비·재료</b>를 파는 사업. 6종목 중 <b>가장 저렴</b>합니다.</p>
+    <div class="dr">
+      <div class="col up"><h5>▲ 오르게 하는 힘</h5><ul>
+        <li>바이오 생산 장비·재료 수요가 회복 중 — <b>복제약이 늘어도 이 수요는 유지</b>되는 '곡괭이·삽' 사업(특허와 무관)</li>
+        <li>6종목 중 가장 싼 밸류에이션 → 오를 여지</li>
+        <li>AI 반도체용 소재도 성장</li></ul></div>
+      <div class="col down"><h5>▼ 내리게 하는 힘</h5><ul>
+        <li>다발성경화증 약(마벤클라드)의 미국 특허가 예상보다 일찍 만료</li>
+        <li>큰 기업을 연달아 인수해 빚이 늘어남</li>
+        <li>유로 강세로 매출 환산 손실</li></ul></div>
+    </div>
+    <div class="keyvar"><span class="k">🔑 핵심 변수</span><span><b>바이오 생산 장비 수요 회복이 계속되는지</b> — 분기 실적으로 확인.</span></div>
+    <div class="concl"><span class="badge p-buy">결론 · 분할매수</span><span>싸고 사업 구조가 탄탄. 한 번에 사기보다 나눠서 모아가기.</span></div>
+  </div>
+
+  <!-- 노바티스 -->
+  <div class="co">
+    <div class="co-head"><span class="rank">3</span><span class="nm">노바티스</span><span class="flag">Novartis · 스위스 · 보유~매수</span></div>
+    <p class="oneline">대형 제약사 중 <b>이익률이 가장 높은(40%)</b> 우량주. 현금과 배당이 튼튼해 <b>하락을 잘 막아주는 방어형</b>.</p>
+    <div class="dr">
+      <div class="col up"><h5>▲ 오르게 하는 힘</h5><ul>
+        <li>업계 최고 이익률 + 두둑한 현금·배당 → 하방 방어</li>
+        <li>전립선암 방사성 신약(플루빅토) 등 새 약들이 빠르게 성장</li>
+        <li>시장 기대치가 회사 목표의 절반뿐이라, 기대가 낮게 깔려 있음</li></ul></div>
+      <div class="col down"><h5>▼ 내리게 하는 힘</h5><ul>
+        <li>2026년은 특허 만료로 이익이 오히려 <b>뒷걸음</b>하는 해</li>
+        <li>대형 약(코센틱스 등)이 2029~31년 만료 대기</li></ul></div>
+    </div>
+    <div class="keyvar"><span class="k">🔑 핵심 변수</span><span><b>2027년에 다시 성장으로 돌아서는 걸 증명</b>하느냐. 이게 확인되면 재평가.</span></div>
+    <div class="concl"><span class="badge p-hold">결론 · 보유~매수</span><span>공격보다 수비. 하락장에서 포트폴리오를 지켜주는 역할.</span></div>
+  </div>
+
+  <!-- 사노피 -->
+  <div class="co">
+    <div class="co-head"><span class="rank">4</span><span class="nm">사노피</span><span class="flag">Sanofi · 프랑스 · 소규모 매수</span></div>
+    <p class="oneline">아토피·천식 신약 <b>'듀피젠트' 하나가 매출의 40%</b>. 싸지만 그만큼 <b>한 약에 쏠린 위험</b>도 큽니다.</p>
+    <div class="dr">
+      <div class="col up"><h5>▲ 오르게 하는 힘</h5><ul>
+        <li>주가가 '매출이 매년 줄어든다'는 <b>지나친 비관</b>을 반영 → 조금만 좋아져도 오를 여지 큼</li>
+        <li>배당 약 5%로 높음 — 기다리는 동안 방어</li>
+        <li>듀피젠트가 여전히 두 자릿수로 성장 중</li></ul></div>
+      <div class="col down"><h5>▼ 내리게 하는 힘</h5><ul>
+        <li>매출의 40%가 듀피젠트 하나에 쏠림 — <b>2031년 특허 만료</b>가 최대 리스크</li>
+        <li>이를 대체할 신약들이 2025년에 여러 개 임상 실패</li></ul></div>
+    </div>
+    <div class="keyvar"><span class="k">🔑 핵심 변수</span><span><b>듀피젠트를 이을 다음 신약이 성공하느냐</b>. 성공하면 크게 오르고, 실패하면 하락.</span></div>
+    <div class="concl"><span class="badge p-buy">결론 · 소규모 매수</span><span>싸고 상승 여력은 크지만 한 약 의존이 커, <b>작게 담고</b> 신약 소식 보며 늘리기.</span></div>
+  </div>
+
+  <!-- AZN -->
+  <div class="co">
+    <div class="co-head"><span class="rank">5</span><span class="nm">아스트라제네카</span><span class="flag">AstraZeneca · 영국 · 보유(눌림목 대기)</span></div>
+    <p class="oneline">항암제 강자이자 <b>신약 파이프라인은 유럽 최고</b>. 회사는 최상급인데, <b>주가가 이미 그 좋음을 반영해 비쌉니다</b>.</p>
+    <div class="dr">
+      <div class="col up"><h5>▲ 오르게 하는 힘</h5><ul>
+        <li>항암제·차세대 항체약(ADC)이 빠르게 성장</li>
+        <li>2030년까지 매출을 거의 2배로 키우겠다는 목표 + 신약 20개 대기</li></ul></div>
+      <div class="col down"><h5>▼ 내리게 하는 힘</h5><ul>
+        <li>최대 매출약(당뇨약 파르시가)이 복제약 + 미국 약가 인하로 급감</li>
+        <li>최근 신약 임상 하나가 실패</li>
+        <li>좋은 소식이 이미 주가에 반영돼 <b>작은 실망에도 흔들림</b></li></ul></div>
+    </div>
+    <div class="keyvar"><span class="k">🔑 핵심 변수</span><span><b>줄어드는 파르시가 매출을 새 약들이 얼마나 메우나.</b> 신약 임상·출시 성과가 관건.</span></div>
+    <div class="concl"><span class="badge p-hold">결론 · 보유 / 눌림목 매수</span><span>회사는 최고, 주가는 비쌈. 지금 전액보다 <b>하락할 때 나눠서</b> 진입.</span></div>
+  </div>
+
+  <!-- 갈더마 -->
+  <div class="co">
+    <div class="co-head"><span class="rank">6</span><span class="nm">갈더마</span><span class="flag">Galderma · 스위스 · 관망</span></div>
+    <p class="oneline">보톡스·필러 같은 <b>미용 시술</b>과 피부병약 전문. 성장은 6곳 중 최고지만, <b>주가가 완벽한 성공을 이미 가정</b>할 만큼 비쌉니다.</p>
+    <div class="dr">
+      <div class="col up"><h5>▲ 오르게 하는 힘</h5><ul>
+        <li>신약 넴루비오(아토피) 매출이 급성장, 목표치도 2배 상향</li>
+        <li>다이어트약(GLP-1)으로 얼굴 볼륨이 꺼진 사람들의 <b>필러 수요</b> 증가</li>
+        <li>미용은 특허와 무관한 '브랜드 사업'</li></ul></div>
+      <div class="col down"><h5>▼ 내리게 하는 힘</h5><ul>
+        <li>주가수익비율(PER) 약 50배로 매우 비쌈 → <b>조금만 삐끗해도 크게 하락</b></li>
+        <li>보톡스 가격 경쟁 심화</li>
+        <li>주력 신약 넴루비오는 자체 특허가 아니라 로열티를 냄</li></ul></div>
+    </div>
+    <div class="keyvar"><span class="k">🔑 핵심 변수</span><span><b>넴루비오가 기대만큼 팔리느냐.</b> 기대에 못 미치면 비싼 주가가 크게 조정.</span></div>
+    <div class="concl"><span class="badge p-avoid">결론 · 관망</span><span>좋은 회사지만 지금은 너무 비쌈. <b>충분히 조정될 때</b>만 소량.</span></div>
+  </div>
+
+</section>
+
+<!-- 4. 포트폴리오 -->
+<section id="portfolio">
+  <div class="sec-head"><span class="n">04</span><h2>어떻게 나눠 담을까 (예시 배분)</h2></div>
+  <p style="color:var(--muted);margin-top:-8px;margin-bottom:6px">아래는 <b>이 6종목만으로 1,000만원</b>을 담는다면의 예시입니다(균형형). 금액은 비례해서 늘리거나 줄이면 됩니다.</p>
+  <div class="alloc">
+    <div class="arow"><span class="an">로슈</span><div class="bar" style="width:100%">22%</div><span class="amt">2,200,000원</span></div>
+    <div class="arow"><span class="an">노바티스</span><div class="bar" style="width:82%">18%</div><span class="amt">1,800,000원</span></div>
+    <div class="arow"><span class="an">아스트라제네카</span><div class="bar" style="width:82%">18%</div><span class="amt">1,800,000원</span></div>
+    <div class="arow"><span class="an">머크 KGaA</span><div class="bar" style="width:73%">16%</div><span class="amt">1,600,000원</span></div>
+    <div class="arow"><span class="an">사노피</span><div class="bar" style="width:73%">16%</div><span class="amt">1,600,000원</span></div>
+    <div class="arow"><span class="an">갈더마</span><div class="bar" style="width:46%">10%</div><span class="amt">1,000,000원</span></div>
+  </div>
+  <div class="tilts">
+    <div class="tilt"><h4>🛡️ 안정 중시형</h4>
+      <div class="r"><span>로슈</span><b>26%</b></div><div class="r"><span>노바티스</span><b>24%</b></div><div class="r"><span>AZN</span><b>18%</b></div><div class="r"><span>머크KGaA</span><b>14%</b></div><div class="r"><span>사노피</span><b>12%</b></div><div class="r"><span>갈더마</span><b>6%</b></div>
+      <p style="margin:8px 0 0;color:var(--muted);font-size:.82rem">하락 방어·배당 우선. 비싼·쏠린 종목 축소.</p></div>
+    <div class="tilt" style="border-color:var(--brand);border-width:2px"><h4>⚖️ 균형형 (기본)</h4>
+      <div class="r"><span>로슈</span><b>22%</b></div><div class="r"><span>노바티스</span><b>18%</b></div><div class="r"><span>AZN</span><b>18%</b></div><div class="r"><span>머크KGaA</span><b>16%</b></div><div class="r"><span>사노피</span><b>16%</b></div><div class="r"><span>갈더마</span><b>10%</b></div>
+      <p style="margin:8px 0 0;color:var(--muted);font-size:.82rem">위험과 기대수익을 고르게. 표준 배분.</p></div>
+    <div class="tilt"><h4>🚀 상승 노림형</h4>
+      <div class="r"><span>사노피</span><b>22%</b></div><div class="r"><span>머크KGaA</span><b>20%</b></div><div class="r"><span>로슈</span><b>20%</b></div><div class="r"><span>AZN</span><b>14%</b></div><div class="r"><span>노바티스</span><b>14%</b></div><div class="r"><span>갈더마</span><b>10%</b></div>
+      <p style="margin:8px 0 0;color:var(--muted);font-size:.82rem">저평가·상승 여력에 무게. 변동성 커짐.</p></div>
+  </div>
+  <div class="note">💡 <b>실전 팁:</b> 한 번에 전액보다 <b>2~3회에 나눠</b> 사면 고점 매수 위험을 줄입니다. 특히 비싼 AZN·갈더마는 하락할 때 담으세요. 실제 매수 시 환율·수수료·해외주식 세금도 고려하세요.</div>
+</section>
+
+<!-- 5. 캘린더 -->
+<section id="calendar">
+  <div class="sec-head"><span class="n">05</span><h2>앞으로 챙겨볼 일정 (주가를 흔들 이벤트)</h2></div>
+  <p style="color:var(--muted);margin-top:-8px;margin-bottom:18px">아래 일정의 결과가 각 주가를 크게 움직입니다. 대략적 시점이며 변동될 수 있습니다.</p>
+  <div class="tl">
+    <div class="row"><span class="when">2026 연말</span><span class="ev"><span class="co-tag">로슈</span> — 유방암 신약(지레데스트란트) <b>미국 FDA 승인 결정(~12/18)</b> <small>· 상방 옵션 실현 여부</small></span></div>
+    <div class="row"><span class="when">2026 하반기</span><span class="ev"><span class="co-tag">AZN</span> — 여러 신약 임상 결과 발표 + 새 고혈압약(박스드로스타트) 출시 <small>· 비싼 주가를 정당화할 '증명'</small></span></div>
+    <div class="row"><span class="when">2026 하반기</span><span class="ev"><span class="co-tag">머크 KGaA</span> — 분기 실적에서 <b>바이오 생산 장비 수요 회복</b> 지속 확인 <small>· 재평가 방아쇠</small></span></div>
+    <div class="row"><span class="when">2026 하반기</span><span class="ev"><span class="co-tag">사노피</span> — 차세대 신약(암리텔리맙 등) 임상 + 듀피젠트 특허 소송 <small>· 대체 능력 증명</small></span></div>
+    <div class="row"><span class="when">2026 하반기</span><span class="ev"><span class="co-tag">갈더마</span> — 분기 실적에서 넴루비오 판매·보톡스 가격 경쟁 확인 <small>· 비싼 값 유지 여부</small></span></div>
+    <div class="row"><span class="when">2027년</span><span class="ev"><span class="co-tag">노바티스</span> — <b>다시 성장으로 돌아서는지</b> 증명하는 해 <small>· 시장이 기다리는 핵심 촉매</small></span></div>
+    <div class="row"><span class="when">2027년</span><span class="ev"><span class="co-tag">사노피</span> — 신약 임상 결과 + 듀피젠트 특허 판결 <small>· 크게 오르거나 내리는 분기점</small></span></div>
+  </div>
+</section>
+
+<!-- 6. 용어 -->
+<section id="glossary">
+  <div class="sec-head"><span class="n">06</span><h2>쉽게 풀어보는 용어</h2></div>
+  <dl class="gloss">
+    <dt>특허절벽</dt><dd>약의 독점 판매 기간이 끝나 복제약이 쏟아지며 매출이 절벽처럼 떨어지는 것.</dd>
+    <dt>파이프라인</dt><dd>회사가 개발 중인 신약 후보들. 많고 좋을수록 미래 성장 기대.</dd>
+    <dt>임상(3상)</dt><dd>신약을 사람에게 시험해 효과·안전성을 확인하는 마지막 단계. 통과해야 승인 신청 가능.</dd>
+    <dt>FDA 승인</dt><dd>미국 식약처의 판매 허가. 세계 최대 시장이라 승인 = 큰 호재.</dd>
+    <dt>밸류에이션</dt><dd>지금 주가가 이익 대비 비싼지 싼지. PER(주가÷주당순이익)이 대표 지표.</dd>
+    <dt>PER</dt><dd>주가가 이익의 몇 배인지. 낮으면 싸고 높으면 비쌈(단, 성장주는 높은 게 정상일 수도).</dd>
+    <dt>경제적 해자</dt><dd>경쟁사가 쉽게 넘지 못하는 방어벽(특허·브랜드·기술). 넓을수록 이익을 오래 지킴.</dd>
+    <dt>배당수익률</dt><dd>주가 대비 매년 받는 배당의 비율. 높으면 주가 하락을 일부 방어.</dd>
+    <dt>바이오시밀러</dt><dd>바이오의약품의 복제약. 특허 만료 후 등장해 원조 약의 매출을 잠식.</dd>
+    <dt>IRA(미국 약가 정책)</dt><dd>미국이 일부 약값을 낮추는 제도. 제약사 매출·이익에 부담.</dd>
+  </dl>
+</section>
+
+<footer>
+  <p>이 요약은 두 개의 상세 리포트를 쉽게 풀어 쓴 것입니다: <b>①</b> 재무·특허·가치평가 심층본, <b>②</b> 비관·낙관·시장가 3관점 분석본. 상세 근거가 필요하면 해당 리포트를 참고하세요.</p>
+  <div class="disc">⚠️ <b>투자 유의:</b> 이 자료는 정보 제공용이며 투자자문이 아닙니다. 수치는 2026년 중반 기준 근사치로 실제와 다를 수 있고, 배분·금액은 예시일 뿐 개인의 상황(위험성향·자금·세금·환율)을 반영하지 않았습니다. <b>투자 판단과 책임은 본인에게 있습니다.</b></div>
+</footer>
+
+</div>
+</body>
+</html>
